@@ -1,4 +1,4 @@
-eBibli
+eBibli [![Build Status](https://travis-ci.org/GLescroel/eBibli.svg?branch=master)](https://travis-ci.org/GLescroel/eBibli) 
 
 Système d'information des bibliothèques de la ville à destination des usagers et des bibliothécaires.
 Les clients frontend et batch interrogent les microservices via les API Rest exposées.
