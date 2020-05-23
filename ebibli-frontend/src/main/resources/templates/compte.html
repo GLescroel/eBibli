@@ -1,0 +1,89 @@
+<!DOCTYPE html >
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
+    <title>Les amis de l'escalade</title>
+</head>
+<header class="page-header">
+    <div th:if="${deleted} != true">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/}">Accueil <span class="sr-only">(current)</span></a>
+                </li>
+                <div sec:authorize="!isAuthenticated()">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/login}">S'authentifier<span class="sr-only">(current)</span></a>
+                    </li>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/logout}">Log out <span class="sr-only">(current)</span></a>
+                    </li>
+                </div>
+            </ul>
+            <div sec:authorize="isAuthenticated()">
+                    <span class="navbar-text">
+                        <a class="nav-link" th:href="@{/compte}" th:text="${#authentication.getName()}"><span class="sr-only">(current)</span></a>
+                    </span>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <h1>Votre compte utilisateur</h1>
+        <br><br>
+    </div>
+</div>
+</header>
+
+<body>
+
+<div th:if="${deleted == false && message.isEmpty()}">
+<div class="container">
+    <div>
+        <span><h3>Vos informations : </h3></span>
+        <dl class="row">
+            <dt class="col-2">Nom</dt>
+            <dd class="col-10" th:text="${#authentication.principal.getNom()}">Nom</dd>
+            <dt class="col-2">Prénom</dt>
+            <dd class="col-10" th:text="${#authentication.principal.getPrenom()}">Prenom</dd>
+            <dt class="col-2">Email</dt>
+            <dd class="col-10" th:text="${#authentication.principal.getEmail()}">Email</dd>
+            <dt class="col-2">Rôle</dt>
+            <dd class="col-10" th:text="${#authentication.principal.getRole().getRole()}">Role</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="container">
+    <form class="button" id="suppressionUtilisateur" th:action="@{/compte/suppression/{email}(email=${#authentication.principal.getEmail()})}">
+        <input class="btn btn-outline-danger" type="submit" value="Supprimer le compte"/>
+    </form>
+</div>
+</div>
+<div th:if="${deleted == false && !message.isEmpty()}">
+    <div class="container">
+        <h1><span th:text="${message}"></span> </h1>
+        <form class="button" id="retour1" th:action="@{/}">
+            <input class="btn btn-outline-secondary" type="submit" value="Revenir à l'accueil"/>
+        </form>
+    </div>
+</div>
+
+<div th:if="${deleted} == true">
+    <div class="container">
+    <h1>Votre compte a été supprimé</h1>
+        <form class="button" id="retour2" th:action="@{/logout}">
+            <input class="btn btn-outline-secondary" type="submit" value="Revenir à l'accueil"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>

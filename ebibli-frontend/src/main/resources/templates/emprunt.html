@@ -1,0 +1,130 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <title>Mes emprunts</title>
+</head>
+<body>
+<header class="page-header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/}">Accueil <span class="sr-only">(current)</span></a>
+                </li>
+                <div sec:authorize="!isAuthenticated()">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/login}">S'authentifier<span class="sr-only">(current)</span></a>
+                    </li>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/logout}">Log out <span class="sr-only">(current)</span></a>
+                    </li>
+                </div>
+            </ul>
+            <div sec:authorize="isAuthenticated()">
+                    <span class="navbar-text">
+                        <a class="nav-link" th:href="@{/compte}" th:text="${#authentication.getName()}"><span class="sr-only">(current)</span></a>
+                    </span>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+            <h1>Mes emprunts</h1>
+    </div>
+</header>
+
+<div class="container">
+    <div th:if="${empruntsEnCours.isEmpty()}">
+            <h2><span><br>Vous n'avez aucun emprunt en cours<br></span></h2>
+    </div>
+    <div th:if="!${empruntsEnCours.isEmpty()}">
+        <div class="row">
+            <h2><span>Vos emprunts en cours</span></h2>
+        </div>
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table-striped">
+                    <thead>
+                    <tr>
+                        <th> Titre</th>
+                        <th> Bibliothèque</th>
+                        <th> Date d'emprunt</th>
+                        <th> Date de retour prévu</th>
+                        <th> Prolongation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="emprunt : ${empruntsEnCours}">
+                        <td><span th:text="${emprunt.getLivre().getOuvrage().getTitre()}">Titre</span></td>
+                        <td><span th:text="${emprunt.getLivre().getBibliotheque().getNom()}">Bibliothèque</span></td>
+                        <td><span th:text="${emprunt.getDateEmprunt()}">Date d'emprunt</span></td>
+                        <div th:if="${emprunt.getEnRetard()} != true">
+                            <td><span th:text="${emprunt.getDateRetourPrevu()}">Date de retour </span></td>
+                        </div>
+                        <div th:if="${emprunt.getEnRetard()} == true">
+                            <td><span th:style="'color:red'" th:text="${emprunt.getDateRetourPrevu()}">Date de retour </span></td>
+                        </div>
+                        <div th:if="${emprunt.getProlonge()} != true">
+                            <form id="prolongerPret" method="post"
+                                  th:action="@{/prolongation/{livreId}(livreId=${emprunt.getId()})}">
+                                <td>
+                                    <input class="btn btn-outline-success" type="submit" value="Prolonger"/>
+                                </td>
+                            </form>
+                        </div>
+                        <div th:if="${emprunt.getProlonge()} == true">
+                            <td><span>déjà prolongé</span></td>
+                        </div>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div th:if="!${empruntsTermines.isEmpty()}">
+        <div class="row">
+            <h2><span>Historique de vos emprunts</span></h2>
+        </div>
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table-striped">
+                    <thead>
+                    <tr>
+                        <th> Titre</th>
+                        <th> Bibliothèque</th>
+                        <th> Date d'emprunt</th>
+                        <th> Date de retour</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="emprunt : ${empruntsTermines}">
+                        <td><span th:text="${emprunt.getLivre().getOuvrage().getTitre()}">Titre</span></td>
+                        <td><span th:text="${emprunt.getLivre().getBibliotheque().getNom()}">Bibliothèque</span></td>
+                        <td><span th:text="${emprunt.getDateEmprunt()}">Date d'emprunt</span></td>
+                        <td><span th:text="${emprunt.getDateRetour()}">Date de retour </span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script crossorigin="anonymous"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,516 @@
+{
+	"info": {
+		"_postman_id": "abbaa0a9-63c1-4533-a246-f86879f2b0fd",
+		"name": "eBibli",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAllUsers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "034b7898-e429-42f4-8539-87b5d10dc2f2",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9003/utilisateurs",
+					"host": [
+						"localhost"
+					],
+					"port": "9003",
+					"path": [
+						"utilisateurs"
+					]
+				},
+				"description": "Récupère tous les utilisateurs enregistrés en base"
+			},
+			"response": []
+		},
+		{
+			"name": "getUserByEmail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9003/utilisateur/email/membre@oc.com",
+					"host": [
+						"localhost"
+					],
+					"port": "9003",
+					"path": [
+						"utilisateur",
+						"email",
+						"membre@oc.com"
+					]
+				},
+				"description": "Récupère un utilisateur en base par son email"
+			},
+			"response": []
+		},
+		{
+			"name": "getUserById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9003/utilisateur/id/4",
+					"host": [
+						"localhost"
+					],
+					"port": "9003",
+					"path": [
+						"utilisateur",
+						"id",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": null,\r\n    \"nom\": \"PostMan\",\r\n    \"prenom\": \"postman\",\r\n    \"email\": \"postman@oc.com\",\r\n    \"password\": \"abcdefghijklmnopqrstuvwxyz\",\r\n    \"role\": {\r\n    \t\"id\": 1,\r\n        \"role\": \"Administrateur\"\r\n\t}\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9003/utilisateur/creation",
+					"host": [
+						"localhost"
+					],
+					"port": "9003",
+					"path": [
+						"utilisateur",
+						"creation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"nom\": \"Admin\",\r\n    \"prenom\": \"Admin\",\r\n    \"email\": \"admin@oc.com\",\r\n    \"password\": \"$2a$11$NWK4enrvaXbcLu0Hf4eVIe3cdNk82VO6BvfNx7UMBeHYGJjQcFMQi\",\r\n    \"role\": {\r\n    \t\"id\": 1,\r\n        \"role\": \"Administrateur\"\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9003/utilisateur/suppression",
+					"host": [
+						"localhost"
+					],
+					"port": "9003",
+					"path": [
+						"utilisateur",
+						"suppression"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllOuvrages",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9001/ouvrages",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"ouvrages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rechercheOuvrages",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9001/ouvrages/recherche/histoires",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"ouvrages",
+						"recherche",
+						"histoires"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllBibliotheques",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9004/bibliotheques",
+					"host": [
+						"localhost"
+					],
+					"port": "9004",
+					"path": [
+						"bibliotheques"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBibliotheque",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9004/bibliotheque/1",
+					"host": [
+						"localhost"
+					],
+					"port": "9004",
+					"path": [
+						"bibliotheque",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllLivres",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9002/livres",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"livres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getLivresByBibliotheque",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9002/livres/1",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"livres",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllLivresDispo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9002/livresDispo",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"livresDispo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllLivresDispoByOuvrage",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9002/livresDispo",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"livresDispo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getLivreById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9002/livre/4",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"livre",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "setIndisponible",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:9002/livre/4/emprunt",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"livre",
+						"4",
+						"emprunt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "setDisponible",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:9002/livre/4/retour",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"livre",
+						"4",
+						"retour"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "empruntLivre",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:9005/emprunt/4/4",
+					"host": [
+						"localhost"
+					],
+					"port": "9005",
+					"path": [
+						"emprunt",
+						"4",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "prolongationEmprunt",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:9005/prolongation/1",
+					"host": [
+						"localhost"
+					],
+					"port": "9005",
+					"path": [
+						"prolongation",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retourEmprunt",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:9005/retour/1/4",
+					"host": [
+						"localhost"
+					],
+					"port": "9005",
+					"path": [
+						"retour",
+						"1",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEmpruntsByUtilisateur",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9005/emprunts/abonne/4",
+					"host": [
+						"localhost"
+					],
+					"port": "9005",
+					"path": [
+						"emprunts",
+						"abonne",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEmpruntEnCoursByLivre",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEmpruntsEnCoursByUtilisateur",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9005/emprunts/encours/abonne/4",
+					"host": [
+						"localhost"
+					],
+					"port": "9005",
+					"path": [
+						"emprunts",
+						"encours",
+						"abonne",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEmpruntsEnTermineByUtilisateur",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9005/emprunts/termine/abonne/4",
+					"host": [
+						"localhost"
+					],
+					"port": "9005",
+					"path": [
+						"emprunts",
+						"termine",
+						"abonne",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEmpruntsEnRetard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9005/emprunts/retard",
+					"host": [
+						"localhost"
+					],
+					"port": "9005",
+					"path": [
+						"emprunts",
+						"retard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "suppressionEmprunteur",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:9005/emprunt/suppression_emprunteur/'",
+					"host": [
+						"localhost"
+					],
+					"port": "9005",
+					"path": [
+						"emprunt",
+						"suppression_emprunteur",
+						"'"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

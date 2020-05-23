@@ -1,0 +1,87 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
+    <title>Les amis de l'escalade</title>
+</head>
+<header class="page-header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/}">Accueil <span class="sr-only">(current)</span></a>
+                </li>
+                <div sec:authorize="!isAuthenticated()">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/login}">S'authentifier<span class="sr-only">(current)</span></a>
+                    </li>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/logout}">Log out <span class="sr-only">(current)</span></a>
+                    </li>
+                </div>
+            </ul>
+            <div sec:authorize="isAuthenticated()">
+                    <span class="navbar-text">
+                        <a class="nav-link" th:href="@{/compte}" th:text="${#authentication.getName()}"><span class="sr-only">(current)</span></a>
+                    </span>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <h1>Création de compte</h1>
+        <br><br>
+    </div>
+</header>
+<body>
+
+<div th:if="${rejected} == true">
+    <div class="container">
+        <h2><span th:text="${message}"></span></h2>
+    </div>
+</div>
+
+<div th:if="${created} == null">
+    <div class="container">
+        <form class="form-group" method="post" th:action="@{/creationCompte}">
+            <div class="row">
+                <div class="col-4"><label> Email : <input class="col-8" name="username" type="text"/>
+                </label></div>
+            </div>
+            <div class="row">
+                <div class="col-4"><label> Mot de passe : <input class="col-8" name="password" type="password"/>
+                </label></div>
+            </div>
+            <div class="row">
+                <div class="col-4"><label> Nom : <input class="col-8" name="nom" type="text"/>
+                </label></div>
+            </div>
+            <div class="row">
+                <div class="col-4"><label> Prenom : <input class="col-8" name="prenom" type="text"/>
+                </label></div>
+            </div>
+            <div class="row"><input class="btn btn-outline-secondary col-4" type="submit" value="Créer le compte"/></div>
+        </form>
+    </div>
+</div>
+
+<div th:if="${created} == true">
+    <div class="container">
+        <h2><span th:text="${message}"></span></h2>
+        <form class="form-group">
+            <div><label>Nom : </label><span th:text="${nom}"></span></div>
+            <div><label>Prénom : </label><span th:text="${prenom}"></span></div>
+            <div><label>Email : </label><span th:text="${email}"></span></div>
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>

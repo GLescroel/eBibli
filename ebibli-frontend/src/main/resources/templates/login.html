@@ -1,0 +1,95 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
+    <title>Authentification</title>
+
+    <style type="text/css">
+        .inline-form input {
+            display: inline-block;
+            width: 100px;
+        }
+
+    </style>
+</head>
+<body>
+<header>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/}">Accueil <span class="sr-only">(current)</span></a>
+            </li>
+            <div sec:authorize="!isAuthenticated()">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/login}">S'authentifier<span class="sr-only">(current)</span></a>
+                </li>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/logout}">Log out <span class="sr-only">(current)</span></a>
+                </li>
+            </div>
+        </ul>
+        <div sec:authorize="isAuthenticated()">
+                    <span class="navbar-text">
+                        <a class="nav-link" th:href="@{/compte}" th:text="${#authentication.getName()}"><span class="sr-only">(current)</span></a>
+                    </span>
+        </div>
+    </nav>
+</div>
+    <div class="container">
+        <h1>Authentification</h1>
+    </div>
+</header>
+
+
+<div th:if="${connected} == false">
+    <span>Invalid username and/or password.</span>
+</div>
+<div th:if="${logout} == true">
+    <div><h1>Vous êtes maintenant déconnecté</h1></div>
+</div>
+
+<div th:if="${connected} == null">
+    <div class="container">
+        <form class="form-group" method="post" th:action="@{/login}">
+            <div class="row">
+                <div class="col-4"><label> Email : <input class="col-8" name="username" type="text"/>
+                </label></div>
+            </div>
+            <div class="row">
+                <div class="col-4"><label> Mot de passe : <input class="col-8" name="password" type="password"/>
+                </label></div>
+            </div>
+            <div class="row"><input class="btn btn-outline-secondary col-4" type="submit" value="S'authentifier"/></div>
+        </form>
+        <form class="form-group" method="get" th:action="@{/creationCompte}">
+            <div class="row"><input class="btn btn-outline-secondary col-4" type="submit" value="Créer un compte"/></div>
+        </form>
+    </div>
+</div>
+
+
+<div th:if="${connected} == true">
+    <div class="container">
+        <h1>
+            <span>Bienvenue</span>
+            <span th:text="${prenom}"> </span>
+            <span th:text="${nom}"> </span>
+            <span th:text="(${email})"></span>
+        </h1>
+
+        <form class="form-group" method="post" th:action="@{/logout}">
+            <div class="row"><input class="btn btn-outline-secondary col-4" type="submit" value="LogOut"/></div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
