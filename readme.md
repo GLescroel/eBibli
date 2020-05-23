@@ -1,4 +1,4 @@
-eBibli
+eBibli [![Build Status](https://travis-ci.org/GLescroel/eBibli.svg?branch=master)](https://travis-ci.org/GLescroel/eBibli)  [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=GLescroel_eBibli&metric=alert_status)](https://sonarcloud.io/dashboard?id=GLescroel_eBibli)
 
 Système d'information des bibliothèques de la ville à destination des usagers et des bibliothécaires.
 Les clients frontend et batch interrogent les microservices via les API Rest exposées.

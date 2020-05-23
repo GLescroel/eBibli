@@ -10,7 +10,7 @@ before_script:
   - cd src/main/resources/docker/dev/
   - docker-compose up -d
   - docker-compose ps
-  - cd ../../../../src
+  - cd ../../../src
 
 addons:
   sonarcloud:
