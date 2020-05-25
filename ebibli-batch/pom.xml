@@ -26,6 +26,17 @@
         <spring-batch-core.version>4.0.0.RELEASE</spring-batch-core.version>
     </properties>
 
+    <!-- =============================================================== -->
+    <!-- Distrubution management -->
+    <!-- =============================================================== -->
+    <distributionManagement>
+        <site>
+            <id>site</id>
+            <name>site-doc</name>
+            <url>file://${project.build.directory}/site/</url>
+        </site>
+    </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -49,6 +49,6 @@ public class UtilisateurService {
 }
 
     public UtilisateurDto getUtlisateurById(Integer id) {
-        return UTILISATEUR_MAPPER.map(utilisateurRepository.findById(id).get());
+        return UTILISATEUR_MAPPER.map(utilisateurRepository.findById(id).orElse(null));
     }
 }

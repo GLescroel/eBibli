@@ -35,5 +35,5 @@ public class ReminderJobProperties {
 
     public String getReportPath() { return reportPath; }
 
-    public void setReportPath(String reportFile) { this.reportPath = reportPath; }
+    public void setReportPath(String reportPath) { this.reportPath = reportPath; }
 }

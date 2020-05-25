@@ -34,7 +34,7 @@ public class LivreService {
     }
 
     public LivreDto setPret(Integer livreId) {
-        LivreDto livre = LIVRE_MAPPER.map(livreRepository.findById(livreId).get());
+        LivreDto livre = LIVRE_MAPPER.map(livreRepository.findById(livreId).orElse(null));
         if (livre != null) {
             livre.setDisponible(false);
             livre = LIVRE_MAPPER.map(livreRepository.save(LIVRE_MAPPER.map(livre)));
@@ -47,7 +47,7 @@ public class LivreService {
     }
 
     public LivreDto setRetour(Integer livreId) {
-        LivreDto livre = LIVRE_MAPPER.map(livreRepository.findById(livreId).get());
+        LivreDto livre = LIVRE_MAPPER.map(livreRepository.findById(livreId).orElse(null));
         if (livre != null) {
             livre.setDisponible(true);
             livre = LIVRE_MAPPER.map(livreRepository.save(LIVRE_MAPPER.map(livre)));

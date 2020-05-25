@@ -20,6 +20,13 @@ public class HomepageController {
     private static final Logger LOGGER = LoggerFactory.getLogger(HomepageController.class);
     private static final BibliothequeDto DEFAULT_BIBLIOTHEQUE = new BibliothequeDto().builder().id(0).nom("Sélectionner une bibliothèque").build();
 
+    private static final String VIEW_HOMEPAGE = "homepage";
+    private static final String ATTRIBUTE_BIBLIOTHEQUES = "bibliotheques";
+    private static final String ATTRIBUTE_BIBLIOTHEQUE_SELECTIONNEE = "bibliothequeSelectionnee";
+    private static final String ATTRIBUTE_URL_BACKEND = "urlBackend";
+    private static final String ATTRIBUTE_OUVRAGES = "ouvrages";
+    private static final String ATTRIBUTE_LIVRES = "livres";
+
     @Autowired
     private BibliothequeService bibliothequeService;
     @Autowired
@@ -34,11 +41,11 @@ public class HomepageController {
     public ModelAndView viewHomepage() {
         LOGGER.info("HomepageController -- viewHomepage");
 
-        ModelAndView modelAndview = new ModelAndView("homepage");
-        modelAndview.addObject("bibliotheques", bibliothequeService.getAllBibliotheques());
-        modelAndview.addObject("bibliothequeSelectionnee", DEFAULT_BIBLIOTHEQUE);
-        modelAndview.addObject("ouvrages", ouvrageService.getAllOuvrages());
-        modelAndview.addObject("urlBackend", host+"/");
+        ModelAndView modelAndview = new ModelAndView(VIEW_HOMEPAGE);
+        modelAndview.addObject(ATTRIBUTE_BIBLIOTHEQUES, bibliothequeService.getAllBibliotheques());
+        modelAndview.addObject(ATTRIBUTE_BIBLIOTHEQUE_SELECTIONNEE, DEFAULT_BIBLIOTHEQUE);
+        modelAndview.addObject(ATTRIBUTE_OUVRAGES, ouvrageService.getAllOuvrages());
+        modelAndview.addObject(ATTRIBUTE_URL_BACKEND, host+"/");
 
         return modelAndview;
     }
@@ -47,11 +54,11 @@ public class HomepageController {
     public ModelAndView recherche(String recherche) {
         LOGGER.info("HomepageController -- recherche");
 
-        ModelAndView modelAndview = new ModelAndView("homepage");
-        modelAndview.addObject("bibliotheques", bibliothequeService.getAllBibliotheques());
-        modelAndview.addObject("bibliothequeSelectionnee", DEFAULT_BIBLIOTHEQUE);
-        modelAndview.addObject("ouvrages", ouvrageService.filterOuvrages(recherche));
-        modelAndview.addObject("urlBackend", host+"/");
+        ModelAndView modelAndview = new ModelAndView(VIEW_HOMEPAGE);
+        modelAndview.addObject(ATTRIBUTE_BIBLIOTHEQUES, bibliothequeService.getAllBibliotheques());
+        modelAndview.addObject(ATTRIBUTE_BIBLIOTHEQUE_SELECTIONNEE, DEFAULT_BIBLIOTHEQUE);
+        modelAndview.addObject(ATTRIBUTE_OUVRAGES, ouvrageService.filterOuvrages(recherche));
+        modelAndview.addObject(ATTRIBUTE_URL_BACKEND, host+"/");
 
         return modelAndview;
     }
@@ -60,11 +67,11 @@ public class HomepageController {
     public ModelAndView viewBibliotheque(@PathVariable(name = "bibliothequeId") Integer bibliothequeId) {
         LOGGER.info("HomepageController -- updateHomePage");
 
-        ModelAndView modelAndview = new ModelAndView("homepage");
-        modelAndview.addObject("bibliotheques", bibliothequeService.getAllBibliotheques());
-        modelAndview.addObject("bibliothequeSelectionnee", bibliothequeService.getBibliotheque(bibliothequeId));
-        modelAndview.addObject("livres", livreService.getAllLivresByBibliotheque(bibliothequeId));
-        modelAndview.addObject("urlBackend", host+"/");
+        ModelAndView modelAndview = new ModelAndView(VIEW_HOMEPAGE);
+        modelAndview.addObject(ATTRIBUTE_BIBLIOTHEQUES, bibliothequeService.getAllBibliotheques());
+        modelAndview.addObject(ATTRIBUTE_BIBLIOTHEQUE_SELECTIONNEE, bibliothequeService.getBibliotheque(bibliothequeId));
+        modelAndview.addObject(ATTRIBUTE_LIVRES, livreService.getAllLivresByBibliotheque(bibliothequeId));
+        modelAndview.addObject(ATTRIBUTE_URL_BACKEND, host+"/");
 
         return modelAndview;
     }

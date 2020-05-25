@@ -20,7 +20,7 @@ public class UtilisateurService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) {
         Objects.requireNonNull(email);
         return getUtilisateurByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));

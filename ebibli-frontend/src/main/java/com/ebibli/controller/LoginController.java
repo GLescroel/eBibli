@@ -17,6 +17,9 @@ public class LoginController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
+    private static final String ATTRIBUTE_CONNECTED = "connected";
+    private static final String ATTRIBUTE_LOGOUT = "logout";
+
     @Autowired
     UtilisateurService utilisateurService;
     @Autowired
@@ -25,8 +28,8 @@ public class LoginController {
     @GetMapping(value = "/login")
     public String viewLoginPage(Model model) {
         LOGGER.info(">>>>> Dans LoginController - GetMapping");
-        model.addAttribute("connected", null);
-        model.addAttribute("logout", null);
+        model.addAttribute(ATTRIBUTE_CONNECTED, null);
+        model.addAttribute(ATTRIBUTE_LOGOUT, null);
         return "login";
     }
 
@@ -38,15 +41,15 @@ public class LoginController {
 
         UtilisateurDto utilisateur = utilisateurService.findUtilisateurByEmail(email);
         if(utilisateur == null || !passwordEncoder.matches(password, utilisateur.getPassword())) {
-            model.addAttribute("connected", null);
-            model.addAttribute("logout", false);
+            model.addAttribute(ATTRIBUTE_CONNECTED, null);
+            model.addAttribute(ATTRIBUTE_LOGOUT, false);
         } else {
             model.addAttribute("nom", utilisateur.getNom());
             model.addAttribute("prenom", utilisateur.getPrenom());
             model.addAttribute("email", email);
             model.addAttribute("password", password);
-            model.addAttribute("connected", true);
-            model.addAttribute("logout", false);
+            model.addAttribute(ATTRIBUTE_CONNECTED, true);
+            model.addAttribute(ATTRIBUTE_LOGOUT, false);
         }
 
         return "login";

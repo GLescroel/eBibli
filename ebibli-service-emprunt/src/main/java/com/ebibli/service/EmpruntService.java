@@ -31,7 +31,7 @@ public class EmpruntService {
 
 
     public EmpruntDto getEmpruntById(Integer empruntId) {
-        return EMPRUNT_MAPPER.map(empruntRepository.findById(empruntId).get());
+        return EMPRUNT_MAPPER.map((empruntRepository.findById(empruntId)).orElse(null));
     }
 
     public EmpruntDto getEmpruntEnCoursByLivre(Integer livreId) {
@@ -59,7 +59,7 @@ public class EmpruntService {
         if(emprunt == null) {
             return null;
         }
-        if(emprunt.getLivre().getBibliotheque().getId() != bibliothequeId) {
+        if(!emprunt.getLivre().getBibliotheque().getId().equals(bibliothequeId)) {
             return emprunt;
         }
         emprunt.setEncours(false);
@@ -75,7 +75,7 @@ public class EmpruntService {
         if(emprunt == null) {
             return null;
         }
-        if (emprunt.getProlonge() == true || emprunt.getEncours() == false) {
+        if (emprunt.getProlonge() || !emprunt.getEncours()) {
             return emprunt;
         }
         emprunt.setDateRetourPrevu(Date.valueOf(emprunt.getDateRetourPrevu().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusWeeks(4)));

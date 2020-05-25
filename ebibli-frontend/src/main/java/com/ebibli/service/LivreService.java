@@ -21,7 +21,7 @@ public class LivreService {
     public List<LivreDto> getAllLivresByBibliotheque(Integer bibliothequeId) {
         List<LivreDto> livres = livreClient.getAllLivresByBibliotheque(bibliothequeId);
         for (LivreDto livre : livres) {
-            if (livre.getDisponible() == false) {
+            if (!livre.getDisponible()) {
                 livre.setEmpruntEnCours(empruntClient.findEmpruntEnCoursByLivre(livre.getId()));
             }
         }

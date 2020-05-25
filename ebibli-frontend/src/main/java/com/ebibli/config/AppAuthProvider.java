@@ -28,7 +28,7 @@ public class AppAuthProvider extends DaoAuthenticationProvider {
      * @throws AuthenticationException
      */
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    public Authentication authenticate(Authentication authentication) {
         LOGGER.info("Authenticate");
         UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
         String name = auth.getName();

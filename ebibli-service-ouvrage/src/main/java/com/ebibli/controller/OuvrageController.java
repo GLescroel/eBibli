@@ -29,7 +29,7 @@ public class OuvrageController {
 
     @GetMapping(value = "/ouvrages/recherche/{recherche}")
     public ResponseEntity<List<OuvrageDto>> filterTitles(@PathVariable ("recherche") String recherche) {
-        LOGGER.info("Dans OuvrageController - filterTitles containing " + recherche);
+        LOGGER.info("Dans OuvrageController - filterTitles containing");
         return new ResponseEntity<>(ouvrageService.filterTitles(recherche), HttpStatus.OK);
     }
 }

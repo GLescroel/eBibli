@@ -17,6 +17,9 @@ public class CompteController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CompteController.class);
 
+    private static final String ATTRIBUTE_DELETED = "deleted";
+    private static final String ATTRIBUTE_MESSAGE = "message";
+
     @Autowired
     private UtilisateurService utilisateurService;
 
@@ -24,8 +27,8 @@ public class CompteController {
     public String viewComptePage(Model model) {
         LOGGER.info(">>>>> Dans CompteController - GetMapping");
 
-        model.addAttribute("deleted", false);
-        model.addAttribute("message", "");
+        model.addAttribute(ATTRIBUTE_DELETED, false);
+        model.addAttribute(ATTRIBUTE_MESSAGE, "");
         return "compte";
     }
 
@@ -37,11 +40,11 @@ public class CompteController {
         UtilisateurDto utilisateur = utilisateurService.findUtilisateurByEmail(email);
 
         if (utilisateurService.remove(utilisateur)) {
-            model.addAttribute("deleted", true);
-            model.addAttribute("message", "Votre compte a été supprimé");
+            model.addAttribute(ATTRIBUTE_DELETED, true);
+            model.addAttribute(ATTRIBUTE_MESSAGE, "Votre compte a été supprimé");
         } else {
-            model.addAttribute("deleted", false);
-            model.addAttribute("message", "Votre compte n'a pu  être supprimé suite à un problème technique ou à des emprunts encore en cours");
+            model.addAttribute(ATTRIBUTE_DELETED, false);
+            model.addAttribute(ATTRIBUTE_MESSAGE, "Votre compte n'a pu  être supprimé suite à un problème technique ou à des emprunts encore en cours");
         }
 
         return "compte";

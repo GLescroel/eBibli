@@ -34,14 +34,14 @@ public class UtilisateurController {
 
     @GetMapping(value = "/utilisateur/email/{email}")
     public ResponseEntity<UtilisateurDto> checkIfUserExists(@Email @PathVariable("email") String email) {
-        LOGGER.info("Dans UtilisateurController - checkIfUserExists(" + email + ")");
+        LOGGER.info("Dans UtilisateurController - checkIfUserExists()");
         UtilisateurDto utilisateur = utilisateurService.getUserByEmail(email);
         return new ResponseEntity<>(utilisateur, HttpStatus.OK);
     }
 
     @GetMapping(value = "/utilisateur/id/{id}")
     public ResponseEntity<UtilisateurDto> getUtilisateurById(@PathVariable("id") Integer id) {
-        LOGGER.info("Dans UtilisateurController - getUtilisateurById(" + id + ")");
+        LOGGER.info("Dans UtilisateurController - getUtilisateurById({})", id);
         UtilisateurDto utilisateur = utilisateurService.getUtlisateurById(id);
         if (utilisateur == null) {
             return ResponseEntity.badRequest().build();

@@ -41,7 +41,7 @@ public class OuvrageService {
         for (LivreDto livre : livres) {
             boolean newBibli = true;
             for (BibliothequeDto bibli : disponibilitesMap.keySet()) {
-                if (bibli.getId() == livre.getBibliotheque().getId()) {
+                if (bibli.getId().equals(livre.getBibliotheque().getId())) {
                     disponibilitesMap.put(bibli, disponibilitesMap.get(bibli) + 1);
                     newBibli = false;
                 }

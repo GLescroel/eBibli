@@ -38,7 +38,7 @@ public class ReminderJobProcessor implements ItemProcessor<EmpruntDto, MimeMessa
     public MimeMessage process(EmpruntDto empruntEnRetard) throws Exception {
 
         for (UtilisateurDto emprunteur : emprunteursRelances) {
-            if(emprunteur.getId() == empruntEnRetard.getEmprunteur().getId()) {
+            if(emprunteur.getId().equals(empruntEnRetard.getEmprunteur().getId())) {
                 return null;
             }
         }
@@ -47,14 +47,14 @@ public class ReminderJobProcessor implements ItemProcessor<EmpruntDto, MimeMessa
         List<EmpruntDto> emprunts = empruntService.getAllEmpruntsEnCoursByUtilisateur(empruntEnRetard.getEmprunteur().getId());
 
         if (!emprunts.isEmpty()) {
-            LOGGER.info(String.format("emprunteur : %s", empruntEnRetard.getEmprunteur().getEmail()));
+            LOGGER.info("emprunteur : {}", empruntEnRetard.getEmprunteur().getEmail());
             Emprunteur emprunteur = new Emprunteur();
             emprunteur.setEmail(empruntEnRetard.getEmprunteur().getEmail());
             emprunteur.setNom(empruntEnRetard.getEmprunteur().getNom());
             emprunteur.setPrenom(empruntEnRetard.getEmprunteur().getPrenom());
 
             for (EmpruntDto emprunt : emprunts) {
-                if (emprunt.getEnRetard() == true) {
+                if (emprunt.getEnRetard()) {
                     emprunteur.addEmpruntRetard(emprunt);
                 } else {
                     emprunteur.addEmprunt(emprunt);
@@ -86,10 +86,10 @@ public class ReminderJobProcessor implements ItemProcessor<EmpruntDto, MimeMessa
      * @return le corps texte du message
      */
     private String writeMessage(Emprunteur emprunteur) {
-        String text = String.format("Bonjour %s %s,\n\n", emprunteur.getPrenom(), emprunteur.getNom());
-        text += "La date de retour des livres suivants est dépassée :\n";
+        String text = String.format("Bonjour %s %s,%n%n", emprunteur.getPrenom(), emprunteur.getNom());
+        text += "La date de retour des livres suivants est dépassée :%n";
         for (EmpruntDto emprunt : emprunteur.getEmpruntsRetard()) {
-            text += String.format("- %s attendu le %s à la biliothèque : %s\n",
+            text += String.format("- %s attendu le %s à la biliothèque : %s%n",
                     emprunt.getLivre().getOuvrage().getTitre(),
                     emprunt.getDateRetourPrevu().toString(),
                     emprunt.getLivre().getBibliotheque().getNom());

@@ -32,11 +32,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WebSecurityConfig.class);
 
+    private static final String LOGGIN_URL = "/login";
+
     @Autowired
     UtilisateurService utilisateurService;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
+        //configure
     }
 
     /**
@@ -54,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authenticationProvider(getProvider())
                 .formLogin()
-                .loginProcessingUrl("/login")
+                .loginProcessingUrl(LOGGIN_URL)
                 .successHandler(new AuthentificationLoginSuccessHandler())
                 .failureHandler(new SimpleUrlAuthenticationFailureHandler())
                 .and()
@@ -66,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/", "/**.jpg", "/**.png", "/**.css").permitAll()
-                .antMatchers("/login").permitAll()
+                .antMatchers(LOGGIN_URL).permitAll()
                 .antMatchers("/logout").permitAll()
                 .antMatchers("/creationCompte").permitAll()
                 .antMatchers("/compte").authenticated()
@@ -76,9 +79,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .successForwardUrl("/login")
-                .failureForwardUrl("/login")
+                .loginPage(LOGGIN_URL)
+                .successForwardUrl(LOGGIN_URL)
+                .failureForwardUrl(LOGGIN_URL)
                 .permitAll()
                 .and()
                 .logout()
