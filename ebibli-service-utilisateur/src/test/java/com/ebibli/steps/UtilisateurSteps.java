@@ -53,6 +53,7 @@ public class UtilisateurSteps extends StepDefs {
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
         ResponseEntity<UtilisateurDto> response = restTemplate.exchange(apiUrl, HttpMethod.GET, entity, UtilisateurDto.class);
         utilisateur = response.getBody();
+        LOGGER.info("utilisateurDto = {}", utilisateur.toString());
     }
 
     @Then("Les infos (.*) de l'utilisateur du fichier rechercheUtilisateurResultat.json sont retournées")
