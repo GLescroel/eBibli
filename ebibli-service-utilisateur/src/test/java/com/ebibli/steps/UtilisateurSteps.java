@@ -1,6 +1,5 @@
 package com.ebibli.steps;
 
-import com.ebibli.config.EndpointProperties;
 import com.ebibli.config.StepDefs;
 import com.ebibli.dto.UtilisateurDto;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -10,9 +9,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -26,15 +23,11 @@ import java.nio.file.Files;
 
 public class UtilisateurSteps extends StepDefs {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UtilisateurSteps.class);
-
-    @Autowired
-    private EndpointProperties endpointProperties;
-
     private static ObjectMapper objectMapper = new ObjectMapper();
     private RestTemplate restTemplate = new RestTemplate();
     private String apiUrl;
-    private String port = "9003";
+    @LocalServerPort
+    private int port;
     private String email;
     private UtilisateurDto utilisateur;
 
@@ -45,15 +38,13 @@ public class UtilisateurSteps extends StepDefs {
 
     @When("^j'interroge le microservice utilisateur$")
     public void jInterrogeLeMicroserviceUtilisateur() {
-        apiUrl = endpointProperties.getEndpointUtilisateur() + "/utilisateur/email/" + email;
-        LOGGER.info("apiUrl = {}", apiUrl);
+        apiUrl = "http://localhost:" + port + "/utilisateur/email/" + email;
         HttpHeaders headers = new HttpHeaders();
         headers.add("User-Agent", "MyClient/1.0.0");
         headers.add("accept", "application/vnd.travis-ci.2.1+json");
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
         ResponseEntity<UtilisateurDto> response = restTemplate.exchange(apiUrl, HttpMethod.GET, entity, UtilisateurDto.class);
         utilisateur = response.getBody();
-        LOGGER.info("utilisateurDto = {}", utilisateur.toString());
     }
 
     @Then("Les infos (.*) de l'utilisateur du fichier rechercheUtilisateurResultat.json sont retournées")

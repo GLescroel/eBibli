@@ -4,14 +4,12 @@ package com.ebibli.config;
 import com.ebibli.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManager;
 
 @Configuration
 @EnableTransactionManagement
-@Import(EndpointProperties.class)
 public class TestConfig {
 
     private final EntityManager entityManager;
