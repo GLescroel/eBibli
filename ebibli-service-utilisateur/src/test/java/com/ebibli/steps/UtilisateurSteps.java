@@ -10,6 +10,8 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +25,8 @@ import java.net.URL;
 import java.nio.file.Files;
 
 public class UtilisateurSteps extends StepDefs {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UtilisateurSteps.class);
 
     @Autowired
     private EndpointProperties endpointProperties;
@@ -42,6 +46,7 @@ public class UtilisateurSteps extends StepDefs {
     @When("^j'interroge le microservice utilisateur$")
     public void jInterrogeLeMicroserviceUtilisateur() {
         apiUrl = endpointProperties.getEndpointUtilisateur() + "/utilisateur/email/" + email;
+        LOGGER.info("apiUrl = {}", apiUrl);
         HttpHeaders headers = new HttpHeaders();
         headers.add("User-Agent", "MyClient/1.0.0");
         headers.add("accept", "application/vnd.travis-ci.2.1+json");
