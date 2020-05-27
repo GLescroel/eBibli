@@ -11,7 +11,6 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -39,10 +38,7 @@ public class UtilisateurSteps extends StepDefs {
     @When("^j'interroge le microservice utilisateur$")
     public void jInterrogeLeMicroserviceUtilisateur() {
         apiUrl = "http://localhost:" + port + "/utilisateur/email/" + email;
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("User-Agent", "MyClient/1.0.0");
-        headers.add("accept", "application/vnd.travis-ci.2.1+json");
-        HttpEntity<String> entity = new HttpEntity<>(null, headers);
+        HttpEntity<String> entity = new HttpEntity<>(null, null);
         ResponseEntity<UtilisateurDto> response = restTemplate.exchange(apiUrl, HttpMethod.GET, entity, UtilisateurDto.class);
         utilisateur = response.getBody();
     }
