@@ -13,7 +13,7 @@
 
     <groupId>com.ebibli</groupId>
     <artifactId>ebibli</artifactId>
-    <version>1.1</version>
+    <version>2.0</version>
     <packaging>pom</packaging>
 
     <modules>
