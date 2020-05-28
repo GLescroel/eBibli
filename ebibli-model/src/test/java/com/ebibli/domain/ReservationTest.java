@@ -15,11 +15,13 @@ class ReservationTest {
         reservation.setEmprunteur(new Utilisateur.UtilisateurBuilder().email("utilisateur@oc.com").build());
         reservation.setOuvrage(new Ouvrage.OuvrageBuilder().titre("ouvrage de test").build());
         reservation.setAlerte(true);
+        reservation.setDateReservation(Date.valueOf(LocalDate.now().minusDays(3)));
         reservation.setDateAlerte(Date.valueOf(LocalDate.now()));
 
         Assert.assertEquals(java.util.Optional.of(999).get(), reservation.getId());
         Assert.assertEquals("utilisateur@oc.com", reservation.getEmprunteur().getEmail());
         Assert.assertEquals("ouvrage de test", reservation.getOuvrage().getTitre());
+        Assert.assertEquals(Date.valueOf(LocalDate.now().minusDays(3)), reservation.getDateReservation());
         Assert.assertEquals(true, reservation.getAlerte());
         Assert.assertEquals(Date.valueOf(LocalDate.now()), reservation.getDateAlerte());
     }
@@ -31,6 +33,7 @@ class ReservationTest {
                 .id(999)
                 .emprunteur(new Utilisateur().builder().email("utilisateur@oc.com").build())
                 .ouvrage(new Ouvrage.OuvrageBuilder().titre("ouvrage de test").build())
+                .dateReservation(Date.valueOf(LocalDate.now().minusDays(3)))
                 .alerte(true)
                 .dateAlerte(Date.valueOf(LocalDate.now()))
                 .build();
@@ -38,6 +41,7 @@ class ReservationTest {
         Assert.assertEquals(java.util.Optional.of(999).get(), reservation.getId());
         Assert.assertEquals("utilisateur@oc.com", reservation.getEmprunteur().getEmail());
         Assert.assertEquals("ouvrage de test", reservation.getOuvrage().getTitre());
+        Assert.assertEquals(Date.valueOf(LocalDate.now().minusDays(3)), reservation.getDateReservation());
         Assert.assertEquals(true, reservation.getAlerte());
         Assert.assertEquals(Date.valueOf(LocalDate.now()), reservation.getDateAlerte());
     }

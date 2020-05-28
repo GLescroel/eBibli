@@ -18,6 +18,7 @@ public class ReservationDto {
     private Integer id;
     private OuvrageDto ouvrage;
     private UtilisateurDto emprunteur;
+    private Date dateReservation;
     private Boolean alerte;
     private Date dateAlerte;
 

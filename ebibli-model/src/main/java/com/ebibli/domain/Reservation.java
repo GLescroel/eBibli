@@ -34,6 +34,9 @@ public class Reservation {
         private Utilisateur emprunteur;
 
         @Basic
+        private Date dateReservation;
+
+        @Basic
         private Boolean alerte;
 
         @Basic

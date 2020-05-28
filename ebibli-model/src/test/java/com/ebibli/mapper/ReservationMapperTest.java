@@ -24,6 +24,7 @@ class ReservationMapperTest {
                 .id(999)
                 .emprunteur(new Utilisateur().builder().email("utilisateurTest@oc.com").role(new Role()).build())
                 .ouvrage(new Ouvrage().builder().titre("ouvrage de test").build())
+                .dateReservation(Date.valueOf(LocalDate.now().minusDays(3)))
                 .dateAlerte(Date.valueOf(LocalDate.now()))
                 .alerte(true)
                 .build();
@@ -33,6 +34,7 @@ class ReservationMapperTest {
         Assert.assertEquals(reservation.getId(), reservationDto.getId());
         Assert.assertEquals(reservation.getEmprunteur().getEmail(), reservationDto.getEmprunteur().getEmail());
         Assert.assertEquals(reservation.getOuvrage().getTitre(), reservationDto.getOuvrage().getTitre());
+        Assert.assertEquals(reservation.getDateReservation(), reservationDto.getDateReservation());
         Assert.assertEquals(reservation.getAlerte(), reservationDto.getAlerte());
         Assert.assertEquals(reservation.getDateAlerte(), reservationDto.getDateAlerte());
     }
@@ -44,6 +46,7 @@ class ReservationMapperTest {
                 .id(999)
                 .emprunteur(new UtilisateurDto().builder().email("utilisateurTest@oc.com").role(new RoleDto()).build())
                 .ouvrage(new OuvrageDto().builder().titre("ouvrage de test").build())
+                .dateReservation(Date.valueOf(LocalDate.now().minusDays(3)))
                 .dateAlerte(Date.valueOf(LocalDate.now()))
                 .alerte(true)
                 .build();
@@ -53,6 +56,7 @@ class ReservationMapperTest {
         Assert.assertEquals(reservation.getId(), reservationDto.getId());
         Assert.assertEquals(reservation.getEmprunteur().getEmail(), reservationDto.getEmprunteur().getEmail());
         Assert.assertEquals(reservation.getOuvrage().getTitre(), reservationDto.getOuvrage().getTitre());
+        Assert.assertEquals(reservation.getDateReservation(), reservationDto.getDateReservation());
         Assert.assertEquals(reservation.getAlerte(), reservationDto.getAlerte());
         Assert.assertEquals(reservation.getDateAlerte(), reservationDto.getDateAlerte());
     }
@@ -77,6 +81,7 @@ class ReservationMapperTest {
         Assert.assertEquals(null, reservationDto.getId());
         Assert.assertEquals(null, reservationDto.getEmprunteur());
         Assert.assertEquals(null, reservationDto.getOuvrage());
+        Assert.assertEquals(null, reservationDto.getDateReservation());
         Assert.assertEquals(null, reservationDto.getAlerte());
         Assert.assertEquals(null, reservationDto.getDateAlerte());
     }
@@ -89,6 +94,7 @@ class ReservationMapperTest {
         Assert.assertEquals(null, reservationDto.getId());
         Assert.assertEquals(null, reservationDto.getEmprunteur());
         Assert.assertEquals(null, reservationDto.getOuvrage());
+        Assert.assertEquals(null, reservationDto.getDateReservation());
         Assert.assertEquals(null, reservationDto.getAlerte());
         Assert.assertEquals(null, reservationDto.getDateAlerte());
     }
