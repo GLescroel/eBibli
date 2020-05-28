@@ -9,7 +9,7 @@ import java.time.LocalDate;
 class ReservationDtoTest {
 
     @Test
-    public void testReservationDtoGettersAndSetters() {
+    void testReservationDtoGettersAndSetters() {
         ReservationDto reservationDto = new ReservationDto();
         reservationDto.setId(999);
         reservationDto.setEmprunteur(new UtilisateurDto.UtilisateurDtoBuilder().email("utilisateur@oc.com").build());
@@ -25,7 +25,7 @@ class ReservationDtoTest {
     }
 
     @Test
-    public void testReservationDtoBuilder() {
+    void testReservationDtoBuilder() {
         ReservationDto reservationDto = new ReservationDto()
                 .builder()
                 .id(999)

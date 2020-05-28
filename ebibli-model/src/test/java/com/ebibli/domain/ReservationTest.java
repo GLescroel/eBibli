@@ -9,7 +9,7 @@ import java.time.LocalDate;
 class ReservationTest {
 
     @Test
-    public void testReservationGettersAndSetters() {
+    void testReservationGettersAndSetters() {
         Reservation reservation = new Reservation();
         reservation.setId(999);
         reservation.setEmprunteur(new Utilisateur.UtilisateurBuilder().email("utilisateur@oc.com").build());
@@ -25,7 +25,7 @@ class ReservationTest {
     }
 
     @Test
-    public void testReservationBuilder() {
+    void testReservationBuilder() {
         Reservation reservation = new Reservation()
                 .builder()
                 .id(999)
