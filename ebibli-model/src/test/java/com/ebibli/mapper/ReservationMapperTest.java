@@ -15,10 +15,10 @@ import org.mapstruct.factory.Mappers;
 import java.sql.Date;
 import java.time.LocalDate;
 
-class ReservationMapperTest {
+public class ReservationMapperTest {
 
     @Test
-    void testShouldMapReservationToDto() {
+    public void testShouldMapReservationToDto() {
         Reservation reservation = new Reservation()
                 .builder()
                 .id(999)
@@ -40,7 +40,7 @@ class ReservationMapperTest {
     }
 
     @Test
-    void testShouldMapDtoToReservation() {
+    public void testShouldMapDtoToReservation() {
         ReservationDto reservationDto = new ReservationDto()
                 .builder()
                 .id(999)
@@ -62,19 +62,19 @@ class ReservationMapperTest {
     }
 
     @Test
-    void testShouldMapNullReservation() {
+    public void testShouldMapNullReservation() {
         Reservation reservation = null;
         Assert.assertEquals(null, Mappers.getMapper(ReservationMapper.class).map(reservation));
     }
 
     @Test
-    void testShouldMapNullReservationDto() {
+    public void testShouldMapNullReservationDto() {
         ReservationDto reservation = null;
         Assert.assertEquals(null, Mappers.getMapper(ReservationMapper.class).map(reservation));
     }
 
     @Test
-    void testShouldMapReservationToDtoWithNullData() {
+    public void testShouldMapReservationToDtoWithNullData() {
         Reservation reservation = new Reservation();
         ReservationDto reservationDto = Mappers.getMapper(ReservationMapper.class).map(reservation);
 
@@ -87,7 +87,7 @@ class ReservationMapperTest {
     }
 
     @Test
-    void testShouldMapDtoToReservationWithNullData() {
+    public void testShouldMapDtoToReservationWithNullData() {
         ReservationDto reservationDto = new ReservationDto();
         Reservation reservation = Mappers.getMapper(ReservationMapper.class).map(reservationDto);
 

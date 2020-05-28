@@ -66,3 +66,5 @@ INSERT INTO emprunt(id, livre_id, emprunteur_id, date_emprunt, date_retour_prevu
 INSERT INTO emprunt(id, livre_id, emprunteur_id, date_emprunt, date_retour_prevu, date_retour, prolonge, en_retard, encours) VALUES (12, 12, 2, '2020-03-02 00:00:00', '2020-03-30 00:00:00', null, false, false, true);
 INSERT INTO reservation(id, ouvrage_id, emprunteur_id, date_reservation, alerte, date_alerte) VALUES (1, 2, 4, '2020-05-10 00:00:00', false, null);
 INSERT INTO reservation(id, ouvrage_id, emprunteur_id, date_reservation, alerte, date_alerte) VALUES (2, 2, 5, '2020-05-11 00:00:00', false, null);
+INSERT INTO reservation(id, ouvrage_id, emprunteur_id, date_reservation, alerte, date_alerte) VALUES (3, 2, 1, '2020-05-12 00:00:00', false, null);
+INSERT INTO reservation(id, ouvrage_id, emprunteur_id, date_reservation, alerte, date_alerte) VALUES (4, 2, 2, '2020-05-13 00:00:00', false, null);

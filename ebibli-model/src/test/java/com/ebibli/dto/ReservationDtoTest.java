@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 import java.sql.Date;
 import java.time.LocalDate;
 
-class ReservationDtoTest {
+public class ReservationDtoTest {
 
     @Test
-    void testReservationDtoGettersAndSetters() {
+    public void testReservationDtoGettersAndSetters() {
         ReservationDto reservationDto = new ReservationDto();
         reservationDto.setId(999);
         reservationDto.setEmprunteur(new UtilisateurDto.UtilisateurDtoBuilder().email("utilisateur@oc.com").build());
@@ -25,7 +25,7 @@ class ReservationDtoTest {
     }
 
     @Test
-    void testReservationDtoBuilder() {
+    public void testReservationDtoBuilder() {
         ReservationDto reservationDto = new ReservationDto()
                 .builder()
                 .id(999)

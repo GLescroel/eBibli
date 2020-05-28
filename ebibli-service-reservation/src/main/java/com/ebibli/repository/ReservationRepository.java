@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
     List<Reservation> findAllByOuvrage_IdOrderByDateReservation(Integer ouvrageId);
+
+    List<Reservation> findAllByEmprunteur_IdOrderByDateReservation(Integer emprunteurId);
 }

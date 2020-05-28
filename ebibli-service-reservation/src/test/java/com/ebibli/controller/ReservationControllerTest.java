@@ -9,13 +9,13 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.List;
 
-class ReservationControllerTest {
+public class ReservationControllerTest {
 
     private ReservationService reservationService = Mockito.mock(ReservationService.class);
     private ReservationController reservationController = new ReservationController(reservationService);
 
     @Test
-    void testShouldGetAllReservationsByOuvrage() {
+    public void testShouldGetAllReservationsByOuvrage() {
         List<ReservationDto> reservationsList = new ArrayList<>();
         reservationsList.add(new ReservationDto());
         reservationsList.add(new ReservationDto());
@@ -26,4 +26,15 @@ class ReservationControllerTest {
         Assert.assertEquals(2, reservations.size());
     }
 
+    @Test
+    public void testShouldGetAllReservationsByEmprunteur() {
+        List<ReservationDto> reservationsList = new ArrayList<>();
+        reservationsList.add(new ReservationDto());
+        reservationsList.add(new ReservationDto());
+        Mockito.when(reservationService.getAllReservationsByEmprunteur(Mockito.anyInt())).thenReturn(reservationsList);
+
+        List<ReservationDto> reservations = reservationController.getAllReservationsByEmprunteur(2).getBody();
+
+        Assert.assertEquals(2, reservations.size());
+    }
 }

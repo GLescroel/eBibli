@@ -26,6 +26,7 @@
         <module>ebibli-service-reservation</module>
         <module>ebibli-frontend</module>
         <module>ebibli-batch</module>
+        <module>ebibli-technical</module>
     </modules>
 
     <properties>
