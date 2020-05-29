@@ -46,6 +46,11 @@
                         emprunts</a>
                 </div>
                 <div sec:authorize="isAuthenticated()">
+                    <a class="btn btn-outline-secondary"
+                       th:href="@{/Utilisateur/{id}/mesReservations(id=${#authentication.principal.getId()})}">Mes
+                        réservations</a>
+                </div>
+                <div sec:authorize="isAuthenticated()">
                     <a class="btn btn-outline-secondary" th:href="@{/compte}"
                        th:text="${#authentication.getName()}"></a>
                 </div>

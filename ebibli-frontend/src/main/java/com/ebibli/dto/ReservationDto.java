@@ -22,5 +22,5 @@ public class ReservationDto {
     private Boolean alerte;
     private Date dateAlerte;
     private Date dateRetraitMax;
-
+    private Integer position;
 }

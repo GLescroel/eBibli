@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.Date;
 import java.time.LocalDate;
 
-public class ReservationDtoTest {
+class ReservationDtoTest {
 
     @Test
     public void testReservationDtoGettersAndSetters() {
@@ -17,12 +17,14 @@ public class ReservationDtoTest {
         reservationDto.setAlerte(true);
         reservationDto.setDateAlerte(Date.valueOf(LocalDate.now()));
         reservationDto.setDateRetraitMax(Date.valueOf(LocalDate.now().plusDays(2)));
+        reservationDto.setPosition(1);
 
         Assert.assertEquals(java.util.Optional.of(999).get(), reservationDto.getId());
         Assert.assertEquals("utilisateur@oc.com", reservationDto.getEmprunteur().getEmail());
         Assert.assertEquals("ouvrage de test", reservationDto.getOuvrage().getTitre());
         Assert.assertEquals(true, reservationDto.getAlerte());
         Assert.assertEquals(Date.valueOf(LocalDate.now()), reservationDto.getDateAlerte());
+        Assert.assertEquals(java.util.Optional.of(1).get(), reservationDto.getPosition());
         Assert.assertEquals(Date.valueOf(LocalDate.now().plusDays(2)), reservationDto.getDateRetraitMax());
     }
 
@@ -36,6 +38,7 @@ public class ReservationDtoTest {
                 .alerte(true)
                 .dateAlerte(Date.valueOf(LocalDate.now()))
                 .dateRetraitMax(Date.valueOf(LocalDate.now().plusDays(2)))
+                .position(1)
                 .build();
 
         Assert.assertEquals(java.util.Optional.of(999).get(), reservationDto.getId());
@@ -43,6 +46,7 @@ public class ReservationDtoTest {
         Assert.assertEquals("ouvrage de test", reservationDto.getOuvrage().getTitre());
         Assert.assertEquals(true, reservationDto.getAlerte());
         Assert.assertEquals(Date.valueOf(LocalDate.now()), reservationDto.getDateAlerte());
+        Assert.assertEquals(java.util.Optional.of(1).get(), reservationDto.getPosition());
         Assert.assertEquals(Date.valueOf(LocalDate.now().plusDays(2)), reservationDto.getDateRetraitMax());
     }
 

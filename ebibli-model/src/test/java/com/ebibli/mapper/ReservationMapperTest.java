@@ -26,6 +26,7 @@ public class ReservationMapperTest {
                 .ouvrage(new Ouvrage().builder().titre("ouvrage de test").build())
                 .dateReservation(Date.valueOf(LocalDate.now().minusDays(3)))
                 .dateAlerte(Date.valueOf(LocalDate.now()))
+                .dateRetraitMax(Date.valueOf(LocalDate.now().plusDays(2)))
                 .alerte(true)
                 .build();
 
@@ -37,6 +38,7 @@ public class ReservationMapperTest {
         Assert.assertEquals(reservation.getDateReservation(), reservationDto.getDateReservation());
         Assert.assertEquals(reservation.getAlerte(), reservationDto.getAlerte());
         Assert.assertEquals(reservation.getDateAlerte(), reservationDto.getDateAlerte());
+        Assert.assertEquals(reservation.getDateRetraitMax(), reservationDto.getDateRetraitMax());
     }
 
     @Test
@@ -48,6 +50,7 @@ public class ReservationMapperTest {
                 .ouvrage(new OuvrageDto().builder().titre("ouvrage de test").build())
                 .dateReservation(Date.valueOf(LocalDate.now().minusDays(3)))
                 .dateAlerte(Date.valueOf(LocalDate.now()))
+                .dateRetraitMax(Date.valueOf(LocalDate.now().plusDays(2)))
                 .alerte(true)
                 .build();
 
@@ -59,6 +62,7 @@ public class ReservationMapperTest {
         Assert.assertEquals(reservation.getDateReservation(), reservationDto.getDateReservation());
         Assert.assertEquals(reservation.getAlerte(), reservationDto.getAlerte());
         Assert.assertEquals(reservation.getDateAlerte(), reservationDto.getDateAlerte());
+        Assert.assertEquals(reservation.getDateRetraitMax(), reservationDto.getDateRetraitMax());
     }
 
     @Test
@@ -84,6 +88,7 @@ public class ReservationMapperTest {
         Assert.assertEquals(null, reservationDto.getDateReservation());
         Assert.assertEquals(null, reservationDto.getAlerte());
         Assert.assertEquals(null, reservationDto.getDateAlerte());
+        Assert.assertEquals(null, reservationDto.getDateRetraitMax());
     }
 
     @Test
@@ -97,6 +102,7 @@ public class ReservationMapperTest {
         Assert.assertEquals(null, reservationDto.getDateReservation());
         Assert.assertEquals(null, reservationDto.getAlerte());
         Assert.assertEquals(null, reservationDto.getDateAlerte());
+        Assert.assertEquals(null, reservationDto.getDateRetraitMax());
     }
 
 }

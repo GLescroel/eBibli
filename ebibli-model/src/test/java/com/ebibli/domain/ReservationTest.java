@@ -17,6 +17,7 @@ public class ReservationTest {
         reservation.setAlerte(true);
         reservation.setDateReservation(Date.valueOf(LocalDate.now().minusDays(3)));
         reservation.setDateAlerte(Date.valueOf(LocalDate.now()));
+        reservation.setDateRetraitMax(Date.valueOf(LocalDate.now().plusDays(2)));
 
         Assert.assertEquals(java.util.Optional.of(999).get(), reservation.getId());
         Assert.assertEquals("utilisateur@oc.com", reservation.getEmprunteur().getEmail());
@@ -24,6 +25,7 @@ public class ReservationTest {
         Assert.assertEquals(Date.valueOf(LocalDate.now().minusDays(3)), reservation.getDateReservation());
         Assert.assertEquals(true, reservation.getAlerte());
         Assert.assertEquals(Date.valueOf(LocalDate.now()), reservation.getDateAlerte());
+        Assert.assertEquals(Date.valueOf(LocalDate.now().plusDays(2)), reservation.getDateRetraitMax());
     }
 
     @Test
@@ -36,6 +38,7 @@ public class ReservationTest {
                 .dateReservation(Date.valueOf(LocalDate.now().minusDays(3)))
                 .alerte(true)
                 .dateAlerte(Date.valueOf(LocalDate.now()))
+                .dateRetraitMax(Date.valueOf(LocalDate.now().plusDays(2)))
                 .build();
 
         Assert.assertEquals(java.util.Optional.of(999).get(), reservation.getId());
@@ -44,6 +47,7 @@ public class ReservationTest {
         Assert.assertEquals(Date.valueOf(LocalDate.now().minusDays(3)), reservation.getDateReservation());
         Assert.assertEquals(true, reservation.getAlerte());
         Assert.assertEquals(Date.valueOf(LocalDate.now()), reservation.getDateAlerte());
+        Assert.assertEquals(Date.valueOf(LocalDate.now().plusDays(2)), reservation.getDateRetraitMax());
     }
 
 }

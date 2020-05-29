@@ -41,4 +41,7 @@ public class Reservation {
 
         @Basic
         private Date dateAlerte;
+
+        @Basic
+        private Date dateRetraitMax;
 }

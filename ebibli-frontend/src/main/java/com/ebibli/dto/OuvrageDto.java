@@ -20,4 +20,5 @@ public class OuvrageDto {
     private String resume;
     private String image;
     private List<Disponibilite> disponibilite;
+    private List<ReservationDto> reservations;
 }
