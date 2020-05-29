@@ -10,4 +10,6 @@ public interface ReservationClient {
     List<ReservationDto> getReservationsByOuvrage(Integer ouvrageId);
 
     void cancelReservation(Integer reservationId);
+
+    void createReservation(ReservationDto reservation);
 }

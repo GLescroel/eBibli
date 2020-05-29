@@ -22,4 +22,7 @@ public interface UtilisateurClientApi {
 
     @PostMapping(value = "/utilisateur/suppression")
     Boolean delete(@RequestBody UtilisateurDto utilisateur);
+
+    @GetMapping(value = "/utilisateur/id/{utilisateurId}")
+    UtilisateurDto getUtilisateurById(@PathVariable ("utilisateurId") Integer utilisateurId);
 }

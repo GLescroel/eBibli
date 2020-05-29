@@ -27,4 +27,9 @@ public class RestReservationClient implements ReservationClient {
     public void cancelReservation(Integer reservationId) {
         reservationClientApi.cancelReservation(reservationId);
     }
+
+    @Override
+    public void createReservation(ReservationDto reservation) {
+        reservationClientApi.createReservation(reservation);
+    }
 }

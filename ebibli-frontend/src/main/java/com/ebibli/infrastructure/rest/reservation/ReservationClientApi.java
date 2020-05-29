@@ -5,6 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -23,4 +24,7 @@ public interface ReservationClientApi {
 
     @PostMapping(value = "/reservation/suppression/{reservationId}")
     void cancelReservation(@PathVariable ("reservationId") Integer reservationId);
+
+    @PostMapping(value = "/reservation/creation")
+    void createReservation(@RequestBody ReservationDto reservation);
 }

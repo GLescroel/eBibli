@@ -36,7 +36,7 @@ public class ReservationService {
         return RESERVATION_MAPPER.reservationsToDtos(reservationRepository.findAllByEmprunteur_IdOrderByDateReservation(emprunteurId));
     }
 
-    public ReservationDto createReservation(ReservationDto reservation) throws FunctionalException {
+    public ReservationDto createReservation(ReservationDto reservation) {
         isReservationRequestValid(reservation);
         reservation.setDateReservation(Date.valueOf(LocalDate.now()));
         reservation.setAlerte(false);
@@ -44,7 +44,7 @@ public class ReservationService {
         return RESERVATION_MAPPER.map(reservationRepository.save(RESERVATION_MAPPER.map(reservation)));
     }
 
-    private boolean isReservationRequestValid(ReservationDto newReservation) throws FunctionalException {
+    private boolean isReservationRequestValid(ReservationDto newReservation) {
         if (newReservation.getOuvrage() == null || newReservation.getEmprunteur() == null) {
             throw new FunctionalException(
                     "Une réservation doit contenir un ouvrage et un emprunteur");

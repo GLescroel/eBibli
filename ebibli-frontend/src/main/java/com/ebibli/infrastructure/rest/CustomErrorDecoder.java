@@ -18,7 +18,7 @@ public class CustomErrorDecoder implements ErrorDecoder {
             return new RestClientException("Pas trouvé !");
         }
         if(response.status() == 400) {
-            return new RestClientException("Demande erronée !");
+            return new RestClientException(response.body().toString());
         }
         return defaultErrorDecoder.decode(methodKey, response);
     }

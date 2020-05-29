@@ -15,6 +15,9 @@ public class ReservationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReservationController.class);
 
+    private static final String ATTRIBUTE_RESERVATIONS = "reservations";
+    private static final String VIEW_RESERVATION = "reservation";
+
     @Autowired
     private ReservationService reservationService;
 
@@ -22,8 +25,8 @@ public class ReservationController {
     public String viewMyReservations(Model model, @PathVariable("id") Integer idUtilisateur) {
         LOGGER.info(">>>>> Dans ReservationController - viewMyReservations");
 
-        model.addAttribute("reservations", reservationService.getReservationsByUtilisateur(idUtilisateur));
-        return "reservation";
+        model.addAttribute(ATTRIBUTE_RESERVATIONS, reservationService.getReservationsByUtilisateur(idUtilisateur));
+        return VIEW_RESERVATION;
     }
 
     @PostMapping(value = "/reservation/{utilisateurId}/annulation/{reservationId}")
@@ -32,8 +35,18 @@ public class ReservationController {
         LOGGER.info(">>>>> Dans ReservationController - cancelReservation");
 
         reservationService.cancelReservation(reservationId);
-        model.addAttribute("reservations", reservationService.getReservationsByUtilisateur(utilisateurId));
-        return "reservation";
+        model.addAttribute(ATTRIBUTE_RESERVATIONS, reservationService.getReservationsByUtilisateur(utilisateurId));
+        return VIEW_RESERVATION;
+    }
+
+    @PostMapping(value = "/reservation/{utilisateurId}/ouvrage/{ouvrageId}")
+    public String createReservation(Model model, @PathVariable ("utilisateurId") Integer utilisateurId,
+                                    @PathVariable ("ouvrageId") Integer ouvrageId) {
+        LOGGER.info(">>>>> Dans ReservationController - createReservation");
+
+        reservationService.createReservation(utilisateurId, ouvrageId);
+        model.addAttribute(ATTRIBUTE_RESERVATIONS, reservationService.getReservationsByUtilisateur(utilisateurId));
+        return VIEW_RESERVATION;
     }
 
 }

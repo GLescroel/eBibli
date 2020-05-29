@@ -1,7 +1,6 @@
 package com.ebibli.controller;
 
 import com.ebibli.dto.ReservationDto;
-import com.ebibli.exception.FunctionalException;
 import com.ebibli.service.ReservationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +27,7 @@ public class ReservationController {
     }
 
     @PostMapping(value = "/reservation/creation")
-    public ResponseEntity<Void> createReservation(@RequestBody ReservationDto reservation) throws FunctionalException {
+    public ResponseEntity<Void> createReservation(@RequestBody ReservationDto reservation) {
         LOGGER.info("Dans ReservationController - createReservation");
 
         ReservationDto newReservation = reservationService.createReservation(reservation);

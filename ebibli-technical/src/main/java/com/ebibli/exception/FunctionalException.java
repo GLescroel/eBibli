@@ -1,9 +1,13 @@
 package com.ebibli.exception;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 /**
  * Classe des Exceptions Fonctionnelles
  */
-public class FunctionalException extends Exception {
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public class FunctionalException extends RuntimeException {
 
     /** serialVersionUID */
     private static final long serialVersionUID = 1L;

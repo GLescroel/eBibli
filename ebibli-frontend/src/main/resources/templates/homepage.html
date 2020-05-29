@@ -149,6 +149,12 @@
                                             </div>
                                             <div th:if="${ouvrage.getDisponibilite().isEmpty()}">
                                                 <span>Aucun exemplaire disponible</span>
+                                                <div sec:authorize="isAuthenticated()">
+                                                    <form id="reserver" method="post"
+                                                      th:action="@{/reservation/{utilisateurId}/ouvrage/{ouvrageId}(utilisateurId=${#authentication.principal.getId()}, ouvrageId=${ouvrage.getId()})}">
+                                                    <input class="btn btn-outline-danger" type="submit" value="Réserver"/>
+                                                </form>
+                                                </div>
                                             </div>
                                             </div>
                                         <div class="modal-footer">

@@ -30,7 +30,7 @@ INSERT INTO bibliotheque(id, nom) VALUES (1, 'Bibliotheque jeunesse');
 INSERT INTO bibliotheque(id, nom) VALUES (2, 'Bibliotheque adulte');
 INSERT INTO bibliotheque(id, nom) VALUES (3, 'Bibliotheque pour tous');
 INSERT INTO livre(id, ouvrage_id, bibliotheque_id, disponible) VALUES (1, 1, 1, false);
-INSERT INTO livre(id, ouvrage_id, bibliotheque_id, disponible) VALUES (2, 2, 1, true );
+INSERT INTO livre(id, ouvrage_id, bibliotheque_id, disponible) VALUES (2, 2, 1, false );
 INSERT INTO livre(id, ouvrage_id, bibliotheque_id, disponible) VALUES (3, 3, 1, false );
 INSERT INTO livre(id, ouvrage_id, bibliotheque_id, disponible) VALUES (4, 1, 1, true );
 INSERT INTO livre(id, ouvrage_id, bibliotheque_id, disponible) VALUES (5, 2, 3, false );
@@ -64,6 +64,7 @@ INSERT INTO emprunt(id, livre_id, emprunteur_id, date_emprunt, date_retour_prevu
 INSERT INTO emprunt(id, livre_id, emprunteur_id, date_emprunt, date_retour_prevu, date_retour, prolonge, en_retard, encours) VALUES (10, 10, 5, '2020-01-15 00:00:00', '2020-03-12 00:00:00', '2020-04-15 00:00:00', true, true, false);
 INSERT INTO emprunt(id, livre_id, emprunteur_id, date_emprunt, date_retour_prevu, date_retour, prolonge, en_retard, encours) VALUES (11, 11, 3, '2020-03-15 00:00:00', '2020-05-12 00:00:00', null, true, false, true);
 INSERT INTO emprunt(id, livre_id, emprunteur_id, date_emprunt, date_retour_prevu, date_retour, prolonge, en_retard, encours) VALUES (12, 12, 2, '2020-03-02 00:00:00', '2020-03-30 00:00:00', null, false, false, true);
+INSERT INTO emprunt(id, livre_id, emprunteur_id, date_emprunt, date_retour_prevu, date_retour, prolonge, en_retard, encours) VALUES (13, 2, 6, '2020-05-20 00:00:00', '2020-06-18 00:00:00', null, false, false, true);
 INSERT INTO reservation(id, ouvrage_id, emprunteur_id, date_reservation, alerte, date_alerte, date_retrait_max) VALUES (1, 2, 4, '2020-05-15 00:00:00', false, null, null);
 INSERT INTO reservation(id, ouvrage_id, emprunteur_id, date_reservation, alerte, date_alerte, date_retrait_max) VALUES (2, 2, 5, '2020-05-11 00:00:00', false, null, null);
 INSERT INTO reservation(id, ouvrage_id, emprunteur_id, date_reservation, alerte, date_alerte, date_retrait_max) VALUES (3, 2, 1, '2020-05-12 00:00:00', false, null, null);
