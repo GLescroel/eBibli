@@ -12,10 +12,10 @@ public class CustomErrorDecoder implements ErrorDecoder {
     public Exception decode(String methodKey, Response response) {
 
         if(response.status() == 500) {
-            return new RestClientException("Une erreur est survenue !");
+            return new RestClientException(response.body().toString());
         }
         if(response.status() == 404) {
-            return new RestClientException("Pas trouvé !");
+            return new RestClientException(response.body().toString());
         }
         if(response.status() == 400) {
             return new RestClientException(response.body().toString());

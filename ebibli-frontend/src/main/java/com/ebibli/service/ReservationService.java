@@ -48,4 +48,8 @@ public class ReservationService {
                 .build();
         reservationClient.createReservation(reservation);
     }
+
+    public List<ReservationDto> getReservationsByOuvrage(Integer ouvrageId) {
+        return reservationClient.getReservationsByOuvrage(ouvrageId);
+    }
 }

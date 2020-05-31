@@ -20,7 +20,12 @@
     <div class="container">
         <nav class="navbar navbar-light bg-light">
             <form class="form-inline">
+                <div sec:authorize="!authenticated">
                 <a class="btn btn-outline-secondary" th:href="@{/}">Accueil</a>
+                </div>
+                <div sec:authorize="authenticated">
+                    <a class="btn btn-outline-secondary" th:href="@{/abonne/{abonneId}(abonneId=${#authentication.principal.getId()})}">Accueil</a>
+                </div>
                 <div class="nav-item dropdown">
                     <a aria-expanded="false" aria-haspopup="true"
                        class="nav-link dropdown-toggle btn btn-outline-secondary btn-sm" data-toggle="dropdown" href="#"
@@ -148,13 +153,27 @@
                                             </div>
                                             </div>
                                             <div th:if="${ouvrage.getDisponibilite().isEmpty()}">
-                                                <span>Aucun exemplaire disponible</span>
+                                                <span th:text="${'Aucun exemplaire disponible avant le : ' + ouvrage.getNextRetourPrevu()}"></span><br>
+                                                <span th:text="${'Réservations : ' + ouvrage.getReservations().size() + ' / ' + ouvrage.getReservationListSizeMax()}"></span><br>
+                                                <div sec:authorize="!isAuthenticated()">
+                                                    <span>Vous devez vous authentifier pour accéder à la réservation</span>
+                                                </div>
                                                 <div sec:authorize="isAuthenticated()">
+                                                    <div th:if="${ouvrage.getReservationAvailable()}">
                                                     <form id="reserver" method="post"
                                                       th:action="@{/reservation/{utilisateurId}/ouvrage/{ouvrageId}(utilisateurId=${#authentication.principal.getId()}, ouvrageId=${ouvrage.getId()})}">
                                                     <input class="btn btn-outline-danger" type="submit" value="Réserver"/>
-                                                </form>
-                                                </div>
+                                                    </form>
+                                                    </div>
+                                                    <div th:if="!${ouvrage.getReservationAvailable()}">
+                                                        <div th:if="${ouvrage.getEmpruntEnCours() == true}">
+                                                            <span>Vous empruntez déjà actuellement un exemplaire de cet ouvrage</span>
+                                                        </div>
+                                                        <div th:if="${ouvrage.getReservationEnCours() == true}">
+                                                            <span>Vous avez déjà une réservation en cours pour cet ouvrage</span>
+                                                        </div>
+                                                    </div>
+                                                    </div>
                                             </div>
                                             </div>
                                         <div class="modal-footer">

@@ -9,4 +9,6 @@ public interface LivreClient {
     List<LivreDto> getAllLivresByBibliotheque(Integer bibliothequeId);
 
     List<LivreDto> getDispoByOuvrage(Integer ouvrageId);
+
+    List<LivreDto> getAllLivresByOuvrage(Integer ouvrageId);
 }

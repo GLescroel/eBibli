@@ -18,7 +18,12 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/}">Accueil <span class="sr-only">(current)</span></a>
+                    <div sec:authorize="!authenticated">
+                        <a class="btn btn-outline-secondary" th:href="@{/}">Accueil</a>
+                    </div>
+                    <div sec:authorize="authenticated">
+                        <a class="btn btn-outline-secondary" th:href="@{/abonne/{abonneId}(abonneId=${#authentication.principal.getId()})}">Accueil</a>
+                    </div>
                 </li>
                 <div sec:authorize="!isAuthenticated()">
                     <li class="nav-item active">
