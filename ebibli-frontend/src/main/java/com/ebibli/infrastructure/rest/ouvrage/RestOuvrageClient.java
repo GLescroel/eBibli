@@ -20,11 +20,6 @@ public class RestOuvrageClient implements OuvrageClient {
     }
 
     @Override
-    public List<OuvrageDto> filterOuvrages(String recherche) {
-        return ouvrageClientApi.filterOuvrages(recherche);
-    }
-
-    @Override
     public OuvrageDto getOuvrageById(Integer ouvrageId) {
         return ouvrageClientApi.getOuvrageById(ouvrageId);
     }

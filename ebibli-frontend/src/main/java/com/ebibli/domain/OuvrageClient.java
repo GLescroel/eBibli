@@ -8,7 +8,5 @@ public interface OuvrageClient {
 
     List<OuvrageDto> getAllOuvrages();
 
-    List<OuvrageDto> filterOuvrages(String recherche);
-
     OuvrageDto getOuvrageById(Integer ouvrageId);
 }

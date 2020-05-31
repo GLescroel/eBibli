@@ -116,10 +116,4 @@ public class OuvrageService {
         }
         return disponibilites;
     }
-
-    //TODO supprimer
-    public List<OuvrageDto> filterOuvrages(String recherche) {
-        List<OuvrageDto> ouvrages = ouvrageClient.filterOuvrages(recherche);
-        return setDisponibilites(ouvrages, null);
-    }
 }

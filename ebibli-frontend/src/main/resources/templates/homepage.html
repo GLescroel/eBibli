@@ -77,14 +77,9 @@
 
 <div class="container">
     <div th:if="${bibliothequeSelectionnee.getId() == 0}">
-        <form id="rechercheOuvrage" method="post" th:action="@{/recherche}">
             <div class="row col-12"><h2>
                 <label class="col-6 align-self-center">Liste des ouvrages proposés : </label>
-                <input class="col-4 align-self-center" name="recherche" type="text">
-                <button class="btn btn-outline-secondary col-1 align-self-center"
-                        type="submit">Filtrer</button>
             </h2></div>
-        </form>
 
 
         <div th:if="${ouvrages}">
@@ -255,7 +250,7 @@
     jQuery(document).ready(function() {
         jQuery('#ouvragesTable').DataTable(
             {
-                "searching":     false,
+                "searching":     true,
                 "language": {
                     "lengthMenu": "Afficher _MENU_ ouvrages par page",
                     "zeroRecords": "Aucun résultat ne correspond à votre recherche",

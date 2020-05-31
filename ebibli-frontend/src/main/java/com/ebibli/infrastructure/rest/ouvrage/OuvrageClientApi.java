@@ -17,9 +17,6 @@ public interface OuvrageClientApi {
     @GetMapping(value = "/ouvrages")
     List<OuvrageDto> getAllOuvrages();
 
-    @GetMapping(value = "/ouvrages/recherche/{recherche}")
-    List<OuvrageDto> filterOuvrages(@PathVariable ("recherche") String recherche);
-
     @GetMapping(value = "/ouvrage/id/{ouvrageId}")
     OuvrageDto getOuvrageById(@PathVariable ("ouvrageId") Integer ouvrageId);
 }

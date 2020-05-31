@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -58,19 +57,6 @@ public class HomepageController {
         modelAndview.addObject(ATTRIBUTE_BIBLIOTHEQUES, bibliothequeService.getAllBibliotheques());
         modelAndview.addObject(ATTRIBUTE_BIBLIOTHEQUE_SELECTIONNEE, DEFAULT_BIBLIOTHEQUE);
         modelAndview.addObject(ATTRIBUTE_OUVRAGES, ouvrageService.getAllOuvrages(abonneId));
-        modelAndview.addObject(ATTRIBUTE_URL_BACKEND, host+"/");
-
-        return modelAndview;
-    }
-
-    @PostMapping(value = "/recherche")
-    public ModelAndView recherche(String recherche) {
-        LOGGER.info("HomepageController -- recherche");
-
-        ModelAndView modelAndview = new ModelAndView(VIEW_HOMEPAGE);
-        modelAndview.addObject(ATTRIBUTE_BIBLIOTHEQUES, bibliothequeService.getAllBibliotheques());
-        modelAndview.addObject(ATTRIBUTE_BIBLIOTHEQUE_SELECTIONNEE, DEFAULT_BIBLIOTHEQUE);
-        modelAndview.addObject(ATTRIBUTE_OUVRAGES, ouvrageService.filterOuvrages(recherche));
         modelAndview.addObject(ATTRIBUTE_URL_BACKEND, host+"/");
 
         return modelAndview;
