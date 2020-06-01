@@ -25,7 +25,7 @@ public class ReservationController {
     public String viewMyReservations(Model model, @PathVariable("id") Integer idUtilisateur) {
         LOGGER.info(">>>>> Dans ReservationController - viewMyReservations");
 
-        model.addAttribute(ATTRIBUTE_RESERVATIONS, reservationService.getReservationsByUtilisateur(idUtilisateur));
+        model.addAttribute(ATTRIBUTE_RESERVATIONS, reservationService.displayReservationsByUtilisateur(idUtilisateur));
         return VIEW_RESERVATION;
     }
 
@@ -35,7 +35,7 @@ public class ReservationController {
         LOGGER.info(">>>>> Dans ReservationController - cancelReservation");
 
         reservationService.cancelReservation(reservationId);
-        model.addAttribute(ATTRIBUTE_RESERVATIONS, reservationService.getReservationsByUtilisateur(utilisateurId));
+        model.addAttribute(ATTRIBUTE_RESERVATIONS, reservationService.displayReservationsByUtilisateur(utilisateurId));
         return VIEW_RESERVATION;
     }
 
@@ -45,7 +45,7 @@ public class ReservationController {
         LOGGER.info(">>>>> Dans ReservationController - createReservation");
 
         reservationService.createReservation(utilisateurId, ouvrageId);
-        model.addAttribute(ATTRIBUTE_RESERVATIONS, reservationService.getReservationsByUtilisateur(utilisateurId));
+        model.addAttribute(ATTRIBUTE_RESERVATIONS, reservationService.displayReservationsByUtilisateur(utilisateurId));
         return VIEW_RESERVATION;
     }
 
