@@ -84,6 +84,14 @@ public class ReservationService {
     }
 
     public void cancelReservation(Integer reservationId) {
+        ReservationDto reservation = RESERVATION_MAPPER.map(reservationRepository.getOne(reservationId));
+        if (reservation.getAlerte()) {
+            for (LivreDto livre : livreClient.getLivresByOuvrage(reservation.getOuvrage().getId())) {
+                if (livre.getNextEmprunteur() != null && livre.getNextEmprunteur().getId().equals(reservation.getEmprunteur().getId())) {
+                    checkNextReservation(livre);
+                }
+            }
+        }
         reservationRepository.deleteById(reservationId);
     }
 
@@ -100,6 +108,7 @@ public class ReservationService {
                 return;
             }
         }
+        livreClient.setLivreReserve(livre.getId(), 0);
     }
 
     private void sendAlert(UtilisateurDto emprunteur) {

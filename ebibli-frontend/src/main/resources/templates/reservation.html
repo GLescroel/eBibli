@@ -69,29 +69,35 @@
                     <thead>
                         <tr>
                         <div class="col-4"><th> Titre</th></div>
-                        <div class="col-3"><th> Date de réservation</th></div>
+                        <div class="col-2"><th> Date de réservation</th></div>
                         <div class="col-1"><th> Votre position</th></div>
                         <div class="col-2"><th> Prochain retour prévu</th></div>
                         <div class="col-2"><th> Date maximale de retrait</th></div>
+                        <div class="col-1"><th> </th></div>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="reservation : ${reservations}">
                         <div class="col-4"><td><span th:text="${reservation.getOuvrage().getTitre()}">Titre</span></td></div>
-                        <div class="col-3"><td><span th:text="${reservation.getDateReservation()}" class="float-right">Date de réservation</span></td></div>
+                        <div class="col-2"><td><span th:text="${reservation.getDateReservation()}" class="float-right">Date de réservation</span></td></div>
                         <div class="col-1"><td><span th:text="${reservation.getPosition()}" class="float-right">Position</span></td></div>
-                        <div class="col-2"><td><span th:text="${reservation.getOuvrage().getNextRetourPrevu()}" class="float-right">Prochain retour</span></td></div>
+                        <div class="col-2"><td>
+                            <div th:if="${reservation.getAlerte()} == false">
+                                <span th:text="${reservation.getOuvrage().getNextRetourPrevu()}" class="float-right">Prochain retour</span>
+                            </div></td></div>
                         <div class="col-2">
-                        <div th:if="${reservation.getAlerte()} != true">
+                            <td>
+                        <div th:if="${reservation.getAlerte()} == true">
+                            <span th:style="'color:green'" th:text="${reservation.getDateRetraitMax()}">texte</span></div>
+                        </div>
+                    </td>
+                        <div class="col-1">
                             <td>
                                 <form id="annulerReservation" method="post"
-                                  th:action="@{/reservation/{utilisateurId}/annulation/{reservationId}(utilisateurId=${reservation.getEmprunteur().getId()}, reservationId=${reservation.getId()})}">
+                                      th:action="@{/reservation/{utilisateurId}/annulation/{reservationId}(utilisateurId=${reservation.getEmprunteur().getId()}, reservationId=${reservation.getId()})}">
                                     <input class="btn btn-outline-danger float-right" type="submit" value="Annuler"/>
-                            </form>
+                                </form>
                             </td>
-                            </div>
-                        <div th:if="${reservation.getAlerte()} == true">
-                            <td><span th:style="'color:green'" th:text="${reservation.getDateRetraitMax()}">texte</span></td></div>
                         </div>
                     </tr>
                     </tbody>

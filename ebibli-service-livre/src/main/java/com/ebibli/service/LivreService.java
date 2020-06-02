@@ -2,7 +2,6 @@ package com.ebibli.service;
 
 import com.ebibli.domain.UtilisateurClient;
 import com.ebibli.dto.LivreDto;
-import com.ebibli.dto.UtilisateurDto;
 import com.ebibli.mapper.LivreMapper;
 import com.ebibli.repository.LivreRepository;
 import org.mapstruct.factory.Mappers;
@@ -69,12 +68,14 @@ public class LivreService {
 
     public LivreDto setReserve(Integer livreId, Integer abonneId) {
         LivreDto livre = LIVRE_MAPPER.map(livreRepository.findById(livreId).orElse(null));
-        UtilisateurDto abonne = utilisateurClient.getUtilisateurById(abonneId);
-        if (livre != null && abonne != null) {
+        if (abonneId != 0) {
             livre.setReserve(true);
-            livre.setNextEmprunteur(abonne);
-            livre = LIVRE_MAPPER.map(livreRepository.save(LIVRE_MAPPER.map(livre)));
+            livre.setNextEmprunteur(utilisateurClient.getUtilisateurById(abonneId));
+        } else {
+            livre.setReserve(false);
+            livre.setNextEmprunteur(null);
         }
+        livre = LIVRE_MAPPER.map(livreRepository.save(LIVRE_MAPPER.map(livre)));
         return livre;
     }
 
