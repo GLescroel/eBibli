@@ -38,7 +38,7 @@ INSERT INTO livre(id, ouvrage_id, bibliotheque_id, disponible, reserve) VALUES (
 INSERT INTO livre(id, ouvrage_id, bibliotheque_id, disponible, reserve) VALUES (7, 4, 1, false, false);
 INSERT INTO livre(id, ouvrage_id, bibliotheque_id, disponible, reserve) VALUES (8, 6, 3, true, false);
 INSERT INTO livre(id, ouvrage_id, bibliotheque_id, disponible, reserve) VALUES (9, 7, 1, false, false);
-INSERT INTO livre(id, ouvrage_id, bibliotheque_id, disponible, reserve) VALUES (10, 8, 3, true, true);
+INSERT INTO livre(id, ouvrage_id, bibliotheque_id, disponible, reserve, next_emprunteur_id) VALUES (10, 8, 3, true, true, 4);
 INSERT INTO livre(id, ouvrage_id, bibliotheque_id, disponible, reserve) VALUES (11, 14, 2, false, false);
 INSERT INTO livre(id, ouvrage_id, bibliotheque_id, disponible, reserve) VALUES (12, 15, 2, false, false);
 INSERT INTO livre(id, ouvrage_id, bibliotheque_id, disponible, reserve) VALUES (13, 16, 2, true, false);

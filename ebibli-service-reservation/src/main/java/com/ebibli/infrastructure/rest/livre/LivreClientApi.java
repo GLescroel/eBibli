@@ -18,6 +18,6 @@ public interface LivreClientApi {
     @GetMapping(value = "/livres/ouvrage/{ouvrageId}")
     List<LivreDto> getLivresByOuvrage(@PathVariable("ouvrageId") Integer ouvrageId);
 
-    @PostMapping(value = "/livre/{livreId}/reserve")
-    void setLivreReserve(@PathVariable ("livreId") Integer livreId);
+    @PostMapping(value = "/livre/{livreId}/reserve/{abonneId}")
+    void setLivreReserve(@PathVariable ("livreId") Integer livreId, @PathVariable ("abonneId") Integer abonneId);
 }

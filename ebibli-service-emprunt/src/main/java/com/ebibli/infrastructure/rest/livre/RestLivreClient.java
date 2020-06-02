@@ -25,4 +25,9 @@ public class RestLivreClient implements LivreClient {
     public LivreDto setDisponible(Integer livreId) {
         return livreClientApi.setDisponible(livreId);
     }
+
+    @Override
+    public LivreDto removeReservation(Integer livreId) {
+        return livreClientApi.removeReservation(livreId);
+    }
 }

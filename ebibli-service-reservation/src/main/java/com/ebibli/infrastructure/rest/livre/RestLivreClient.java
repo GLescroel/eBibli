@@ -19,8 +19,8 @@ public class RestLivreClient implements LivreClient {
     }
 
     @Override
-    public void setLivreReserve(Integer livreId) {
-        livreClientApi.setLivreReserve(livreId);
+    public void setLivreReserve(Integer livreId, Integer abonneId) {
+        livreClientApi.setLivreReserve(livreId, abonneId);
     }
 
 }

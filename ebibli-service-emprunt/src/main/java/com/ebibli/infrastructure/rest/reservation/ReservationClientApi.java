@@ -2,6 +2,7 @@ package com.ebibli.infrastructure.rest.reservation;
 
 import com.ebibli.dto.LivreDto;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
         url = "${clients.com-ebibli-reservation.endpoint}")
 public interface ReservationClientApi {
 
-    @PostMapping(value = "/reservation/ notification")
+    @PostMapping(value = "/reservation/notification")
     void notificationLivreEnRetour(@RequestBody LivreDto livre);
+
+    @PostMapping(value = "/reservation/annulation/{ouvrageId}/{utilisateurId}")
+    void cancelReservation(@PathVariable ("ouvrageId") Integer ouvrageId, @PathVariable ("utilisateurId") Integer emprunteurId);
 }

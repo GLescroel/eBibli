@@ -8,5 +8,5 @@ public interface LivreClient {
 
     List<LivreDto> getLivresByOuvrage(Integer ouvrageId);
 
-    void setLivreReserve(Integer id);
+    void setLivreReserve(Integer livreId, Integer abonneId);
 }

@@ -95,7 +95,7 @@ public class ReservationService {
                 reservation.setAlerte(true);
                 reservation.setDateAlerte(Date.valueOf(LocalDate.now()));
                 reservation.setDateRetraitMax(Date.valueOf(LocalDate.now().plusDays(2)));
-                livreClient.setLivreReserve(livre.getId());
+                livreClient.setLivreReserve(livre.getId(), reservation.getEmprunteur().getId());
                 saveReservation(reservation);
                 return;
             }
@@ -104,5 +104,14 @@ public class ReservationService {
 
     private void sendAlert(UtilisateurDto emprunteur) {
         LOGGER.info(">>>>>>>>>>> ENVOI EMAIL {} <<<<<<<<<<<<<<<<<<<", emprunteur.getEmail());
+    }
+
+    public void cancelReservation(Integer ouvrageId, Integer emprunteurId) {
+        List<ReservationDto> reservations = getAllReservationsByOuvrage(ouvrageId);
+        for (ReservationDto reservation : reservations) {
+            if (reservation.getEmprunteur().getId().equals(emprunteurId)) {
+                cancelReservation(reservation.getId());
+            }
+        }
     }
 }

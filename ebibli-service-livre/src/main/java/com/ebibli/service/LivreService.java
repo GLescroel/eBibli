@@ -1,6 +1,8 @@
 package com.ebibli.service;
 
+import com.ebibli.domain.UtilisateurClient;
 import com.ebibli.dto.LivreDto;
+import com.ebibli.dto.UtilisateurDto;
 import com.ebibli.mapper.LivreMapper;
 import com.ebibli.repository.LivreRepository;
 import org.mapstruct.factory.Mappers;
@@ -16,6 +18,12 @@ public class LivreService {
 
     @Autowired
     private LivreRepository livreRepository;
+
+    private UtilisateurClient utilisateurClient;
+
+    public LivreService(UtilisateurClient utilisateurClient) {
+        this.utilisateurClient = utilisateurClient;
+    }
 
     public List<LivreDto> getAllLivres() {
         return LIVRE_MAPPER.livresToLivreDtos(livreRepository.findAll());
@@ -59,12 +67,21 @@ public class LivreService {
         return livre;
     }
 
-    public LivreDto setReserve(Integer livreId) {
+    public LivreDto setReserve(Integer livreId, Integer abonneId) {
         LivreDto livre = LIVRE_MAPPER.map(livreRepository.findById(livreId).orElse(null));
-        if (livre != null) {
+        UtilisateurDto abonne = utilisateurClient.getUtilisateurById(abonneId);
+        if (livre != null && abonne != null) {
             livre.setReserve(true);
+            livre.setNextEmprunteur(abonne);
             livre = LIVRE_MAPPER.map(livreRepository.save(LIVRE_MAPPER.map(livre)));
         }
         return livre;
+    }
+
+    public LivreDto cancelReservation(Integer livreId) {
+        LivreDto livre = getLivre(livreId);
+        livre.setNextEmprunteur(null);
+        livre.setReserve(false);
+        return LIVRE_MAPPER.map(livreRepository.save(LIVRE_MAPPER.map(livre)));
     }
 }

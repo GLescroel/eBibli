@@ -15,4 +15,9 @@ public class RestReservationClient implements ReservationClient {
     public void notificationRetourLivre(LivreDto livre) {
         reservationClientApi.notificationLivreEnRetour(livre);
     }
+
+    @Override
+    public void cancelReservation(Integer ouvrageId, Integer emprunteurId) {
+        reservationClientApi.cancelReservation(ouvrageId, emprunteurId);
+    }
 }

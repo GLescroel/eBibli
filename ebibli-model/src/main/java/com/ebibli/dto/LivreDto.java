@@ -18,4 +18,6 @@ public class LivreDto {
     private BibliothequeDto bibliotheque;
     private Boolean disponible;
     private Boolean reserve;
+    private UtilisateurDto nextEmprunteur;
+
 }

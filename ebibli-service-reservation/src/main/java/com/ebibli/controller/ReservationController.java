@@ -51,6 +51,13 @@ public class ReservationController {
         return new ResponseEntity<>((HttpStatus.OK));
     }
 
+    @PostMapping(value = "/reservation/annulation/{ouvrageId}/{utilisateurId}")
+    public ResponseEntity<Void> cancelReservation(@PathVariable ("ouvrageId") Integer ouvrageId, @PathVariable ("utilisateurId") Integer emprunteurId) {
+        LOGGER.info("Dans ReservationController - cancelReservation");
+        reservationService.cancelReservation(ouvrageId, emprunteurId);
+        return new ResponseEntity<>((HttpStatus.OK));
+    }
+
     @GetMapping(value = "/reservations/ouvrage/{ouvrageId}")
     public ResponseEntity<List<ReservationDto>> getAllReservationsByOuvrage(@PathVariable ("ouvrageId") Integer ouvrageId) {
         LOGGER.info("Dans ReservationController - getAllReservationsByOuvrage");
@@ -63,7 +70,7 @@ public class ReservationController {
         return new ResponseEntity<>(reservationService.getAllReservationsByEmprunteur(emprunteurId), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/reservation/ notification")
+    @PostMapping(value = "/reservation/notification")
     public ResponseEntity<Void> checkNextReservation(@RequestBody LivreDto livre) {
         LOGGER.info("Dans ReservationController - checkNextReservation");
         reservationService.checkNextReservation(livre);

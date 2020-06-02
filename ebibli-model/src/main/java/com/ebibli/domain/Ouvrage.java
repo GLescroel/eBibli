@@ -11,8 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import java.util.List;
 
 @Builder
 @Getter
@@ -35,7 +33,4 @@ public class Ouvrage {
 
     @Basic
     private String image;
-
-    @OneToMany
-    private List<Reservation> reservations;
 }

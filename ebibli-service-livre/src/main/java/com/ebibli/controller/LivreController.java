@@ -75,9 +75,16 @@ public class LivreController {
         return new ResponseEntity<>(livreService.setRetour(livreId), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/livre/{livreId}/reserve")
-    public ResponseEntity<LivreDto> setReserve(@PathVariable("livreId") Integer livreId) {
+    @PostMapping(value = "/livre/{livreId}/reserve/{abonneId}")
+    public ResponseEntity<LivreDto> setReserve(@PathVariable("livreId") Integer livreId, @PathVariable ("abonneId") Integer abonneId) {
         LOGGER.info("Dans LivreController - setReserve");
-        return new ResponseEntity<>(livreService.setReserve(livreId), HttpStatus.OK);
+        return new ResponseEntity<>(livreService.setReserve(livreId, abonneId), HttpStatus.OK);
     }
+
+    @PostMapping(value = "/livre/{livreId}/cancelReservation")
+    public ResponseEntity<LivreDto> cancelReservation(@PathVariable("livreId") Integer livreId) {
+        LOGGER.info("Dans LivreController - cancelReservation");
+        return new ResponseEntity<>(livreService.cancelReservation(livreId), HttpStatus.OK);
+    }
+
 }
