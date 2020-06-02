@@ -7,4 +7,6 @@ import java.util.List;
 public interface LivreClient {
 
     List<LivreDto> getLivresByOuvrage(Integer ouvrageId);
+
+    void setLivreReserve(Integer id);
 }

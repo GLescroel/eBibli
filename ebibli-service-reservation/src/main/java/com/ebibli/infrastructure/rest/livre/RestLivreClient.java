@@ -18,4 +18,9 @@ public class RestLivreClient implements LivreClient {
         return livreClientApi.getLivresByOuvrage(ouvrageId);
     }
 
+    @Override
+    public void setLivreReserve(Integer livreId) {
+        livreClientApi.setLivreReserve(livreId);
+    }
+
 }

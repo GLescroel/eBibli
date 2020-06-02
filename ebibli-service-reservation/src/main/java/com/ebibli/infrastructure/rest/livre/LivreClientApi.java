@@ -4,6 +4,7 @@ import com.ebibli.dto.LivreDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -16,4 +17,7 @@ public interface LivreClientApi {
 
     @GetMapping(value = "/livres/ouvrage/{ouvrageId}")
     List<LivreDto> getLivresByOuvrage(@PathVariable("ouvrageId") Integer ouvrageId);
+
+    @PostMapping(value = "/livre/{livreId}/reserve")
+    void setLivreReserve(@PathVariable ("livreId") Integer livreId);
 }

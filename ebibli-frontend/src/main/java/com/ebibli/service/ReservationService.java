@@ -40,14 +40,11 @@ public class ReservationService {
             }
 
             List<LivreDto> livresOuvrage = livreService.getAllLivresByOuvrage(reservation.getOuvrage().getId());
-            Date nextRetour = Date.valueOf(LocalDate.now().plusYears(1));
+            Date nextRetour = Date.valueOf(LocalDate.now().plusWeeks(4));
             for (LivreDto livre : livresOuvrage) {
                 livreService.setEmpruntEncours(livre);
                 if ( livre.getEmpruntEnCours() != null && livre.getEmpruntEnCours().getDateRetourPrevu().before(nextRetour)) {
                     nextRetour = livre.getEmpruntEnCours().getDateRetourPrevu();
-                }
-                if ( livre.getEmpruntEnCours() == null) {
-                    nextRetour = null;
                 }
             }
             reservation.getOuvrage().setNextRetourPrevu(nextRetour);

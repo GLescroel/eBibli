@@ -223,9 +223,14 @@
                             <div class="col-5">
                                 <td><span th:text="${livre.getOuvrage().getResume()}"> </span></td>
                             </div>
-                            <div th:if="${livre.getDisponible()} == true">
+                            <div th:if="${livre.getDisponible() == true && livre.getReserve() == false}">
                                 <div class="col-1">
                                     <td><span style='color:#0C0'>Disponible</span></td>
+                                </div>
+                            </div>
+                            <div th:if="${livre.getDisponible() == true && livre.getReserve() == true}">
+                                <div class="col-1">
+                                    <td><span style='color:#CCC'>Reservé</span></td>
                                 </div>
                             </div>
                             <div th:if="${livre.getDisponible()} == false">

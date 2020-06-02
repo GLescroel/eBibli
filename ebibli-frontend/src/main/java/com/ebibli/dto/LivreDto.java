@@ -17,5 +17,6 @@ public class LivreDto {
     private OuvrageDto ouvrage;
     private BibliothequeDto bibliotheque;
     private Boolean disponible;
+    private Boolean reserve;
     private EmpruntDto empruntEnCours;
 }

@@ -1,6 +1,7 @@
 package com.ebibli.service;
 
 import com.ebibli.domain.LivreClient;
+import com.ebibli.domain.ReservationClient;
 import com.ebibli.domain.UtilisateurClient;
 import com.ebibli.dto.EmpruntDto;
 import com.ebibli.mapper.EmpruntMapper;
@@ -20,11 +21,13 @@ public class EmpruntService {
     private final UtilisateurClient utilisateurClient;
     private final LivreClient livreClient;
     private final EmpruntRepository empruntRepository;
+    private final ReservationClient reservationClient;
 
     public EmpruntService(EmpruntRepository empruntRepository, UtilisateurClient utilisateurClient, LivreClient livreClient) {
         this.empruntRepository = empruntRepository;
         this.utilisateurClient = utilisateurClient;
         this.livreClient = livreClient;
+        this.reservationClient = reservationClient;
     }
 
 
@@ -64,6 +67,8 @@ public class EmpruntService {
         emprunt.setDateRetour(Date.valueOf(LocalDate.now()));
 
         emprunt.setLivre(livreClient.setDisponible(livreId));
+
+        reservationClient.notificationRetourLivre(emprunt.getLivre());
 
         return EMPRUNT_MAPPER.map(empruntRepository.save(EMPRUNT_MAPPER.map(emprunt)));
     }

@@ -1,5 +1,6 @@
 package com.ebibli.controller;
 
+import com.ebibli.dto.LivreDto;
 import com.ebibli.dto.ReservationDto;
 import com.ebibli.service.ReservationService;
 import org.slf4j.Logger;
@@ -60,5 +61,12 @@ public class ReservationController {
     public ResponseEntity<List<ReservationDto>> getAllReservationsByEmprunteur(@PathVariable ("emprunteurId") Integer emprunteurId) {
         LOGGER.info("Dans ReservationController - getAllReservationsByEmprunteur");
         return new ResponseEntity<>(reservationService.getAllReservationsByEmprunteur(emprunteurId), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/reservation/ notification")
+    public ResponseEntity<Void> checkNextReservation(@RequestBody LivreDto livre) {
+        LOGGER.info("Dans ReservationController - checkNextReservation");
+        reservationService.checkNextReservation(livre);
+        return new ResponseEntity<>((HttpStatus.OK));
     }
 }

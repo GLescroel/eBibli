@@ -37,4 +37,7 @@ public class Livre {
 
     @Basic
     private Boolean disponible;
+
+    @Basic
+    private Boolean reserve;
 }

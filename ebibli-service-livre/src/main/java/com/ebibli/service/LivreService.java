@@ -43,7 +43,7 @@ public class LivreService {
     }
 
     public List<LivreDto> getAllLivresDispoByOuvrage(Integer ouvrageId) {
-        return LIVRE_MAPPER.livresToLivreDtos(livreRepository.findLivresByOuvrage_IdAndDisponibleIsTrueOrderByBibliotheque(ouvrageId));
+        return LIVRE_MAPPER.livresToLivreDtos(livreRepository.findLivresByOuvrage_IdAndDisponibleIsTrueAndReserveIsFalseOrderByBibliotheque(ouvrageId));
     }
 
     public List<LivreDto> getAllLivresByOuvrage(Integer ouvrageId) {
@@ -54,6 +54,15 @@ public class LivreService {
         LivreDto livre = LIVRE_MAPPER.map(livreRepository.findById(livreId).orElse(null));
         if (livre != null) {
             livre.setDisponible(true);
+            livre = LIVRE_MAPPER.map(livreRepository.save(LIVRE_MAPPER.map(livre)));
+        }
+        return livre;
+    }
+
+    public LivreDto setReserve(Integer livreId) {
+        LivreDto livre = LIVRE_MAPPER.map(livreRepository.findById(livreId).orElse(null));
+        if (livre != null) {
+            livre.setReserve(true);
             livre = LIVRE_MAPPER.map(livreRepository.save(LIVRE_MAPPER.map(livre)));
         }
         return livre;

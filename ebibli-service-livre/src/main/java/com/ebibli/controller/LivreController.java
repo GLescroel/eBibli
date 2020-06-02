@@ -74,4 +74,10 @@ public class LivreController {
         LOGGER.info("Dans LivreController - setRetour");
         return new ResponseEntity<>(livreService.setRetour(livreId), HttpStatus.OK);
     }
+
+    @PostMapping(value = "/livre/{livreId}/reserve")
+    public ResponseEntity<LivreDto> setReserve(@PathVariable("livreId") Integer livreId) {
+        LOGGER.info("Dans LivreController - setReserve");
+        return new ResponseEntity<>(livreService.setReserve(livreId), HttpStatus.OK);
+    }
 }

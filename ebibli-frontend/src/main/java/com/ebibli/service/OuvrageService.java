@@ -50,10 +50,10 @@ public class OuvrageService {
         List<LivreDto> livresOuvrage = livreService.getAllLivresByOuvrage(ouvrage.getId());
         ouvrage.setReservationListSizeMax(livresOuvrage.size() * 2);
         ouvrage.setReservations(reservationService.getReservationsByOuvrage(ouvrage.getId()));
-        Date nextRetour = Date.valueOf(LocalDate.now().plusYears(1));
+        Date nextRetour = Date.valueOf(LocalDate.now().plusWeeks(4));
         for (LivreDto livre : livresOuvrage) {
             livreService.setEmpruntEncours(livre);
-            if (livre.getEmpruntEnCours().getDateRetourPrevu().before(nextRetour)) {
+            if (livre.getEmpruntEnCours() != null && livre.getEmpruntEnCours().getDateRetourPrevu().before(nextRetour)) {
                 nextRetour = livre.getEmpruntEnCours().getDateRetourPrevu();
             }
         }

@@ -14,7 +14,7 @@ public interface LivreRepository extends JpaRepository<Livre, Integer> {
 
     List<Livre> findAllByBibliotheque_IdOrderByOuvrageAsc(Integer id);
 
-    List<Livre> findLivresByOuvrage_IdAndDisponibleIsTrueOrderByBibliotheque(Integer ouvrageId);
+    List<Livre> findLivresByOuvrage_IdAndDisponibleIsTrueAndReserveIsFalseOrderByBibliotheque(Integer ouvrageId);
 
     List<Livre> findLivresByOuvrage_IdOrderByBibliotheque(Integer ouvrageId);
 }
