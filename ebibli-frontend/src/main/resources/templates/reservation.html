@@ -84,6 +84,9 @@
                         <div class="col-2"><td>
                             <div th:if="${reservation.getAlerte()} == false">
                                 <span th:text="${reservation.getOuvrage().getNextRetourPrevu()}" class="float-right">Prochain retour</span>
+                            </div>
+                            <div th:if="${reservation.getAlerte()} == true">
+                                <span th:text="${reservation.getLivre().getBibliotheque().getNom()}" class="float-right">Prochain retour</span>
                             </div></td></div>
                         <div class="col-2">
                             <td>

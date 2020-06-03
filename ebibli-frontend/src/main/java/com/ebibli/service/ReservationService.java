@@ -32,24 +32,31 @@ public class ReservationService {
     public List<ReservationDto> displayReservationsByUtilisateur(Integer idUtilisateur) {
         List<ReservationDto> reservations = reservationClient.getReservationsByUtilisateur(idUtilisateur);
         for (ReservationDto reservation : reservations) {
-            List<ReservationDto> reservationsOuvrage = reservationClient.getReservationsByOuvrage(reservation.getOuvrage().getId());
-            for (int position = 0; position < reservationsOuvrage.size(); position++) {
-                if (idUtilisateur.equals(reservationsOuvrage.get(position).getEmprunteur().getId())) {
-                    reservation.setPosition(position + 1);
-                }
-            }
-
-            List<LivreDto> livresOuvrage = livreService.getAllLivresByOuvrage(reservation.getOuvrage().getId());
-            Date nextRetour = Date.valueOf(LocalDate.now().plusWeeks(4));
-            for (LivreDto livre : livresOuvrage) {
-                livreService.setEmpruntEncours(livre);
-                if ( livre.getEmpruntEnCours() != null && livre.getEmpruntEnCours().getDateRetourPrevu().before(nextRetour)) {
-                    nextRetour = livre.getEmpruntEnCours().getDateRetourPrevu();
-                }
-            }
-            reservation.getOuvrage().setNextRetourPrevu(nextRetour);
+            computeReservationInfoForUser(reservation, idUtilisateur);
         }
         return reservations;
+    }
+
+    private void computeReservationInfoForUser(ReservationDto reservation, Integer idUtilisateur) {
+        List<ReservationDto> reservationsOuvrage = reservationClient.getReservationsByOuvrage(reservation.getOuvrage().getId());
+        for (int position = 0; position < reservationsOuvrage.size(); position++) {
+            if (idUtilisateur.equals(reservationsOuvrage.get(position).getEmprunteur().getId())) {
+                reservation.setPosition(position + 1);
+            }
+        }
+
+        List<LivreDto> livresOuvrage = livreService.getAllLivresByOuvrage(reservation.getOuvrage().getId());
+        Date nextRetour = Date.valueOf(LocalDate.now().plusWeeks(4));
+        for (LivreDto livre : livresOuvrage) {
+            livreService.setEmpruntEncours(livre);
+            if ( livre.getEmpruntEnCours() != null && livre.getEmpruntEnCours().getDateRetourPrevu().before(nextRetour)) {
+                nextRetour = livre.getEmpruntEnCours().getDateRetourPrevu();
+            }
+            if (livre.getEmpruntEnCours() == null && livre.getNextEmprunteur().getId().equals(idUtilisateur)) {
+                reservation.setLivre(livre);
+            }
+        }
+        reservation.getOuvrage().setNextRetourPrevu(nextRetour);
     }
 
     public void cancelReservation(Integer reservationId) {

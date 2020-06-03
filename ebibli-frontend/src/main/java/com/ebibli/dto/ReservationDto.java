@@ -23,4 +23,5 @@ public class ReservationDto {
     private Date dateAlerte;
     private Date dateRetraitMax;
     private Integer position;
+    private LivreDto livre;
 }
