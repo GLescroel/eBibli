@@ -17,6 +17,7 @@ public class ReservationDtoTest {
         reservationDto.setAlerte(true);
         reservationDto.setDateAlerte(Date.valueOf(LocalDate.now()));
         reservationDto.setDateRetraitMax(Date.valueOf(LocalDate.now().plusDays(2)));
+        reservationDto.setDateReservation(Date.valueOf(LocalDate.now().minusDays(10)));
 
         Assert.assertEquals(java.util.Optional.of(999).get(), reservationDto.getId());
         Assert.assertEquals("utilisateur@oc.com", reservationDto.getEmprunteur().getEmail());
@@ -24,6 +25,7 @@ public class ReservationDtoTest {
         Assert.assertEquals(true, reservationDto.getAlerte());
         Assert.assertEquals(Date.valueOf(LocalDate.now()), reservationDto.getDateAlerte());
         Assert.assertEquals(Date.valueOf(LocalDate.now().plusDays(2)), reservationDto.getDateRetraitMax());
+        Assert.assertEquals(Date.valueOf(LocalDate.now().minusDays(10)), reservationDto.getDateReservation());
     }
 
     @Test
@@ -36,6 +38,7 @@ public class ReservationDtoTest {
                 .alerte(true)
                 .dateAlerte(Date.valueOf(LocalDate.now()))
                 .dateRetraitMax(Date.valueOf(LocalDate.now().plusDays(2)))
+                .dateReservation(Date.valueOf(LocalDate.now().minusDays(10)))
                 .build();
 
         Assert.assertEquals(java.util.Optional.of(999).get(), reservationDto.getId());
@@ -44,6 +47,7 @@ public class ReservationDtoTest {
         Assert.assertEquals(true, reservationDto.getAlerte());
         Assert.assertEquals(Date.valueOf(LocalDate.now()), reservationDto.getDateAlerte());
         Assert.assertEquals(Date.valueOf(LocalDate.now().plusDays(2)), reservationDto.getDateRetraitMax());
+        Assert.assertEquals(Date.valueOf(LocalDate.now().minusDays(10)), reservationDto.getDateReservation());
     }
 
 }
