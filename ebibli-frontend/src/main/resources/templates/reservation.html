@@ -92,8 +92,8 @@
                             <td>
                         <div th:if="${reservation.getAlerte()} == true">
                             <span th:style="'color:green'" th:text="${reservation.getDateRetraitMax()}">texte</span></div>
+                            </td>
                         </div>
-                    </td>
                         <div class="col-1">
                             <td>
                                 <form id="annulerReservation" method="post"
@@ -116,6 +116,6 @@
     <script crossorigin="anonymous"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
+</div>
 </body>
 </html>
