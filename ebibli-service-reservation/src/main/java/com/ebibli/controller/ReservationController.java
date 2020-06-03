@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @RestController
@@ -45,14 +46,14 @@ public class ReservationController {
     }
 
     @PostMapping(value = "/reservation/suppression/{reservationId}")
-    public ResponseEntity<Void> cancelReservation(@PathVariable ("reservationId") Integer reservationId) {
+    public ResponseEntity<Void> cancelReservation(@PathVariable ("reservationId") Integer reservationId) throws MessagingException {
         LOGGER.info("Dans ReservationController - cancelReservation");
         reservationService.cancelReservation(reservationId);
         return new ResponseEntity<>((HttpStatus.OK));
     }
 
     @PostMapping(value = "/reservation/annulation/{ouvrageId}/{utilisateurId}")
-    public ResponseEntity<Void> cancelReservation(@PathVariable ("ouvrageId") Integer ouvrageId, @PathVariable ("utilisateurId") Integer emprunteurId) {
+    public ResponseEntity<Void> cancelReservation(@PathVariable ("ouvrageId") Integer ouvrageId, @PathVariable ("utilisateurId") Integer emprunteurId) throws MessagingException {
         LOGGER.info("Dans ReservationController - cancelReservation");
         reservationService.cancelReservation(ouvrageId, emprunteurId);
         return new ResponseEntity<>((HttpStatus.OK));
@@ -71,7 +72,7 @@ public class ReservationController {
     }
 
     @PostMapping(value = "/reservation/notification")
-    public ResponseEntity<Void> checkNextReservation(@RequestBody LivreDto livre) {
+    public ResponseEntity<Void> checkNextReservation(@RequestBody LivreDto livre) throws MessagingException {
         LOGGER.info("Dans ReservationController - checkNextReservation");
         reservationService.checkNextReservation(livre);
         return new ResponseEntity<>((HttpStatus.OK));

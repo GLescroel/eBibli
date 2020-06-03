@@ -15,9 +15,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Properties;
 
 @Service
 public class ReservationService {
@@ -83,7 +93,7 @@ public class ReservationService {
         return true;
     }
 
-    public void cancelReservation(Integer reservationId) {
+    public void cancelReservation(Integer reservationId) throws MessagingException {
         ReservationDto reservation = RESERVATION_MAPPER.map(reservationRepository.getOne(reservationId));
         if (reservation.getAlerte()) {
             for (LivreDto livre : livreClient.getLivresByOuvrage(reservation.getOuvrage().getId())) {
@@ -95,7 +105,7 @@ public class ReservationService {
         reservationRepository.deleteById(reservationId);
     }
 
-    public void checkNextReservation(LivreDto livre) {
+    public void checkNextReservation(LivreDto livre) throws MessagingException {
         List<ReservationDto> reservations = getAllReservationsByOuvrage(livre.getOuvrage().getId());
         for (ReservationDto reservation : reservations) {
             if (!reservation.getAlerte()) {
@@ -111,11 +121,36 @@ public class ReservationService {
         livreClient.setLivreReserve(livre.getId(), 0);
     }
 
-    private void sendAlert(UtilisateurDto emprunteur) {
+    private void sendAlert(UtilisateurDto emprunteur) throws MessagingException {
         LOGGER.info(">>>>>>>>>>> ENVOI EMAIL {} <<<<<<<<<<<<<<<<<<<", emprunteur.getEmail());
+
+        Properties prop = new Properties();
+        prop.put("mail.transport.protocol", "smtp");
+        prop.put("mail.smtp.auth", false);
+        prop.put("mail.smtp.starttls.enable", "false");
+        prop.put("mail.smtp.host", "localhost");
+        prop.put("mail.smtp.port", "25");
+
+        Session session = Session.getDefaultInstance(prop, null);
+
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress("eBibli@oc.com"));
+        message.setRecipients(
+                Message.RecipientType.TO, InternetAddress.parse(emprunteur.getEmail()));
+        message.setSubject("eBibli : votre réservation");
+
+        String msg = "Votre livre est disponible";
+        MimeBodyPart mimeBodyPart = new MimeBodyPart();
+        mimeBodyPart.setContent(msg, "text/html");
+
+        Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart(mimeBodyPart);
+
+        message.setContent(multipart);
+        Transport.send(message);
     }
 
-    public void cancelReservation(Integer ouvrageId, Integer emprunteurId) {
+    public void cancelReservation(Integer ouvrageId, Integer emprunteurId) throws MessagingException {
         List<ReservationDto> reservations = getAllReservationsByOuvrage(ouvrageId);
         for (ReservationDto reservation : reservations) {
             if (reservation.getEmprunteur().getId().equals(emprunteurId)) {
