@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 
 @Service
@@ -106,7 +105,7 @@ public class EmpruntService {
         if (emprunt.getDateRetourPrevu().before(Date.valueOf(LocalDate.now()))) {
             return emprunt;
         }
-        emprunt.setDateRetourPrevu(Date.valueOf(emprunt.getDateRetourPrevu().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusWeeks(4)));
+        emprunt.setDateRetourPrevu(Date.valueOf(emprunt.getDateRetourPrevu().toLocalDate().plusWeeks(4)));
         emprunt.setProlonge(true);
         if (emprunt.getDateRetourPrevu().after(Date.valueOf(LocalDate.now()))) {
             emprunt.setEnRetard(false);
