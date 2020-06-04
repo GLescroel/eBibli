@@ -9,7 +9,7 @@ import com.ebibli.dto.ReservationDto;
 import com.ebibli.dto.RoleDto;
 import com.ebibli.dto.UtilisateurDto;
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.mapstruct.factory.Mappers;
 
 import java.sql.Date;

@@ -1,7 +1,7 @@
 package com.ebibli.domain;
 
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.sql.Date;
 import java.time.LocalDate;

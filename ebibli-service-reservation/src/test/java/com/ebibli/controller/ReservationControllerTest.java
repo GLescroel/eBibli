@@ -3,7 +3,7 @@ package com.ebibli.controller;
 import com.ebibli.dto.ReservationDto;
 import com.ebibli.service.ReservationService;
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
