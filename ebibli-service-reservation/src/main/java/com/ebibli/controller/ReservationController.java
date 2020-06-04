@@ -77,4 +77,11 @@ public class ReservationController {
         reservationService.checkNextReservation(livre);
         return new ResponseEntity<>((HttpStatus.OK));
     }
+
+    @GetMapping(value = "/reservationsASupprimer")
+    public ResponseEntity<List<ReservationDto>> getAllReservationsToCancel() {
+        LOGGER.info("Dans ReservationController - getAllReservationsToCancel");
+        return new ResponseEntity<>(reservationService.getAllReservationsToCancel(), HttpStatus.OK);
+    }
+
 }

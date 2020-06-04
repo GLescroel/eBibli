@@ -1,6 +1,6 @@
 package com.ebibli.batch.listener;
 
-import com.ebibli.batch.writer.ReminderJobExecutionWriter;
+import com.ebibli.batch.writer.ReservationJobExecutionWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.ExitStatus;
@@ -9,12 +9,12 @@ import org.springframework.batch.core.StepExecutionListener;
 
 import static java.util.Collections.singletonList;
 
-public class ReminderJobExecutionListener implements StepExecutionListener {
+public class ReservationJobExecutionListener implements StepExecutionListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ReminderJobExecutionListener.class);
-    private final ReminderJobExecutionWriter itemWriter;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReservationJobExecutionListener.class);
+    private final ReservationJobExecutionWriter itemWriter;
 
-    public ReminderJobExecutionListener(ReminderJobExecutionWriter itemWriter) {
+    public ReservationJobExecutionListener(ReservationJobExecutionWriter itemWriter) {
         this.itemWriter = itemWriter;
     }
 

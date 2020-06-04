@@ -73,3 +73,4 @@ INSERT INTO reservation(id, ouvrage_id, emprunteur_id, date_reservation, alerte,
 INSERT INTO reservation(id, ouvrage_id, emprunteur_id, date_reservation, alerte, date_alerte, date_retrait_max) VALUES (5, 7, 4, '2020-05-20', false, null, null);
 INSERT INTO reservation(id, ouvrage_id, emprunteur_id, date_reservation, alerte, date_alerte, date_retrait_max) VALUES (6, 7, 2, '2020-05-17', false, null, null);
 INSERT INTO reservation(id, ouvrage_id, emprunteur_id, date_reservation, alerte, date_alerte, date_retrait_max) VALUES (7, 8, 4, '2020-05-20', true, '2020-06-01', '2020-06-03');
+INSERT INTO reservation(id, ouvrage_id, emprunteur_id, date_reservation, alerte, date_alerte, date_retrait_max) VALUES (8, 8, 1, '2020-05-25', false, null, null);

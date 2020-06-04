@@ -158,4 +158,8 @@ public class ReservationService {
             }
         }
     }
+
+    public List<ReservationDto> getAllReservationsToCancel() {
+        return RESERVATION_MAPPER.reservationsToDtos(reservationRepository.findAllByDateRetraitMaxBeforeOrderById(Date.valueOf(LocalDate.now())));
+    }
 }

@@ -11,16 +11,16 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class ReminderJobExecutionWriter extends FlatFileItemWriter<StepExecution> {
+public class ReservationJobExecutionWriter extends FlatFileItemWriter<StepExecution> {
 
     private BiblioJobProperties biblioJobProperties;
 
-    public ReminderJobExecutionWriter(BiblioJobProperties biblioJobProperties) {
+    public ReservationJobExecutionWriter(BiblioJobProperties biblioJobProperties) {
         this.biblioJobProperties = biblioJobProperties;
     }
 
-    public ReminderJobExecutionWriter initialize() {
-        final ReminderJobExecutionWriter writer = new ReminderJobExecutionWriter(this.biblioJobProperties);
+    public ReservationJobExecutionWriter initialize() {
+        final ReservationJobExecutionWriter writer = new ReservationJobExecutionWriter(this.biblioJobProperties);
         writer.setLineAggregator(item -> new StringBuilder()
                 .append("Statut: ")
                 .append(item.getStatus()).append(System.lineSeparator())
@@ -28,13 +28,13 @@ public class ReminderJobExecutionWriter extends FlatFileItemWriter<StepExecution
                 .append(item.getStartTime()).append(System.lineSeparator())
                 .append("Date de fin: ")
                 .append(item.getEndTime()).append(System.lineSeparator())
-                .append("Nombre d'emprunts en retard lus: ")
+                .append("Nombre de réservation dépassées lues : ")
                 .append(item.getReadCount()).append(System.lineSeparator())
-                .append("Nombre d'emprunts filtrés (même emprunteur) : ")
+                .append("Nombre de réservations filtrés : ")
                 .append(item.getFilterCount()).append(System.lineSeparator())
-                .append("Nombre d'emprunts rejetés: ")
+                .append("Nombre de réservations rejetés: ")
                 .append(item.getProcessSkipCount()).append(System.lineSeparator())
-                .append("Nombre d'utilisateurs relancés: ")
+                .append("Nombre de réservations annulées et d'email envoyés : ")
                 .append(item.getWriteCount()).append(System.lineSeparator())
                 .append("Erreurs: ")
                 .append(item.getFailureExceptions()).append(System.lineSeparator())
@@ -45,9 +45,9 @@ public class ReminderJobExecutionWriter extends FlatFileItemWriter<StepExecution
 
     public void writeHeader() {
         Path path = Paths.get(biblioJobProperties.getReportPath(),
-                String.format("reminder-job-execution-%s.txt", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))));
+                String.format("reservation-job-execution-%s.txt", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))));
         this.setResource(new FileSystemResource(path.toString()));
-        this.setHeaderCallback(headerWriter -> headerWriter.append("--- Rapport d'execution du Batch de relance ---"));
+        this.setHeaderCallback(headerWriter -> headerWriter.append("--- Rapport d'execution du Batch des réservations ---"));
         ExecutionContext executionContext = new ExecutionContext();
         this.open(executionContext);
     }
