@@ -18,11 +18,8 @@ public class EmpruntDto {
     private Integer id;
     private LivreDto livre;
     private UtilisateurDto emprunteur;
-    private Date dateEmprunt;
     private Date dateRetourPrevu;
     private Date dateRetour;
-    private Boolean prolonge;
-    private Boolean encours;
     private Boolean enRetard;
 
 }

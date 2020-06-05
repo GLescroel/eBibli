@@ -16,5 +16,4 @@ public class LivreDto {
     private Integer id;
     private OuvrageDto ouvrage;
     private BibliothequeDto bibliotheque;
-    private Boolean disponible;
 }

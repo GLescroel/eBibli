@@ -52,10 +52,6 @@ public class BiblioJobConfiguration extends DefaultBatchConfigurer {
     private JobLauncher jobLauncher;
     @Autowired
     private Job job;
-    @Autowired
-    private EmpruntService empruntService;
-    @Autowired
-    private ReservationService reservationService;
 
     @Bean
     public Session getSession() {
@@ -64,13 +60,13 @@ public class BiblioJobConfiguration extends DefaultBatchConfigurer {
 
     @Bean
     @JobScope
-    public ListItemReader<EmpruntDto> reminderItemReader() {
+    public ListItemReader<EmpruntDto> reminderItemReader(EmpruntService empruntService) {
         return new ReminderJobReader(empruntService.getAllLivresEnRetard());
     }
 
     @Bean
     @JobScope
-    public ListItemReader<ReservationDto> reservationItemReader() {
+    public ListItemReader<ReservationDto> reservationItemReader(ReservationService reservationService) {
         return new ReservationJobReader(reservationService.getAllReservationToCancel());
     }
 
@@ -116,10 +112,11 @@ public class BiblioJobConfiguration extends DefaultBatchConfigurer {
     public Step firstStep(
             StepBuilderFactory stepBuilderFactory,
             ReminderJobWriter itemWriter,
+            ListItemReader<EmpruntDto> reminderItemReader,
             ItemProcessor<EmpruntDto, MimeMessage> reminderItemProcessor) {
         return stepBuilderFactory.get("step1")
                 .<EmpruntDto, MimeMessage>chunk(biblioJobProperties.getChunkSize())
-                .reader(reminderItemReader())
+                .reader(reminderItemReader)
                 .processor(reminderItemProcessor)
                 .writer(itemWriter)
                 .allowStartIfComplete(true)
@@ -137,10 +134,11 @@ public class BiblioJobConfiguration extends DefaultBatchConfigurer {
     public Step secondStep(
             StepBuilderFactory stepBuilderFactory,
             ReservationJobWriter reservationItemWriter,
+            ListItemReader<ReservationDto> reservationItemReader,
             ItemProcessor<ReservationDto, MimeMessage> reservationItemProcessor) {
         return stepBuilderFactory.get("step2")
                 .<ReservationDto, MimeMessage>chunk(biblioJobProperties.getChunkSize())
-                .reader(reservationItemReader())
+                .reader(reservationItemReader)
                 .processor(reservationItemProcessor)
                 .writer(reservationItemWriter)
                 .allowStartIfComplete(true)
