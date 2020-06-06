@@ -1,5 +1,6 @@
 package com.ebibli.service;
 
+import com.ebibli.configuration.EmailConfiguration;
 import com.ebibli.domain.EmpruntClient;
 import com.ebibli.domain.LivreClient;
 import com.ebibli.dto.EmpruntDto;
@@ -39,6 +40,8 @@ public class ReservationService {
     private LivreClient livreClient;
     @Autowired
     private EmpruntClient empruntClient;
+    @Autowired
+    private EmailConfiguration emailConfiguration;
 
     @Autowired
     private ReservationRepository reservationRepository;
@@ -125,11 +128,11 @@ public class ReservationService {
         LOGGER.info(">>>>>>>>>>> ENVOI EMAIL {} <<<<<<<<<<<<<<<<<<<", emprunteur.getEmail());
 
         Properties prop = new Properties();
-        prop.put("mail.transport.protocol", "smtp");
-        prop.put("mail.smtp.auth", false);
-        prop.put("mail.smtp.starttls.enable", "false");
-        prop.put("mail.smtp.host", "localhost");
-        prop.put("mail.smtp.port", "25");
+        prop.put("mail.transport.protocol", emailConfiguration.getProtocol());
+        prop.put("mail.smtp.auth", emailConfiguration.getAuth());
+        prop.put("mail.smtp.starttls.enable", emailConfiguration.getStarttls());
+        prop.put("mail.smtp.host", emailConfiguration.getHost());
+        prop.put("mail.smtp.port", emailConfiguration.getPort());
 
         Session session = Session.getDefaultInstance(prop, null);
 
