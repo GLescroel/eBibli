@@ -20,11 +20,10 @@ public class EmpruntService {
     private static final EmpruntMapper EMPRUNT_MAPPER = Mappers.getMapper(EmpruntMapper.class);
     private final UtilisateurClient utilisateurClient;
     private final LivreClient livreClient;
+    private final EmpruntRepository empruntRepository;
 
-    @Autowired
-    private EmpruntRepository empruntRepository;
-
-    public EmpruntService(UtilisateurClient utilisateurClient, LivreClient livreClient) {
+    public EmpruntService(EmpruntRepository empruntRepository, UtilisateurClient utilisateurClient, LivreClient livreClient) {
+        this.empruntRepository = empruntRepository;
         this.utilisateurClient = utilisateurClient;
         this.livreClient = livreClient;
     }
