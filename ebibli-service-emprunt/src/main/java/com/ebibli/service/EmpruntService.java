@@ -6,7 +6,6 @@ import com.ebibli.dto.EmpruntDto;
 import com.ebibli.mapper.EmpruntMapper;
 import com.ebibli.repository.EmpruntRepository;
 import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -74,7 +73,7 @@ public class EmpruntService {
         if(emprunt == null) {
             return null;
         }
-        if (emprunt.getProlonge() || emprunt.getEnRetard() || !emprunt.getEncours()) {
+        if (emprunt.getProlonge() == true || emprunt.getEnRetard() == true || emprunt.getEncours() == false) {
             return emprunt;
         }
         if (emprunt.getDateRetourPrevu().before(Date.valueOf(LocalDate.now()))) {

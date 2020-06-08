@@ -26,6 +26,24 @@ public class EmpruntServiceTest {
     EmpruntService empruntService = new EmpruntService(empruntRepository, utilisateurClient, livreClient);
 
     @Test
+    public void testShouldNotUpgradePretDejaProlonge() {
+        Emprunt emprunt = new Emprunt().builder()
+                .id(1)
+                .livre(new Livre().builder().id(1).build())
+                .dateRetourPrevu(Date.valueOf(LocalDate.now().plusWeeks(1)))
+                .emprunteur(new Utilisateur().builder().id(1).build())
+                .prolonge(true)
+                .enRetard(true)
+                .encours(true)
+                .build();
+        Mockito.when(empruntRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(emprunt));
+
+        EmpruntDto empruntUpgrade = empruntService.upgradePret(1);
+
+        Assert.assertEquals(Date.valueOf(LocalDate.now().plusWeeks(1)), empruntUpgrade.getDateRetourPrevu());
+    }
+
+    @Test
     public void testShouldNotUpgradePretEnRetard() {
         Emprunt emprunt = new Emprunt().builder()
                 .id(1)
@@ -59,6 +77,24 @@ public class EmpruntServiceTest {
         EmpruntDto empruntUpgrade = empruntService.upgradePret(1);
 
         Assert.assertEquals(Date.valueOf(LocalDate.now().minusDays(1)), empruntUpgrade.getDateRetourPrevu());
+    }
+
+    @Test
+    public void testShouldNotUpgradePretTermine() {
+        Emprunt emprunt = new Emprunt().builder()
+                .id(1)
+                .livre(new Livre().builder().id(1).build())
+                .dateRetourPrevu(Date.valueOf(LocalDate.now().plusWeeks(1)))
+                .emprunteur(new Utilisateur().builder().id(1).build())
+                .prolonge(false)
+                .enRetard(true)
+                .encours(false)
+                .build();
+        Mockito.when(empruntRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(emprunt));
+
+        EmpruntDto empruntUpgrade = empruntService.upgradePret(1);
+
+        Assert.assertEquals(Date.valueOf(LocalDate.now().plusWeeks(1)), empruntUpgrade.getDateRetourPrevu());
     }
 
 }
