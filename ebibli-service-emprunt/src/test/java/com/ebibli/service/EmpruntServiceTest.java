@@ -3,6 +3,7 @@ package com.ebibli.service;
 import com.ebibli.domain.Emprunt;
 import com.ebibli.domain.Livre;
 import com.ebibli.domain.LivreClient;
+import com.ebibli.domain.ReservationClient;
 import com.ebibli.domain.Utilisateur;
 import com.ebibli.domain.UtilisateurClient;
 import com.ebibli.dto.EmpruntDto;
@@ -22,8 +23,9 @@ public class EmpruntServiceTest {
     private UtilisateurClient utilisateurClient = Mockito.mock(UtilisateurClient.class);
     private LivreClient livreClient = Mockito.mock(LivreClient.class);
     private EmpruntRepository empruntRepository = Mockito.mock(EmpruntRepository.class);
+    private ReservationClient reservationClient = Mockito.mock(ReservationClient.class);
     @InjectMocks
-    EmpruntService empruntService = new EmpruntService(empruntRepository, utilisateurClient, livreClient);
+    EmpruntService empruntService = new EmpruntService(empruntRepository, utilisateurClient, livreClient, reservationClient);
 
     @Test
     public void testShouldNotUpgradePretDejaProlonge() {

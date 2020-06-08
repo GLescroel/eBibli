@@ -25,7 +25,7 @@ public class EmpruntService {
     private final EmpruntRepository empruntRepository;
     private final ReservationClient reservationClient;
 
-    public EmpruntService(EmpruntRepository empruntRepository, UtilisateurClient utilisateurClient, LivreClient livreClient) {
+    public EmpruntService(EmpruntRepository empruntRepository, UtilisateurClient utilisateurClient, LivreClient livreClient, ReservationClient reservationClient) {
         this.empruntRepository = empruntRepository;
         this.utilisateurClient = utilisateurClient;
         this.livreClient = livreClient;
