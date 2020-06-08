@@ -75,7 +75,10 @@ public class EmpruntService {
         if(emprunt == null) {
             return null;
         }
-        if (emprunt.getProlonge() || !emprunt.getEncours()) {
+        if (emprunt.getProlonge() || emprunt.getEnRetard() || !emprunt.getEncours()) {
+            return emprunt;
+        }
+        if (emprunt.getDateRetourPrevu().before(Date.valueOf(LocalDate.now()))) {
             return emprunt;
         }
         emprunt.setDateRetourPrevu(Date.valueOf(emprunt.getDateRetourPrevu().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusWeeks(4)));
