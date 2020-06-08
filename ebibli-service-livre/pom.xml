@@ -11,6 +11,7 @@
     <packaging>war</packaging>
 
     <artifactId>ebibli-service-livre</artifactId>
+    <version>1.0</version>
 
     <!-- =============================================================== -->
     <!-- Distrubution management -->
