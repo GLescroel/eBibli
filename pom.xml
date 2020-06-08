@@ -13,7 +13,7 @@
 
     <groupId>com.ebibli</groupId>
     <artifactId>ebibli</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -168,14 +168,6 @@
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>3.0.0</version>
                 </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>3.7.1</version>
-                    <configuration>
-                        <locales>fr</locales>
-                    </configuration>
-                </plugin>
                 <!-- ===== Test / Reporting ===== -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -197,7 +189,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.6</version>
+                    <version>3.7.1</version>
                     <inherited>true</inherited>
                     <configuration>
                         <locales>fr</locales>

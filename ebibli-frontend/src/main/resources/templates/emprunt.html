@@ -74,7 +74,7 @@
                         <div th:if="${emprunt.getEnRetard()} == true">
                             <td><span th:style="'color:red'" th:text="${emprunt.getDateRetourPrevu()}">Date de retour </span></td>
                         </div>
-                        <div th:if="${emprunt.getProlonge()} != true">
+                        <div th:if="${emprunt.getProlonge() != true && emprunt.getEnRetard() != true}">
                             <form id="prolongerPret" method="post"
                                   th:action="@{/prolongation/{livreId}(livreId=${emprunt.getId()})}">
                                 <td>

@@ -6,7 +6,6 @@ import com.ebibli.dto.EmpruntDto;
 import com.ebibli.mapper.EmpruntMapper;
 import com.ebibli.repository.EmpruntRepository;
 import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -20,11 +19,10 @@ public class EmpruntService {
     private static final EmpruntMapper EMPRUNT_MAPPER = Mappers.getMapper(EmpruntMapper.class);
     private final UtilisateurClient utilisateurClient;
     private final LivreClient livreClient;
+    private final EmpruntRepository empruntRepository;
 
-    @Autowired
-    private EmpruntRepository empruntRepository;
-
-    public EmpruntService(UtilisateurClient utilisateurClient, LivreClient livreClient) {
+    public EmpruntService(EmpruntRepository empruntRepository, UtilisateurClient utilisateurClient, LivreClient livreClient) {
+        this.empruntRepository = empruntRepository;
         this.utilisateurClient = utilisateurClient;
         this.livreClient = livreClient;
     }
@@ -75,7 +73,10 @@ public class EmpruntService {
         if(emprunt == null) {
             return null;
         }
-        if (emprunt.getProlonge() || !emprunt.getEncours()) {
+        if (emprunt.getProlonge() == true || emprunt.getEnRetard() == true || emprunt.getEncours() == false) {
+            return emprunt;
+        }
+        if (emprunt.getDateRetourPrevu().before(Date.valueOf(LocalDate.now()))) {
             return emprunt;
         }
         emprunt.setDateRetourPrevu(Date.valueOf(emprunt.getDateRetourPrevu().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusWeeks(4)));
