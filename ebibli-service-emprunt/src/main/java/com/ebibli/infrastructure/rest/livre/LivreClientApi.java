@@ -21,4 +21,7 @@ public interface LivreClientApi {
 
     @PostMapping(value = "/livre/{livreId}/retour")
     LivreDto setDisponible(@PathVariable ("livreId") Integer livreId);
+
+    @PostMapping(value = "/livre/{livreId}/cancelReservation")
+    LivreDto removeReservation(@PathVariable ("livreId") Integer livreId);
 }

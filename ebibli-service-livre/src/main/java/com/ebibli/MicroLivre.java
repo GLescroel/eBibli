@@ -12,6 +12,6 @@ public class MicroLivre {
 
     public static void main(String[] args) {
         SpringApplication.run(MicroLivre.class, args);
-        LOGGER.info("L'application a démarré...");
+        LOGGER.info("Le service Livre a démarré...");
     }
 }

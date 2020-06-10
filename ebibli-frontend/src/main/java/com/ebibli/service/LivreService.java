@@ -22,13 +22,21 @@ public class LivreService {
         List<LivreDto> livres = livreClient.getAllLivresByBibliotheque(bibliothequeId);
         for (LivreDto livre : livres) {
             if (!livre.getDisponible()) {
-                livre.setEmpruntEnCours(empruntClient.findEmpruntEnCoursByLivre(livre.getId()));
+                setEmpruntEncours(livre);
             }
         }
         return livres;
     }
 
+    public void setEmpruntEncours(LivreDto livre) {
+        livre.setEmpruntEnCours(empruntClient.findEmpruntEnCoursByLivre(livre.getId()));
+    }
+
     public List<LivreDto> getDispoByOuvrage(Integer ouvrageId) {
         return livreClient.getDispoByOuvrage(ouvrageId);
+    }
+
+    public List<LivreDto> getAllLivresByOuvrage(Integer ouvrageId) {
+        return livreClient.getAllLivresByOuvrage(ouvrageId);
     }
 }

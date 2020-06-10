@@ -26,4 +26,9 @@ public class RestUtilisateurClient implements UtilisateurClient {
         return utilisateurClientApi.delete(utilisateur);
 
     }
+
+    @Override
+    public UtilisateurDto getUtilisateurById(Integer utilisateurId) {
+        return utilisateurClientApi.getUtilisateurById(utilisateurId);
+    }
 }

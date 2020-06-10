@@ -1,8 +1,12 @@
 package com.ebibli.service;
 
 import com.ebibli.domain.LivreClient;
+import com.ebibli.domain.ReservationClient;
 import com.ebibli.domain.UtilisateurClient;
 import com.ebibli.dto.EmpruntDto;
+import com.ebibli.dto.LivreDto;
+import com.ebibli.dto.UtilisateurDto;
+import com.ebibli.exception.FunctionalException;
 import com.ebibli.mapper.EmpruntMapper;
 import com.ebibli.repository.EmpruntRepository;
 import org.mapstruct.factory.Mappers;
@@ -10,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 
 @Service
@@ -20,11 +23,13 @@ public class EmpruntService {
     private final UtilisateurClient utilisateurClient;
     private final LivreClient livreClient;
     private final EmpruntRepository empruntRepository;
+    private final ReservationClient reservationClient;
 
-    public EmpruntService(EmpruntRepository empruntRepository, UtilisateurClient utilisateurClient, LivreClient livreClient) {
+    public EmpruntService(EmpruntRepository empruntRepository, UtilisateurClient utilisateurClient, LivreClient livreClient, ReservationClient reservationClient) {
         this.empruntRepository = empruntRepository;
         this.utilisateurClient = utilisateurClient;
         this.livreClient = livreClient;
+        this.reservationClient = reservationClient;
     }
 
 
@@ -38,10 +43,29 @@ public class EmpruntService {
 
     public EmpruntDto newPret(Integer emprunteurId, Integer livreId) {
 
+        UtilisateurDto emprunteur = utilisateurClient.getUtilisateurById(emprunteurId);
+        LivreDto livre = livreClient.getLivreById(livreId);
+
+        if (livre == null) {
+            throw new FunctionalException("Réservation impossible : Ce livre n'est pas référencé");
+        }
+        if (emprunteur == null) {
+            throw new FunctionalException("Réservation impossible : Cet abonné n'est pas référencé");
+        }
+        if (livre.getReserve() && !livre.getNextEmprunteur().getId().equals(emprunteurId)) {
+            throw new FunctionalException("Réservation impossible : Ce livre est réservé par un autre abonné");
+        }
+        if (getEmpruntEnCoursByLivre(livreId) != null) {
+            throw new FunctionalException("Réservation impossible : ce livre est déjà emprunté");
+        }
+
+        livreClient.setIndisponible(livre.getId());
+        livreClient.removeReservation(livre.getId());
+        reservationClient.cancelReservation(livre.getOuvrage().getId(), emprunteurId);
         EmpruntDto emprunt = new EmpruntDto()
                 .builder()
-                .livre(livreClient.setIndisponible(livreId))
-                .emprunteur(utilisateurClient.getUtilisateurById(emprunteurId))
+                .livre(livre)
+                .emprunteur(emprunteur)
                 .dateEmprunt(Date.valueOf(LocalDate.now()))
                 .dateRetourPrevu(Date.valueOf(  LocalDate.now().plusWeeks(4)))
                 .encours(true)
@@ -65,6 +89,8 @@ public class EmpruntService {
 
         emprunt.setLivre(livreClient.setDisponible(livreId));
 
+        reservationClient.notificationRetourLivre(emprunt.getLivre());
+
         return EMPRUNT_MAPPER.map(empruntRepository.save(EMPRUNT_MAPPER.map(emprunt)));
     }
 
@@ -79,7 +105,7 @@ public class EmpruntService {
         if (emprunt.getDateRetourPrevu().before(Date.valueOf(LocalDate.now()))) {
             return emprunt;
         }
-        emprunt.setDateRetourPrevu(Date.valueOf(emprunt.getDateRetourPrevu().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusWeeks(4)));
+        emprunt.setDateRetourPrevu(Date.valueOf(emprunt.getDateRetourPrevu().toLocalDate().plusWeeks(4)));
         emprunt.setProlonge(true);
         if (emprunt.getDateRetourPrevu().after(Date.valueOf(LocalDate.now()))) {
             emprunt.setEnRetard(false);

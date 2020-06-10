@@ -10,4 +10,6 @@ public interface UtilisateurClient {
     UtilisateurDto save(UtilisateurDto utilisateur);
 
     Boolean delete(UtilisateurDto utilisateur);
+
+    UtilisateurDto getUtilisateurById(Integer utilisateurId);
 }

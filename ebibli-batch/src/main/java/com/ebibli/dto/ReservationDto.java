@@ -7,16 +7,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-public class RoleDto {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ReservationDto {
 
     private Integer id;
-    private String role;
-
-    public RoleDto roleAbonne() {
-        return new RoleDto().builder().id(2).role("Abonne").build();
-    }
+    private OuvrageDto ouvrage;
+    private UtilisateurDto emprunteur;
 }

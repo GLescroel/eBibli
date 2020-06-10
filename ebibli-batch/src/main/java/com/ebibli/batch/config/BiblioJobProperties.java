@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties(prefix = "batch.reminder", ignoreUnknownFields = false)
-public class ReminderJobProperties {
+public class BiblioJobProperties {
 
     @Value("${batch.reminder.chunk-size}")
     private int chunkSize;

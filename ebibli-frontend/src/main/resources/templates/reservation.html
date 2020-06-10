@@ -1,0 +1,121 @@
+<!DOCTYPE html >
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+    <!-- Bootstrap CSS -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.20/r-2.2.3/datatables.min.js"></script>
+
+    <title>Mes réservations</title>
+</head>
+<body>
+<header class="page-header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <div sec:authorize="!authenticated">
+                        <a class="btn btn-outline-secondary" th:href="@{/}">Accueil</a>
+                    </div>
+                    <div sec:authorize="authenticated">
+                        <a class="btn btn-outline-secondary" th:href="@{/abonne/{abonneId}(abonneId=${#authentication.principal.getId()})}">Accueil</a>
+                    </div>
+                </li>
+                <div sec:authorize="!isAuthenticated()">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/login}">S'authentifier<span class="sr-only">(current)</span></a>
+                    </li>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/logout}">Log out <span class="sr-only">(current)</span></a>
+                    </li>
+                </div>
+            </ul>
+            <div sec:authorize="isAuthenticated()">
+                <a class="btn btn-outline-secondary"
+                   th:href="@{/Utilisateur/{id}/mesEmprunts(id=${#authentication.principal.getId()})}">Mes
+                    emprunts</a>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                    <span class="navbar-text">
+                        <a class="nav-link" th:href="@{/compte}" th:text="${#authentication.getName()}"><span
+                                class="sr-only">(current)</span></a>
+                    </span>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <h1>Mes réservations</h1>
+    </div>
+</header>
+
+<div class="container">
+    <div th:if="${reservations.isEmpty()}">
+        <h2><span><br>Vous n'avez aucune réservation en cours<br></span></h2>
+    </div>
+    <div th:if="!${reservations.isEmpty()}">
+            <div class="table-responsive">
+                <div class="table-striped">
+                    <div class="row">
+                    <thead>
+                        <tr>
+                        <div class="col-4"><th> Titre</th></div>
+                        <div class="col-2"><th> Date de réservation</th></div>
+                        <div class="col-1"><th> Votre position</th></div>
+                        <div class="col-2"><th> Prochain retour prévu</th></div>
+                        <div class="col-2"><th> Date maximale de retrait</th></div>
+                        <div class="col-1"><th> </th></div>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="reservation : ${reservations}">
+                        <div class="col-4"><td><span th:text="${reservation.getOuvrage().getTitre()}">Titre</span></td></div>
+                        <div class="col-2"><td><span th:text="${reservation.getDateReservation()}" class="float-right">Date de réservation</span></td></div>
+                        <div class="col-1"><td><span th:text="${reservation.getPosition()}" class="float-right">Position</span></td></div>
+                        <div class="col-2"><td>
+                            <div th:if="${reservation.getAlerte()} == false">
+                                <span th:text="${reservation.getOuvrage().getNextRetourPrevu()}" class="float-right">Prochain retour</span>
+                            </div>
+                            <div th:if="${reservation.getAlerte()} == true">
+                                <span th:text="${reservation.getLivre().getBibliotheque().getNom()}" class="float-right">Prochain retour</span>
+                            </div></td></div>
+                        <div class="col-2">
+                            <td>
+                        <div th:if="${reservation.getAlerte()} == true">
+                            <span th:style="'color:green'" th:text="${reservation.getDateRetraitMax()}">texte</span></div>
+                            </td>
+                        </div>
+                        <div class="col-1">
+                            <td>
+                                <form id="annulerReservation" method="post"
+                                      th:action="@{/reservation/{utilisateurId}/annulation/{reservationId}(utilisateurId=${reservation.getEmprunteur().getId()}, reservationId=${reservation.getId()})}">
+                                    <input class="btn btn-outline-danger float-right" type="submit" value="Annuler"/>
+                                </form>
+                            </td>
+                        </div>
+                    </tr>
+                    </tbody>
+                </div>
+                </table>
+            </div>
+        </div>
+</div>
+
+    <script crossorigin="anonymous"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</div>
+</body>
+</html>

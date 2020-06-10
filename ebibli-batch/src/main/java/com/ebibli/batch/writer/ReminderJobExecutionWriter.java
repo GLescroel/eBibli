@@ -1,7 +1,6 @@
 package com.ebibli.batch.writer;
 
-import com.ebibli.batch.config.ReminderJobProperties;
-import org.springframework.batch.core.JobExecution;
+import com.ebibli.batch.config.BiblioJobProperties;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.file.FlatFileItemWriter;
@@ -12,16 +11,16 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class ReminderJobExecutionWriter extends FlatFileItemWriter<JobExecution> {
+public class ReminderJobExecutionWriter extends FlatFileItemWriter<StepExecution> {
 
-    private ReminderJobProperties reminderJobProperties;
+    private BiblioJobProperties biblioJobProperties;
 
-    public ReminderJobExecutionWriter(ReminderJobProperties reminderJobProperties) {
-        this.reminderJobProperties = reminderJobProperties;
+    public ReminderJobExecutionWriter(BiblioJobProperties biblioJobProperties) {
+        this.biblioJobProperties = biblioJobProperties;
     }
 
     public ReminderJobExecutionWriter initialize() {
-        final ReminderJobExecutionWriter writer = new ReminderJobExecutionWriter(this.reminderJobProperties);
+        final ReminderJobExecutionWriter writer = new ReminderJobExecutionWriter(this.biblioJobProperties);
         writer.setLineAggregator(item -> new StringBuilder()
                 .append("Statut: ")
                 .append(item.getStatus()).append(System.lineSeparator())
@@ -30,22 +29,22 @@ public class ReminderJobExecutionWriter extends FlatFileItemWriter<JobExecution>
                 .append("Date de fin: ")
                 .append(item.getEndTime()).append(System.lineSeparator())
                 .append("Nombre d'emprunts en retard lus: ")
-                .append(item.getStepExecutions().stream().findFirst().map(StepExecution::getReadCount).get()).append(System.lineSeparator())
+                .append(item.getReadCount()).append(System.lineSeparator())
                 .append("Nombre d'emprunts filtrés (même emprunteur) : ")
-                .append(item.getStepExecutions().stream().findFirst().map(StepExecution::getFilterCount).get()).append(System.lineSeparator())
+                .append(item.getFilterCount()).append(System.lineSeparator())
                 .append("Nombre d'emprunts rejetés: ")
-                .append(item.getStepExecutions().stream().findFirst().map(StepExecution::getProcessSkipCount).get()).append(System.lineSeparator())
+                .append(item.getProcessSkipCount()).append(System.lineSeparator())
                 .append("Nombre d'utilisateurs relancés: ")
-                .append(item.getStepExecutions().stream().findFirst().map(StepExecution::getWriteCount).get()).append(System.lineSeparator())
+                .append(item.getWriteCount()).append(System.lineSeparator())
                 .append("Erreurs: ")
-                .append(item.getStepExecutions().stream().findFirst().map(StepExecution::getFailureExceptions).get()).append(System.lineSeparator())
+                .append(item.getFailureExceptions()).append(System.lineSeparator())
                 .toString());
         writer.setAppendAllowed(true);
         return writer;
     }
 
     public void writeHeader() {
-        Path path = Paths.get(reminderJobProperties.getReportPath(),
+        Path path = Paths.get(biblioJobProperties.getReportPath(),
                 String.format("reminder-job-execution-%s.txt", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))));
         this.setResource(new FileSystemResource(path.toString()));
         this.setHeaderCallback(headerWriter -> headerWriter.append("--- Rapport d'execution du Batch de relance ---"));

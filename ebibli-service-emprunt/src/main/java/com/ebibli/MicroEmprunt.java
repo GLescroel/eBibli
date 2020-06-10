@@ -12,6 +12,6 @@ public class MicroEmprunt {
 
     public static void main(String[] args) {
         SpringApplication.run(MicroEmprunt.class, args);
-        LOGGER.info("L'application a démarré...");
+        LOGGER.info("Le service Emprunt a démarré...");
     }
 }

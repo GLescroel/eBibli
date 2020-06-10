@@ -27,6 +27,12 @@ public class OuvrageController {
         return new ResponseEntity<>(ouvrageService.getAllTitles(), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/ouvrage/id/{ouvrageId}")
+    public ResponseEntity<OuvrageDto> getOuvrageById(@PathVariable ("ouvrageId") Integer ouvrageId) {
+        LOGGER.info("Dans OuvrageController - getOuvrageById");
+        return new ResponseEntity<>(ouvrageService.getOuvrageById(ouvrageId), HttpStatus.OK);
+    }
+
     @GetMapping(value = "/ouvrages/recherche/{recherche}")
     public ResponseEntity<List<OuvrageDto>> filterTitles(@PathVariable ("recherche") String recherche) {
         LOGGER.info("Dans OuvrageController - filterTitles containing");

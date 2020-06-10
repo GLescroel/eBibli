@@ -5,6 +5,7 @@ import com.ebibli.domain.BibliothequeClient;
 import com.ebibli.domain.EmpruntClient;
 import com.ebibli.domain.LivreClient;
 import com.ebibli.domain.OuvrageClient;
+import com.ebibli.domain.ReservationClient;
 import com.ebibli.domain.UtilisateurClient;
 import com.ebibli.infrastructure.rest.bibliotheque.BibliothequeClientApi;
 import com.ebibli.infrastructure.rest.bibliotheque.RestBibliothequeClient;
@@ -14,6 +15,8 @@ import com.ebibli.infrastructure.rest.livre.LivreClientApi;
 import com.ebibli.infrastructure.rest.livre.RestLivreClient;
 import com.ebibli.infrastructure.rest.ouvrage.OuvrageClientApi;
 import com.ebibli.infrastructure.rest.ouvrage.RestOuvrageClient;
+import com.ebibli.infrastructure.rest.reservation.ReservationClientApi;
+import com.ebibli.infrastructure.rest.reservation.RestReservationClient;
 import com.ebibli.infrastructure.rest.utilisateur.RestUtilisateurClient;
 import com.ebibli.infrastructure.rest.utilisateur.UtilisateurClientApi;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -51,7 +54,12 @@ public class RestConfig {
     }
 
     @Bean
-    public CustomErrorDecoder  customErrorDecoder() {
+    public ReservationClient restReservation(ReservationClientApi reservationClientApi) {
+        return new RestReservationClient(reservationClientApi);
+    }
+
+    @Bean
+    public CustomErrorDecoder customErrorDecoder() {
         return new CustomErrorDecoder();
     }
 

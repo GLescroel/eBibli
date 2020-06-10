@@ -23,4 +23,9 @@ public class RestLivreClient implements LivreClient {
         return livreClientApi.getDispoByOuvrage(ouvrageId);
     }
 
+    @Override
+    public List<LivreDto> getAllLivresByOuvrage(Integer ouvrageId) {
+        return livreClientApi.getAllLivresByOuvrage(ouvrageId);
+    }
+
 }

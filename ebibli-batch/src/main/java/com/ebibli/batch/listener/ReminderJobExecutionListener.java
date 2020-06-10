@@ -3,13 +3,13 @@ package com.ebibli.batch.listener;
 import com.ebibli.batch.writer.ReminderJobExecutionWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobExecutionListener;
+import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;
+import org.springframework.batch.core.StepExecutionListener;
 
 import static java.util.Collections.singletonList;
 
-public class ReminderJobExecutionListener implements JobExecutionListener {
+public class ReminderJobExecutionListener implements StepExecutionListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReminderJobExecutionListener.class);
     private final ReminderJobExecutionWriter itemWriter;
@@ -18,25 +18,26 @@ public class ReminderJobExecutionListener implements JobExecutionListener {
         this.itemWriter = itemWriter;
     }
 
+    private static String getStepExecutionSummary(StepExecution stepExecution) {
+        return stepExecution.getSummary();
+    }
+
     @Override
-    public void beforeJob(JobExecution jobExecution) {
-        LOGGER.debug("ReminderJobExecutionListener - beforeJob {}", getStepExecutionSummary(jobExecution));
+    public void beforeStep(StepExecution stepExecution) {
+        LOGGER.debug("ReservationJobExecutionListener - beforeJob {}", getStepExecutionSummary(stepExecution));
         itemWriter.writeHeader();
     }
 
     @Override
-    public void afterJob(JobExecution jobExecution) {
-        LOGGER.debug("ReminderJobExecutionListener - afterJob {}", getStepExecutionSummary(jobExecution));
+    public ExitStatus afterStep(StepExecution stepExecution) {
+        LOGGER.debug("ReservationJobExecutionListener - afterJob {}", getStepExecutionSummary(stepExecution));
         try {
-            itemWriter.write(singletonList(jobExecution));
+            itemWriter.write(singletonList(stepExecution));
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         } finally {
             itemWriter.close();
         }
-    }
-
-    private static String getStepExecutionSummary(JobExecution jobExecution) {
-        return jobExecution.getStepExecutions().stream().findFirst().map(StepExecution::getSummary).orElse(null);
+        return stepExecution.getExitStatus();
     }
 }

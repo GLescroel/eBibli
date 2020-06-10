@@ -40,6 +40,12 @@ public class LivreController {
         return new ResponseEntity<>(livreService.getAllLivresDispoByOuvrage(ouvrageId), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/livres/ouvrage/{ouvrageId}")
+    public ResponseEntity<List<LivreDto>> getAllLivresByOuvrage(@PathVariable ("ouvrageId") Integer ouvrageId) {
+        LOGGER.info("Dans LivreController - getAllLivresByOuvrage");
+        return new ResponseEntity<>(livreService.getAllLivresByOuvrage(ouvrageId), HttpStatus.OK);
+    }
+
     @GetMapping(value = "/livre/{id}")
     public ResponseEntity<LivreDto> getLivre(@PathVariable ("id") Integer id) {
         LOGGER.info("Dans LivreController - getLivre");
@@ -68,4 +74,17 @@ public class LivreController {
         LOGGER.info("Dans LivreController - setRetour");
         return new ResponseEntity<>(livreService.setRetour(livreId), HttpStatus.OK);
     }
+
+    @PostMapping(value = "/livre/{livreId}/reserve/{abonneId}")
+    public ResponseEntity<LivreDto> setReserve(@PathVariable("livreId") Integer livreId, @PathVariable ("abonneId") Integer abonneId) {
+        LOGGER.info("Dans LivreController - setReserve");
+        return new ResponseEntity<>(livreService.setReserve(livreId, abonneId), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/livre/{livreId}/cancelReservation")
+    public ResponseEntity<LivreDto> cancelReservation(@PathVariable("livreId") Integer livreId) {
+        LOGGER.info("Dans LivreController - cancelReservation");
+        return new ResponseEntity<>(livreService.cancelReservation(livreId), HttpStatus.OK);
+    }
+
 }
