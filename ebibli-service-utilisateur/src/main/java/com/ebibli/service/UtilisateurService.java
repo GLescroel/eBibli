@@ -7,7 +7,6 @@ import com.ebibli.dto.UtilisateurDto;
 import com.ebibli.mapper.UtilisateurMapper;
 import com.ebibli.repository.UtilisateurRepository;
 import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +18,11 @@ public class UtilisateurService {
 
     private final EmpruntClient empruntClient;
 
-    @Autowired
     private UtilisateurRepository utilisateurRepository;
 
-    public UtilisateurService(EmpruntClient empruntClient) {
+    public UtilisateurService(UtilisateurRepository utilisateurRepository, EmpruntClient empruntClient) {
         this.empruntClient = empruntClient;
+        this.utilisateurRepository = utilisateurRepository;
     }
 
     public List<Utilisateur> getAllUsers() {
@@ -46,7 +45,7 @@ public class UtilisateurService {
         }
         utilisateurRepository.delete(UTILISATEUR_MAPPER.map(utilisateurDto));
         return true;
-}
+    }
 
     public UtilisateurDto getUtlisateurById(Integer id) {
         return UTILISATEUR_MAPPER.map(utilisateurRepository.findById(id).orElse(null));
