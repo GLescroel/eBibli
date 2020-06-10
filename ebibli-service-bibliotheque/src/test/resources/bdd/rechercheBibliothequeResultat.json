@@ -1,0 +1,28 @@
+{
+  "rechercheBibliothequeResultat1": {
+    "id": 1,
+    "nom": "Bibliotheque jeunesse"
+  },
+  "rechercheBibliothequeResultat2": {
+    "id": 2,
+    "nom": "Bibliotheque adulte"
+  },
+  "rechercheBibliothequeResultat3": {
+    "id": 3,
+    "nom": "Bibliotheque pour tous"
+  },
+  "rechercheBibliothequesResultat": [
+    {
+      "id": 1,
+      "nom": "Bibliotheque jeunesse"
+    },
+    {
+      "id": 2,
+      "nom": "Bibliotheque adulte"
+    },
+    {
+      "id": 3,
+      "nom": "Bibliotheque pour tous"
+    }
+  ]
+}
