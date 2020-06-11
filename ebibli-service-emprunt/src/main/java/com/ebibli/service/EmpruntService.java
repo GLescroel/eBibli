@@ -52,7 +52,7 @@ public class EmpruntService {
         if (emprunteur == null) {
             throw new FunctionalException("Réservation impossible : Cet abonné n'est pas référencé");
         }
-        if (Boolean.TRUE.equals(livre.getReserve()) && livre.getNextEmprunteur().getId().equals(emprunteurId)) {
+        if (Boolean.TRUE.equals(livre.getReserve()) && !livre.getNextEmprunteur().getId().equals(emprunteurId)) {
             throw new FunctionalException("Réservation impossible : Ce livre est réservé par un autre abonné");
         }
         if (getEmpruntEnCoursByLivre(livreId) != null) {
