@@ -32,10 +32,4 @@ public class OuvrageController {
         LOGGER.info("Dans OuvrageController - getOuvrageById");
         return new ResponseEntity<>(ouvrageService.getOuvrageById(ouvrageId), HttpStatus.OK);
     }
-
-    @GetMapping(value = "/ouvrages/recherche/{recherche}")
-    public ResponseEntity<List<OuvrageDto>> filterTitles(@PathVariable ("recherche") String recherche) {
-        LOGGER.info("Dans OuvrageController - filterTitles containing");
-        return new ResponseEntity<>(ouvrageService.filterTitles(recherche), HttpStatus.OK);
-    }
 }
