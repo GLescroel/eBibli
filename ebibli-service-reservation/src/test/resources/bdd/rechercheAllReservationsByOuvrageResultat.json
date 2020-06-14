@@ -1,0 +1,100 @@
+{
+  "rechercheAllReservationsByOuvrageResultat": [
+    {
+      "id": 2,
+      "ouvrage": {
+        "id": 2,
+        "titre": "Les plus belles histoires pour les enfants de 2 ans",
+        "resume": "Un recueil d\"histoires merveilleuses pour les enfants de 2 ans",
+        "image": "Histoires_2ans.jpg"
+      },
+      "emprunteur": {
+        "id": 5,
+        "nom": "DUPONT",
+        "prenom": "RENÉ",
+        "email": "DUPONT@OC.COM",
+        "password": "$2a$11$poeYMQ8pqjKSk1GqvidW2./pYd6kVly0iVrwKB8uWd/YBJocoUOci",
+        "role": {
+          "id": 3,
+          "role": "Visiteur"
+        }
+      },
+      "dateReservation": "2020-05-11",
+      "alerte": false,
+      "dateAlerte": null,
+      "dateRetraitMax": null
+    },
+    {
+      "id": 3,
+      "ouvrage": {
+        "id": 2,
+        "titre": "Les plus belles histoires pour les enfants de 2 ans",
+        "resume": "Un recueil d\"histoires merveilleuses pour les enfants de 2 ans",
+        "image": "Histoires_2ans.jpg"
+      },
+      "emprunteur": {
+        "id": 1,
+        "nom": "ADMIN",
+        "prenom": "ADMIN",
+        "email": "ADMIN@OC.COM",
+        "password": "$2a$11$NWK4enrvaXbcLu0Hf4eVIe3cdNk82VO6BvfNx7UMBeHYGJjQcFMQi",
+        "role": {
+          "id": 1,
+          "role": "Administrateur"
+        }
+      },
+      "dateReservation": "2020-05-12",
+      "alerte": false,
+      "dateAlerte": null,
+      "dateRetraitMax": null
+    },
+    {
+      "id": 4,
+      "ouvrage": {
+        "id": 2,
+        "titre": "Les plus belles histoires pour les enfants de 2 ans",
+        "resume": "Un recueil d\"histoires merveilleuses pour les enfants de 2 ans",
+        "image": "Histoires_2ans.jpg"
+      },
+      "emprunteur": {
+        "id": 2,
+        "nom": "USER",
+        "prenom": "USER",
+        "email": "USER@OC.COM",
+        "password": "$2a$11$fwbi72Ko53c6Dvd87f7d7u7hkiFQ5dGnS2SO8JYdiMO41olj78EQi",
+        "role": {
+          "id": 3,
+          "role": "Visiteur"
+        }
+      },
+      "dateReservation": "2020-05-13",
+      "alerte": false,
+      "dateAlerte": null,
+      "dateRetraitMax": null
+    },
+    {
+      "id": 1,
+      "ouvrage": {
+        "id": 2,
+        "titre": "Les plus belles histoires pour les enfants de 2 ans",
+        "resume": "Un recueil d\"histoires merveilleuses pour les enfants de 2 ans",
+        "image": "Histoires_2ans.jpg"
+      },
+      "emprunteur": {
+        "id": 4,
+        "nom": "LESCROEL",
+        "prenom": "Gregory",
+        "email": "GLESCROEL@HOTMAIL.COM",
+        "password": "$2a$11$NWK4enrvaXbcLu0Hf4eVIe3cdNk82VO6BvfNx7UMBeHYGJjQcFMQi",
+        "role": {
+          "id": 1,
+          "role": "Administrateur"
+        }
+      },
+      "dateReservation": "2020-05-15",
+      "alerte": false,
+      "dateAlerte": null,
+      "dateRetraitMax": null
+    }
+  ]
+}
