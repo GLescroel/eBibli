@@ -101,7 +101,7 @@ public class ReservationService {
 
     public void cancelReservation(Integer reservationId) throws MessagingException {
         ReservationDto reservation = RESERVATION_MAPPER.map(reservationRepository.getOne(reservationId));
-        if (reservation.getAlerte()) {
+        if (Boolean.TRUE.equals(reservation.getAlerte())) {
             for (LivreDto livre : livreClient.getLivresByOuvrage(reservation.getOuvrage().getId())) {
                 if (livre.getNextEmprunteur() != null && livre.getNextEmprunteur().getId().equals(reservation.getEmprunteur().getId())) {
                     checkNextReservation(livre);
@@ -114,7 +114,7 @@ public class ReservationService {
     public void checkNextReservation(LivreDto livre) throws MessagingException {
         List<ReservationDto> reservations = getAllReservationsByOuvrage(livre.getOuvrage().getId());
         for (ReservationDto reservation : reservations) {
-            if (!reservation.getAlerte()) {
+            if (Boolean.FALSE.equals(reservation.getAlerte())) {
                 sendAlert(reservation.getEmprunteur());
                 reservation.setAlerte(true);
                 reservation.setDateAlerte(Date.valueOf(LocalDate.now()));
