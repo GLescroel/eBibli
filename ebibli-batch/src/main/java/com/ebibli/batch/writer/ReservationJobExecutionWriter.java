@@ -1,9 +1,7 @@
 package com.ebibli.batch.writer;
 
 import com.ebibli.batch.config.BiblioJobProperties;
-import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.item.ExecutionContext;
-import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.core.io.FileSystemResource;
 
 import java.nio.file.Path;
@@ -11,14 +9,16 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class ReservationJobExecutionWriter extends FlatFileItemWriter<StepExecution> {
+public class ReservationJobExecutionWriter extends AbstractJobExecutionWriter {
 
     private BiblioJobProperties biblioJobProperties;
 
     public ReservationJobExecutionWriter(BiblioJobProperties biblioJobProperties) {
+        super(biblioJobProperties);
         this.biblioJobProperties = biblioJobProperties;
     }
 
+    @Override
     public ReservationJobExecutionWriter initialize() {
         final ReservationJobExecutionWriter writer = new ReservationJobExecutionWriter(this.biblioJobProperties);
         writer.setLineAggregator(item -> new StringBuilder()
@@ -43,6 +43,7 @@ public class ReservationJobExecutionWriter extends FlatFileItemWriter<StepExecut
         return writer;
     }
 
+    @Override
     public void writeHeader() {
         Path path = Paths.get(biblioJobProperties.getReportPath(),
                 String.format("reservation-job-execution-%s.txt", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))));

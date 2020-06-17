@@ -1,6 +1,6 @@
 package com.ebibli.batch.listener;
 
-import com.ebibli.batch.writer.ReminderJobExecutionWriter;
+import com.ebibli.batch.writer.AbstractJobExecutionWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.ExitStatus;
@@ -9,12 +9,12 @@ import org.springframework.batch.core.StepExecutionListener;
 
 import static java.util.Collections.singletonList;
 
-public class ReminderJobExecutionListener implements StepExecutionListener {
+public class BatchJobExecutionListener implements StepExecutionListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ReminderJobExecutionListener.class);
-    private final ReminderJobExecutionWriter itemWriter;
+    private static final Logger LOGGER = LoggerFactory.getLogger(BatchJobExecutionListener.class);
+    private final AbstractJobExecutionWriter itemWriter;
 
-    public ReminderJobExecutionListener(ReminderJobExecutionWriter itemWriter) {
+    public BatchJobExecutionListener(AbstractJobExecutionWriter itemWriter) {
         this.itemWriter = itemWriter;
     }
 
@@ -24,13 +24,13 @@ public class ReminderJobExecutionListener implements StepExecutionListener {
 
     @Override
     public void beforeStep(StepExecution stepExecution) {
-        LOGGER.debug("ReservationJobExecutionListener - beforeJob {}", getStepExecutionSummary(stepExecution));
+        LOGGER.debug("BatchJobExecutionListener - beforeJob {}", getStepExecutionSummary(stepExecution));
         itemWriter.writeHeader();
     }
 
     @Override
     public ExitStatus afterStep(StepExecution stepExecution) {
-        LOGGER.debug("ReservationJobExecutionListener - afterJob {}", getStepExecutionSummary(stepExecution));
+        LOGGER.debug("BatchJobExecutionListener - afterJob {}", getStepExecutionSummary(stepExecution));
         try {
             itemWriter.write(singletonList(stepExecution));
         } catch (Exception e) {

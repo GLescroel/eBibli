@@ -1,7 +1,6 @@
 package com.ebibli.batch.config;
 
-import com.ebibli.batch.listener.ReminderJobExecutionListener;
-import com.ebibli.batch.listener.ReservationJobExecutionListener;
+import com.ebibli.batch.listener.BatchJobExecutionListener;
 import com.ebibli.batch.processor.ReminderJobProcessor;
 import com.ebibli.batch.processor.ReservationJobProcessor;
 import com.ebibli.batch.reader.ReminderJobReader;
@@ -148,12 +147,12 @@ public class BiblioJobConfiguration extends DefaultBatchConfigurer {
 
     @Bean
     public StepExecutionListener reminderJobExecutionListener() {
-        return new ReminderJobExecutionListener(reminderJobExecutionFileWriter());
+        return new BatchJobExecutionListener(reminderJobExecutionFileWriter());
     }
 
     @Bean
     public StepExecutionListener reservationJobExecutionListener() {
-        return new ReservationJobExecutionListener(reservationJobExecutionFileWriter());
+        return new BatchJobExecutionListener(reservationJobExecutionFileWriter());
     }
 
     @Bean

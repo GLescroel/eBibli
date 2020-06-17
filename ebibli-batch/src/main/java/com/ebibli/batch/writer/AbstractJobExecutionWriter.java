@@ -1,7 +1,9 @@
 package com.ebibli.batch.writer;
 
 import com.ebibli.batch.config.BiblioJobProperties;
+import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.item.ExecutionContext;
+import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.core.io.FileSystemResource;
 
 import java.nio.file.Path;
@@ -9,18 +11,16 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class ReminderJobExecutionWriter extends AbstractJobExecutionWriter {
+public abstract class AbstractJobExecutionWriter extends FlatFileItemWriter<StepExecution> {
 
     private BiblioJobProperties biblioJobProperties;
 
-    public ReminderJobExecutionWriter(BiblioJobProperties biblioJobProperties) {
-        super(biblioJobProperties);
+    public AbstractJobExecutionWriter(BiblioJobProperties biblioJobProperties) {
         this.biblioJobProperties = biblioJobProperties;
     }
 
-    @Override
-    public ReminderJobExecutionWriter initialize() {
-        final ReminderJobExecutionWriter writer = new ReminderJobExecutionWriter(this.biblioJobProperties);
+    public AbstractJobExecutionWriter initialize() {
+        final AbstractJobExecutionWriter writer = new ReminderJobExecutionWriter(biblioJobProperties);
         writer.setLineAggregator(item -> new StringBuilder()
                 .append("Statut: ")
                 .append(item.getStatus()).append(System.lineSeparator())
@@ -28,13 +28,13 @@ public class ReminderJobExecutionWriter extends AbstractJobExecutionWriter {
                 .append(item.getStartTime()).append(System.lineSeparator())
                 .append("Date de fin: ")
                 .append(item.getEndTime()).append(System.lineSeparator())
-                .append("Nombre d'emprunts en retard lus: ")
+                .append("Nombre de valeurs luse: ")
                 .append(item.getReadCount()).append(System.lineSeparator())
-                .append("Nombre d'emprunts filtrés (même emprunteur) : ")
+                .append("Nombre de valeurs filtrées : ")
                 .append(item.getFilterCount()).append(System.lineSeparator())
-                .append("Nombre d'emprunts rejetés: ")
+                .append("Nombre de valeurs rejetés: ")
                 .append(item.getProcessSkipCount()).append(System.lineSeparator())
-                .append("Nombre d'utilisateurs relancés: ")
+                .append("Nombre de valeurs écrites : ")
                 .append(item.getWriteCount()).append(System.lineSeparator())
                 .append("Erreurs: ")
                 .append(item.getFailureExceptions()).append(System.lineSeparator())
@@ -43,12 +43,11 @@ public class ReminderJobExecutionWriter extends AbstractJobExecutionWriter {
         return writer;
     }
 
-    @Override
     public void writeHeader() {
         Path path = Paths.get(biblioJobProperties.getReportPath(),
-                String.format("reminder-job-execution-%s.txt", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))));
+                String.format("batch-job-execution-%s.txt", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))));
         this.setResource(new FileSystemResource(path.toString()));
-        this.setHeaderCallback(headerWriter -> headerWriter.append("--- Rapport d'execution du Batch de relance ---"));
+        this.setHeaderCallback(headerWriter -> headerWriter.append("--- Rapport d'execution du Batch ---"));
         ExecutionContext executionContext = new ExecutionContext();
         this.open(executionContext);
     }
