@@ -1,0 +1,1484 @@
+{
+	"id": "0b7834b2-9895-4010-9822-af1b38968e18",
+	"name": "eBibli",
+	"timestamp": "2020-06-17T09:09:25.639Z",
+	"collection_id": "abbaa0a9-63c1-4533-a246-f86879f2b0fd",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 105,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "9a6e7402-bea7-4c24-beb4-138cc936182f",
+			"name": "getAllUsers",
+			"url": "http://localhost:9003/utilisateurs",
+			"time": 29,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"verif user POSTMAN absent": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"verif user POSTMAN absent": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				29
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"verif user POSTMAN absent": true
+				}
+			]
+		},
+		{
+			"id": "9678d785-c015-4619-8e7d-06966be882a5",
+			"name": "addUser",
+			"url": "http://localhost:9003/utilisateur/creation",
+			"time": 11,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is CREATED": true
+			},
+			"testPassFailCounts": {
+				"Status code is CREATED": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				11
+			],
+			"allTests": [
+				{
+					"Status code is CREATED": true
+				}
+			]
+		},
+		{
+			"id": "dfeaf2bc-b2f0-4400-af00-2dc66b85e1b0",
+			"name": "getUserByEmail",
+			"url": "http://localhost:9003/utilisateur/email/postman@oc.com",
+			"time": 29,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"verif password": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"verif password": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				29
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"verif password": true
+				}
+			]
+		},
+		{
+			"id": "886b8b2a-9f07-4d62-9a6c-76bc43be7c68",
+			"name": "getUserById",
+			"url": "http://localhost:9003/utilisateur/id/13",
+			"time": 16,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"verif user POSTMAN": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"verif user POSTMAN": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"verif user POSTMAN": true
+				}
+			]
+		},
+		{
+			"id": "a98609e6-e5cf-45b9-b368-8d1b35393f81",
+			"name": "deleteUser",
+			"url": "http://localhost:9003/utilisateur/suppression",
+			"time": 80,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif retour TRUE": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif retour TRUE": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				80
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif retour TRUE": true
+				}
+			]
+		},
+		{
+			"id": "844efb3c-de16-493f-a015-6e40e5aadee1",
+			"name": "getOuvrageById",
+			"url": "http://localhost:9001/ouvrage/id/2",
+			"time": 26,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif titre": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif titre": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				26
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif titre": true
+				}
+			]
+		},
+		{
+			"id": "2fd0adfb-0bc8-4a60-ac8f-936d016e69dc",
+			"name": "getAllOuvrages",
+			"url": "http://localhost:9001/ouvrages",
+			"time": 18,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif presence titre ouvrage": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif presence titre ouvrage": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				18
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif presence titre ouvrage": true
+				}
+			]
+		},
+		{
+			"id": "a43f34ab-3e0f-4a2c-8d89-635cfe484617",
+			"name": "getAllBibliotheques",
+			"url": "http://localhost:9004/bibliotheques",
+			"time": 21,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif nom bibli 1": true,
+				"Verif nom bibli 2": true,
+				"Verif nom bibli 3": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif nom bibli 1": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif nom bibli 2": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif nom bibli 3": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				21
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif nom bibli 1": true,
+					"Verif nom bibli 2": true,
+					"Verif nom bibli 3": true
+				}
+			]
+		},
+		{
+			"id": "172f0dcc-fe1f-40f7-8a31-b2c448ebb79e",
+			"name": "getBibliotheque",
+			"url": "http://localhost:9004/bibliotheque/1",
+			"time": 13,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif nom bibli": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif nom bibli": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif nom bibli": true
+				}
+			]
+		},
+		{
+			"id": "0b55a40b-115c-4b0f-bce3-3af92d2acfdc",
+			"name": "getAllLivres",
+			"url": "http://localhost:9002/livres",
+			"time": 42,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				42
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "11b7cded-7004-4672-bba0-f474fdc738ae",
+			"name": "getLivresByBibliotheque",
+			"url": "http://localhost:9002/livres/3",
+			"time": 22,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif bibli ok": true,
+				"Verif absence autre bibli": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif bibli ok": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif absence autre bibli": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				22
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif bibli ok": true,
+					"Verif absence autre bibli": true
+				}
+			]
+		},
+		{
+			"id": "addf7360-3b46-451d-9db6-ee98213bb039",
+			"name": "getAllLivresDispo",
+			"url": "http://localhost:9002/livresDispo",
+			"time": 34,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif dispo true": true,
+				"Verif absence dispo:false": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif dispo true": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif absence dispo:false": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				34
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif dispo true": true,
+					"Verif absence dispo:false": true
+				}
+			]
+		},
+		{
+			"id": "21ff1494-f7bb-456d-8d24-48d74c1b214b",
+			"name": "getAllLivresByOuvrage",
+			"url": "http://localhost:9002/livres/ouvrage/2",
+			"time": 8,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif livre 1": true,
+				"Verif livre 5": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif livre 1": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif livre 5": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif livre 1": true,
+					"Verif livre 5": true
+				}
+			]
+		},
+		{
+			"id": "647301de-02b0-43e4-bffd-345ecefc4490",
+			"name": "getAllLivresDispoByOuvrage",
+			"url": "http://localhost:9002/livresDispo/ouvrage/15",
+			"time": 10,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif livre 22": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif livre 22": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				10
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif livre 22": true
+				}
+			]
+		},
+		{
+			"id": "3b5140b0-eca5-43a6-8012-66bdda309f29",
+			"name": "getLivreById",
+			"url": "http://localhost:9002/livre/5",
+			"time": 8,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif titre": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif titre": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif titre": true
+				}
+			]
+		},
+		{
+			"id": "3764b116-78db-4a24-af95-34a21c772d44",
+			"name": "setReserve",
+			"url": "http://localhost:9002/livre/22/reserve/4",
+			"time": 28,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif reserve": true,
+				"Verif abonne": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif reserve": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif abonne": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				28
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif reserve": true,
+					"Verif abonne": true
+				}
+			]
+		},
+		{
+			"id": "a7c3324b-1a33-4432-a72e-c1c963a237b5",
+			"name": "removeReservation from livre",
+			"url": "http://localhost:9002/livre/22/cancelReservation",
+			"time": 14,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif non reserve": true,
+				"Verif nextEmprunteur null": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif non reserve": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif nextEmprunteur null": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif non reserve": true,
+					"Verif nextEmprunteur null": true
+				}
+			]
+		},
+		{
+			"id": "933d13be-c0ea-487f-b072-94b25ed52be8",
+			"name": "setIndisponible",
+			"url": "http://localhost:9002/livre/22/emprunt",
+			"time": 18,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif indisponible": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif indisponible": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				18
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif indisponible": true
+				}
+			]
+		},
+		{
+			"id": "372d8841-4aff-4fb9-8467-dd825ba26652",
+			"name": "setDisponible",
+			"url": "http://localhost:9002/livre/22/retour",
+			"time": 18,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif disponible": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif disponible": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				18
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif disponible": true
+				}
+			]
+		},
+		{
+			"id": "45fc36fb-be93-4717-bc4b-fcd5290e5da8",
+			"name": "getEmpruntsByUtilisateur",
+			"url": "http://localhost:9005/emprunts/abonne/4",
+			"time": 42,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif titre": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif titre": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				42
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif titre": true
+				}
+			]
+		},
+		{
+			"id": "51100a0c-daa3-4e6d-96f4-c61f2d659a96",
+			"name": "empruntLivre",
+			"url": "http://localhost:9005/emprunt/22/4",
+			"time": 1048,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif emprunteur": true,
+				"Verif en cours true": true,
+				"Verif prolonge false": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif emprunteur": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif en cours true": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif prolonge false": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1048
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif emprunteur": true,
+					"Verif en cours true": true,
+					"Verif prolonge false": true
+				}
+			]
+		},
+		{
+			"id": "8db8d7fd-9a28-4c55-a9a3-e66702eb0710",
+			"name": "getEmpruntsEnCoursByUtilisateur",
+			"url": "http://localhost:9005/emprunts/encours/abonne/4",
+			"time": 33,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif id emprunt": true,
+				"Verif titre": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif id emprunt": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif titre": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				33
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif id emprunt": true,
+					"Verif titre": true
+				}
+			]
+		},
+		{
+			"id": "e7e2a782-9c97-49e9-9a48-24bf2bd6317a",
+			"name": "getEmpruntEnCoursByLivre",
+			"url": "http://localhost:9005/emprunt/encours/livre/22",
+			"time": 17,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif id emprunt": true,
+				"Verif emprunteur": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif id emprunt": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif emprunteur": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				17
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif id emprunt": true,
+					"Verif emprunteur": true
+				}
+			]
+		},
+		{
+			"id": "50b7f42e-db53-4302-9ea1-afcac0a87c61",
+			"name": "prolongationEmprunt",
+			"url": "http://localhost:9005/prolongation/19",
+			"time": 28,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif id emprunt": true,
+				"Verif emprunteur": true,
+				"Verif en cours true": true,
+				"Verif prolonge true": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif id emprunt": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif emprunteur": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif en cours true": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif prolonge true": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				28
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif id emprunt": true,
+					"Verif emprunteur": true,
+					"Verif en cours true": true,
+					"Verif prolonge true": true
+				}
+			]
+		},
+		{
+			"id": "81d40213-6a93-49b9-994f-6688a98828d0",
+			"name": "retourEmprunt",
+			"url": "http://localhost:9005/retour/3/22",
+			"time": 281,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif en cours false": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif en cours false": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				281
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif en cours false": true
+				}
+			]
+		},
+		{
+			"id": "f5cdf436-f9d9-4272-84bd-effdffa6f837",
+			"name": "getEmpruntsEnTermineByUtilisateur",
+			"url": "http://localhost:9005/emprunts/termine/abonne/4",
+			"time": 18,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif presence id emprunt": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif presence id emprunt": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				18
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif presence id emprunt": true
+				}
+			]
+		},
+		{
+			"id": "56d611d1-8de8-4cf6-839a-a79aaeefb1ef",
+			"name": "suppressionEmprunteur",
+			"url": "http://localhost:9005/emprunt/suppression_emprunteur/19",
+			"time": 20,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif id emprunt": true,
+				"Verif emprunteur absent": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif id emprunt": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif emprunteur absent": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				20
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif id emprunt": true,
+					"Verif emprunteur absent": true
+				}
+			]
+		},
+		{
+			"id": "d2855bba-a1cd-4147-8d65-19f01cd0132a",
+			"name": "getEmpruntsEnRetard",
+			"url": "http://localhost:9005/emprunts/retard",
+			"time": 53,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif absence emprunts non en retard": true,
+				"Verif presence emprunts en retard": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif absence emprunts non en retard": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif presence emprunts en retard": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				53
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif absence emprunts non en retard": true,
+					"Verif presence emprunts en retard": true
+				}
+			]
+		},
+		{
+			"id": "5b56fe6a-8f12-4fb0-a69c-a20547877556",
+			"name": "createReservation",
+			"url": "http://localhost:9006/reservation/creation",
+			"time": 315,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				315
+			],
+			"allTests": [
+				{
+					"Status code is 201": true
+				}
+			]
+		},
+		{
+			"id": "61c37b2d-d234-4e99-b313-26058d00dadb",
+			"name": "getAllReservationsByOuvrage",
+			"url": "http://localhost:9006/reservations/ouvrage/4",
+			"time": 115,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				115
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "eea10f67-662f-4b72-ac8e-2521506e6f75",
+			"name": "getAllReservationsByEmprunteur",
+			"url": "http://localhost:9006/reservations/abonne/4",
+			"time": 48,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif presence id reservation creee": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif presence id reservation creee": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				48
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif presence id reservation creee": true
+				}
+			]
+		},
+		{
+			"id": "77f5a8ef-e51a-496b-ac9c-df6b7a28aafa",
+			"name": "createReservation sans ouvrage et sans emprunteur",
+			"url": "http://localhost:9006/reservation/creation",
+			"time": 50,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif message erreur": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif message erreur": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				50
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif message erreur": true
+				}
+			]
+		},
+		{
+			"id": "9e0bc17a-417d-43cc-b5f4-f3447d6bacfe",
+			"name": "createSameReservation",
+			"url": "http://localhost:9006/reservation/creation",
+			"time": 29,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif message erreur": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif message erreur": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				29
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif message erreur": true
+				}
+			]
+		},
+		{
+			"id": "a0cf02b1-489a-4de3-aa38-ea26c05ca1aa",
+			"name": "createReservation ouvrage en cours d'emprunt",
+			"url": "http://localhost:9006/reservation/creation",
+			"time": 63,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif message erreur": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif message erreur": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				63
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif message erreur": true
+				}
+			]
+		},
+		{
+			"id": "7d69f35a-aa6b-4c53-95e8-abde9f985af0",
+			"name": "createReservation plafond atteint",
+			"url": "http://localhost:9006/reservation/creation",
+			"time": 45,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif message erreur": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif message erreur": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				45
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif message erreur": true
+				}
+			]
+		},
+		{
+			"id": "55cfdb36-7b45-46ad-854e-6ba24b08eb94",
+			"name": "cancelReservation",
+			"url": "http://localhost:9006/reservation/annulation/4/4",
+			"time": 65,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				65
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "a27eca70-cd6e-4cad-867a-ca5a433fc11b",
+			"name": "getReservationsASupprimer",
+			"url": "http://localhost:9006/reservationsASupprimer",
+			"time": 19,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Verif alerte true": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verif alerte true": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				19
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Verif alerte true": true
+				}
+			]
+		},
+		{
+			"id": "9c106017-d70b-48c6-86e7-1aa677596a6d",
+			"name": "cancelReservation",
+			"url": "http://localhost:9006/reservation/suppression/7",
+			"time": 239,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				239
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 2973,
+	"collection": {
+		"requests": [
+			{
+				"id": "9a6e7402-bea7-4c24-beb4-138cc936182f",
+				"method": "GET"
+			},
+			{
+				"id": "9678d785-c015-4619-8e7d-06966be882a5",
+				"method": "POST"
+			},
+			{
+				"id": "dfeaf2bc-b2f0-4400-af00-2dc66b85e1b0",
+				"method": "GET"
+			},
+			{
+				"id": "886b8b2a-9f07-4d62-9a6c-76bc43be7c68",
+				"method": "GET"
+			},
+			{
+				"id": "a98609e6-e5cf-45b9-b368-8d1b35393f81",
+				"method": "POST"
+			},
+			{
+				"id": "844efb3c-de16-493f-a015-6e40e5aadee1",
+				"method": "GET"
+			},
+			{
+				"id": "2fd0adfb-0bc8-4a60-ac8f-936d016e69dc",
+				"method": "GET"
+			},
+			{
+				"id": "a43f34ab-3e0f-4a2c-8d89-635cfe484617",
+				"method": "GET"
+			},
+			{
+				"id": "172f0dcc-fe1f-40f7-8a31-b2c448ebb79e",
+				"method": "GET"
+			},
+			{
+				"id": "0b55a40b-115c-4b0f-bce3-3af92d2acfdc",
+				"method": "GET"
+			},
+			{
+				"id": "11b7cded-7004-4672-bba0-f474fdc738ae",
+				"method": "GET"
+			},
+			{
+				"id": "addf7360-3b46-451d-9db6-ee98213bb039",
+				"method": "GET"
+			},
+			{
+				"id": "21ff1494-f7bb-456d-8d24-48d74c1b214b",
+				"method": "GET"
+			},
+			{
+				"id": "647301de-02b0-43e4-bffd-345ecefc4490",
+				"method": "GET"
+			},
+			{
+				"id": "3b5140b0-eca5-43a6-8012-66bdda309f29",
+				"method": "GET"
+			},
+			{
+				"id": "3764b116-78db-4a24-af95-34a21c772d44",
+				"method": "POST"
+			},
+			{
+				"id": "a7c3324b-1a33-4432-a72e-c1c963a237b5",
+				"method": "POST"
+			},
+			{
+				"id": "933d13be-c0ea-487f-b072-94b25ed52be8",
+				"method": "POST"
+			},
+			{
+				"id": "372d8841-4aff-4fb9-8467-dd825ba26652",
+				"method": "POST"
+			},
+			{
+				"id": "45fc36fb-be93-4717-bc4b-fcd5290e5da8",
+				"method": "GET"
+			},
+			{
+				"id": "51100a0c-daa3-4e6d-96f4-c61f2d659a96",
+				"method": "POST"
+			},
+			{
+				"id": "8db8d7fd-9a28-4c55-a9a3-e66702eb0710",
+				"method": "GET"
+			},
+			{
+				"id": "e7e2a782-9c97-49e9-9a48-24bf2bd6317a",
+				"method": "GET"
+			},
+			{
+				"id": "50b7f42e-db53-4302-9ea1-afcac0a87c61",
+				"method": "POST"
+			},
+			{
+				"id": "81d40213-6a93-49b9-994f-6688a98828d0",
+				"method": "POST"
+			},
+			{
+				"id": "f5cdf436-f9d9-4272-84bd-effdffa6f837",
+				"method": "GET"
+			},
+			{
+				"id": "56d611d1-8de8-4cf6-839a-a79aaeefb1ef",
+				"method": "POST"
+			},
+			{
+				"id": "d2855bba-a1cd-4147-8d65-19f01cd0132a",
+				"method": "GET"
+			},
+			{
+				"id": "5b56fe6a-8f12-4fb0-a69c-a20547877556",
+				"method": "POST"
+			},
+			{
+				"id": "61c37b2d-d234-4e99-b313-26058d00dadb",
+				"method": "GET"
+			},
+			{
+				"id": "eea10f67-662f-4b72-ac8e-2521506e6f75",
+				"method": "GET"
+			},
+			{
+				"id": "77f5a8ef-e51a-496b-ac9c-df6b7a28aafa",
+				"method": "POST"
+			},
+			{
+				"id": "9e0bc17a-417d-43cc-b5f4-f3447d6bacfe",
+				"method": "POST"
+			},
+			{
+				"id": "a0cf02b1-489a-4de3-aa38-ea26c05ca1aa",
+				"method": "POST"
+			},
+			{
+				"id": "7d69f35a-aa6b-4c53-95e8-abde9f985af0",
+				"method": "POST"
+			},
+			{
+				"id": "55cfdb36-7b45-46ad-854e-6ba24b08eb94",
+				"method": "POST"
+			},
+			{
+				"id": "a27eca70-cd6e-4cad-867a-ca5a433fc11b",
+				"method": "GET"
+			},
+			{
+				"id": "9c106017-d70b-48c6-86e7-1aa677596a6d",
+				"method": "POST"
+			}
+		]
+	}
+}
