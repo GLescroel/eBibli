@@ -1,6 +1,6 @@
 package com.ebibli.batch.listener;
 
-import com.ebibli.batch.writer.AbstractJobExecutionWriter;
+import com.ebibli.batch.writer.BatchStepExecutionWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.ExitStatus;
@@ -12,9 +12,9 @@ import static java.util.Collections.singletonList;
 public class BatchJobExecutionListener implements StepExecutionListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BatchJobExecutionListener.class);
-    private final AbstractJobExecutionWriter itemWriter;
+    private final BatchStepExecutionWriter itemWriter;
 
-    public BatchJobExecutionListener(AbstractJobExecutionWriter itemWriter) {
+    public BatchJobExecutionListener(BatchStepExecutionWriter itemWriter) {
         this.itemWriter = itemWriter;
     }
 
