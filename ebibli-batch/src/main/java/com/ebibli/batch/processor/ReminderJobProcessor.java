@@ -1,5 +1,6 @@
 package com.ebibli.batch.processor;
 
+import com.ebibli.batch.config.EmailConfiguration;
 import com.ebibli.domain.Emprunteur;
 import com.ebibli.dto.EmpruntDto;
 import com.ebibli.dto.UtilisateurDto;
@@ -7,7 +8,6 @@ import com.ebibli.service.EmpruntService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
-import org.springframework.mail.javamail.MimeMessagePreparator;
 
 import javax.mail.Message;
 import javax.mail.Session;
@@ -15,17 +15,18 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class ReminderJobProcessor implements ItemProcessor<EmpruntDto, MimeMessage> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ReminderJobProcessor.class);
 
     private final EmpruntService empruntService;
-    private final Session session;
+    private final EmailConfiguration emailConfiguration;
     private List<UtilisateurDto> emprunteursRelances = new ArrayList<>();
 
-    public ReminderJobProcessor(EmpruntService empruntService, Session session) {
+    public ReminderJobProcessor(EmpruntService empruntService, EmailConfiguration emailConfiguration) {
         this.empruntService = empruntService;
-        this.session = session;
+        this.emailConfiguration = emailConfiguration;
     }
 
     /**
@@ -65,15 +66,23 @@ public class ReminderJobProcessor implements ItemProcessor<EmpruntDto, MimeMessa
 
                 String body = writeMessage(emprunteur);
 
-                Emprunteur finalEmprunteur = emprunteur;
+                Properties prop = new Properties();
+                prop.put("mail.transport.protocol", emailConfiguration.getProtocol());
+                prop.put("mail.smtp.auth", emailConfiguration.getAuth());
+                prop.put("mail.smtp.starttls.enable", emailConfiguration.getStarttls());
+                prop.put("mail.smtp.host", emailConfiguration.getHost());
+                prop.put("mail.smtp.port", emailConfiguration.getPort());
+
+                Session session = Session.getDefaultInstance(prop, null);
+
                 MimeMessage message = new MimeMessage(session);
-                MimeMessagePreparator preparator = mimeMessage -> {
-                    message.setRecipient(Message.RecipientType.TO, new InternetAddress(finalEmprunteur.getEmail()));
-                    message.setFrom(new InternetAddress("eBibli@oc.com"));
-                    message.setSubject("eBibli : retard");
-                    message.setText(body, "UTF-8", "html");
-                };
-                preparator.prepare(message);
+                message.setFrom(new InternetAddress("eBibli@oc.com"));
+                message.setRecipients(
+                        Message.RecipientType.TO, InternetAddress.parse(emprunteur.getEmail()));
+                message.setSubject("eBibli : retard");
+
+                message.setText(body, "UTF-8", "html");
+
                 return message;
             }
         }

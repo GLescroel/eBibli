@@ -1,7 +1,6 @@
 package com.ebibli.batch.processor;
 
 import com.ebibli.batch.config.EmailConfiguration;
-import com.ebibli.batch.config.SessionConfiguration;
 import com.ebibli.dto.BibliothequeDto;
 import com.ebibli.dto.EmpruntDto;
 import com.ebibli.dto.LivreDto;
@@ -13,7 +12,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import javax.mail.Message;
-import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -36,7 +34,6 @@ public class ReminderJobProcessorTest {
         Mockito.when(emailConfiguration.getUsername()).thenReturn("");
         Mockito.when(emailConfiguration.getPassword()).thenReturn("");
 
-        Session session = new SessionConfiguration(emailConfiguration).configure();
         List<EmpruntDto> empruntsEnCours = new ArrayList<>();
         EmpruntDto empruntEnCours = new EmpruntDto().builder()
                 .enRetard(false)
@@ -67,7 +64,7 @@ public class ReminderJobProcessorTest {
         empruntsEnCours.add(empruntEnRetard2);
         Mockito.when(empruntService.getAllEmpruntsEnCoursByUtilisateur(Mockito.anyInt())).thenReturn(empruntsEnCours);
 
-        ReminderJobProcessor processor = new ReminderJobProcessor(empruntService, session);
+        ReminderJobProcessor processor = new ReminderJobProcessor(empruntService, emailConfiguration);
 
         MimeMessage message = processor.process(empruntEnRetard);
 

@@ -1,7 +1,6 @@
 package com.ebibli.batch.processor;
 
 import com.ebibli.batch.config.EmailConfiguration;
-import com.ebibli.batch.config.SessionConfiguration;
 import com.ebibli.dto.OuvrageDto;
 import com.ebibli.dto.ReservationDto;
 import com.ebibli.dto.UtilisateurDto;
@@ -11,7 +10,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import javax.mail.Message;
-import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 import java.util.Arrays;
 
@@ -30,9 +28,7 @@ public class ReservationJobProcessorTest {
         Mockito.when(emailConfiguration.getUsername()).thenReturn("");
         Mockito.when(emailConfiguration.getPassword()).thenReturn("");
 
-        Session session = new SessionConfiguration(emailConfiguration).configure();
-
-        ReservationJobProcessor processor = new ReservationJobProcessor(reservationService, session);
+        ReservationJobProcessor processor = new ReservationJobProcessor(reservationService, emailConfiguration);
 
         ReservationDto reservation = new ReservationDto()
                 .builder()

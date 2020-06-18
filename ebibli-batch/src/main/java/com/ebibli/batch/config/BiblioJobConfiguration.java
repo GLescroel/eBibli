@@ -35,7 +35,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 
 @EnableBatchProcessing
@@ -64,11 +63,6 @@ public class BiblioJobConfiguration extends DefaultBatchConfigurer {
     private Job job;
 
     @Bean
-    public Session getSession() {
-        return new SessionConfiguration(emailConfiguration).configure();
-    }
-
-    @Bean
     @JobScope
     public ListItemReader<EmpruntDto> reminderItemReader(EmpruntService empruntService) {
         return new ReminderJobReader(empruntService.getAllLivresEnRetard());
@@ -83,13 +77,13 @@ public class BiblioJobConfiguration extends DefaultBatchConfigurer {
     @StepScope
     @Bean
     public ItemProcessor<EmpruntDto, MimeMessage> reminderItemProcessor(EmpruntService empruntService) {
-        return new ReminderJobProcessor(empruntService, getSession());
+        return new ReminderJobProcessor(empruntService, emailConfiguration);
     }
 
     @StepScope
     @Bean
     public ItemProcessor<ReservationDto, MimeMessage> reservationItemProcessor(ReservationService reservationService) {
-        return new ReservationJobProcessor(reservationService, getSession());
+        return new ReservationJobProcessor(reservationService, emailConfiguration);
     }
 
     @Bean
