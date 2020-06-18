@@ -1,12 +1,12 @@
 package com.ebibli.service;
 
-import com.ebibli.configuration.EmailConfiguration;
 import com.ebibli.domain.EmpruntClient;
 import com.ebibli.domain.LivreClient;
 import com.ebibli.dto.EmpruntDto;
 import com.ebibli.dto.LivreDto;
 import com.ebibli.dto.ReservationDto;
 import com.ebibli.dto.UtilisateurDto;
+import com.ebibli.emailconfiguration.EmailConfiguration;
 import com.ebibli.exception.FunctionalException;
 import com.ebibli.mapper.ReservationMapper;
 import com.ebibli.repository.ReservationRepository;
@@ -18,12 +18,9 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -145,14 +142,9 @@ public class ReservationService {
                 Message.RecipientType.TO, InternetAddress.parse(emprunteur.getEmail()));
         message.setSubject("eBibli : votre réservation");
 
-        String msg = "Votre livre est disponible";
-        MimeBodyPart mimeBodyPart = new MimeBodyPart();
-        mimeBodyPart.setContent(msg, "text/html");
+        String body = "Votre livre est disponible";
+        message.setText(body, "UTF-8", "html");
 
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(mimeBodyPart);
-
-        message.setContent(multipart);
         myTransport.send(message);
     }
 

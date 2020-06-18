@@ -10,6 +10,7 @@ import com.ebibli.batch.writer.ReminderJobWriter;
 import com.ebibli.batch.writer.ReservationJobWriter;
 import com.ebibli.dto.EmpruntDto;
 import com.ebibli.dto.ReservationDto;
+import com.ebibli.emailconfiguration.EmailConfiguration;
 import com.ebibli.service.EmpruntService;
 import com.ebibli.service.ReservationService;
 import org.springframework.batch.core.Job;

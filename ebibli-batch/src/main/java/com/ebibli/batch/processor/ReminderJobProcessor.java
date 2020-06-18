@@ -1,9 +1,9 @@
 package com.ebibli.batch.processor;
 
-import com.ebibli.batch.config.EmailConfiguration;
 import com.ebibli.domain.Emprunteur;
 import com.ebibli.dto.EmpruntDto;
 import com.ebibli.dto.UtilisateurDto;
+import com.ebibli.emailconfiguration.EmailConfiguration;
 import com.ebibli.service.EmpruntService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

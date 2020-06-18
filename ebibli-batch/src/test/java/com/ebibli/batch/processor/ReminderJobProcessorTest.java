@@ -1,11 +1,11 @@
 package com.ebibli.batch.processor;
 
-import com.ebibli.batch.config.EmailConfiguration;
 import com.ebibli.dto.BibliothequeDto;
 import com.ebibli.dto.EmpruntDto;
 import com.ebibli.dto.LivreDto;
 import com.ebibli.dto.OuvrageDto;
 import com.ebibli.dto.UtilisateurDto;
+import com.ebibli.emailconfiguration.EmailConfiguration;
 import com.ebibli.service.EmpruntService;
 import org.junit.Assert;
 import org.junit.Test;

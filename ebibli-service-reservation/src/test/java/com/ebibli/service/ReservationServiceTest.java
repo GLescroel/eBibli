@@ -1,6 +1,5 @@
 package com.ebibli.service;
 
-import com.ebibli.configuration.EmailConfiguration;
 import com.ebibli.domain.EmpruntClient;
 import com.ebibli.domain.LivreClient;
 import com.ebibli.domain.Ouvrage;
@@ -11,6 +10,7 @@ import com.ebibli.dto.LivreDto;
 import com.ebibli.dto.OuvrageDto;
 import com.ebibli.dto.ReservationDto;
 import com.ebibli.dto.UtilisateurDto;
+import com.ebibli.emailconfiguration.EmailConfiguration;
 import com.ebibli.exception.FunctionalException;
 import com.ebibli.repository.ReservationRepository;
 import com.ebibli.transport.MyTransport;

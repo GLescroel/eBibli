@@ -1,8 +1,8 @@
 package com.ebibli.batch.processor;
 
-import com.ebibli.batch.config.EmailConfiguration;
 import com.ebibli.dto.ReservationDto;
 import com.ebibli.dto.UtilisateurDto;
+import com.ebibli.emailconfiguration.EmailConfiguration;
 import com.ebibli.service.ReservationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

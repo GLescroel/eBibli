@@ -1,20 +1,17 @@
-package com.ebibli.batch.config;
+package com.ebibli.emailconfiguration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.stereotype.Component;
 
 import java.util.Properties;
 
-@Component
+@EnableConfigurationProperties(value = EmailConfiguration.class)
 @ConfigurationProperties(prefix = "email", ignoreUnknownFields = false)
 public class EmailConfiguration {
-
-    @Value("${email.port}")
-    private int port;
 
     @Value("${email.username}")
     private String username;
@@ -24,6 +21,9 @@ public class EmailConfiguration {
 
     @Value("${email.host}")
     private String host;
+
+    @Value("${email.port}")
+    private int port;
 
     @Value("${email.protocol}")
     private String protocol;
