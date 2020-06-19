@@ -1,0 +1,36 @@
+{
+  "rechercheAllLivresByOuvrageResultat": [
+    {
+      "id": 12,
+      "ouvrage": {
+        "id": 15,
+        "titre": "Le seigneur des anneaux : les deux tours",
+        "resume": "La suite des aventures de Fredon",
+        "image": "Deux_tours.jpg"
+      },
+      "bibliotheque": {
+        "id": 2,
+        "nom": "Bibliotheque adulte"
+      },
+      "disponible": false,
+      "reserve": false,
+      "nextEmprunteur": null
+    },
+    {
+      "id": 22,
+      "ouvrage": {
+        "id": 15,
+        "titre": "Le seigneur des anneaux : les deux tours",
+        "resume": "La suite des aventures de Fredon",
+        "image": "Deux_tours.jpg"
+      },
+      "bibliotheque": {
+        "id": 3,
+        "nom": "Bibliotheque pour tous"
+      },
+      "disponible": true,
+      "reserve": false,
+      "nextEmprunteur": null
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "rechercheOuvrageResultat1": {
+    "id": 2,
+    "titre": "Les plus belles histoires pour les enfants de 2 ans",
+    "resume": "Un recueil d\"histoires merveilleuses pour les enfants de 2 ans",
+    "image": "Histoires_2ans.jpg"
+  },
+  "rechercheOuvrageResultat2": {
+    "id": 15,
+    "titre": "Le seigneur des anneaux : les deux tours",
+    "resume": "La suite des aventures de Fredon",
+    "image": "Deux_tours.jpg"
+  }
+}

@@ -14,4 +14,5 @@ public class MicroReservation {
         SpringApplication.run(MicroReservation.class, args);
         LOGGER.info("Le service Réservation a démarré...");
     }
+
 }

@@ -1,4 +1,4 @@
-eBibli [![Build Status](https://travis-ci.org/GLescroel/eBibli.svg?branch=master)](https://travis-ci.org/GLescroel/eBibli)  [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=GLescroel_eBibli&metric=alert_status)](https://sonarcloud.io/dashboard?id=GLescroel_eBibli)
+eBibli [![Build Status](https://travis-ci.org/GLescroel/eBibli.svg?branch=master)](https://travis-ci.org/GLescroel/eBibli)  [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=GLescroel_eBibli&metric=coverage)](https://sonarcloud.io/dashboard?id=GLescroel_eBibli)
 
 Système d'information des bibliothèques de la ville à destination des usagers et des bibliothécaires.
 Les clients frontend et batch interrogent les microservices via les API Rest exposées.
@@ -40,7 +40,9 @@ ou de déployer ces war dans un tomcat.
     La base sera créée automatiquement au premier lancement.
     En prod, il faudra ensuite modifier le ddl-auto=update dans les fichiers application.properties pour qu'elle ne se recrée pas à chaque démarrage.
 
-    Documentation : la javadoc peut être générée via la commande mvn javadoc:javadoc puis consultée à partir de la page \target\site\apidocs\index.html
+    Documentation : 
+    la javadoc peut être générée via la commande : mvn javadoc:javadoc puis consultée à partir de la page \target\site\apidocs\index.html
+    le site Maven peut être généré via la commande : mvn package site site:stage
 
     Un projet postman pour tester les API est présent dans le répertoire resources/postman
 

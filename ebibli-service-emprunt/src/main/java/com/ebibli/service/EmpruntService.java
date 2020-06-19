@@ -52,7 +52,7 @@ public class EmpruntService {
         if (emprunteur == null) {
             throw new FunctionalException("Réservation impossible : Cet abonné n'est pas référencé");
         }
-        if (livre.getReserve() && !livre.getNextEmprunteur().getId().equals(emprunteurId)) {
+        if (Boolean.TRUE.equals(livre.getReserve()) && !livre.getNextEmprunteur().getId().equals(emprunteurId)) {
             throw new FunctionalException("Réservation impossible : Ce livre est réservé par un autre abonné");
         }
         if (getEmpruntEnCoursByLivre(livreId) != null) {
@@ -82,7 +82,7 @@ public class EmpruntService {
             return null;
         }
         if(!emprunt.getLivre().getBibliotheque().getId().equals(bibliothequeId)) {
-            return emprunt;
+            throw new FunctionalException("Un livre ne peut être rendu que dans sa bibliothèque d'affectation");
         }
         emprunt.setEncours(false);
         emprunt.setDateRetour(Date.valueOf(LocalDate.now()));
@@ -99,7 +99,7 @@ public class EmpruntService {
         if(emprunt == null) {
             return null;
         }
-        if (emprunt.getProlonge() == true || emprunt.getEnRetard() == true || emprunt.getEncours() == false) {
+        if (Boolean.TRUE.equals(emprunt.getProlonge()) || Boolean.TRUE.equals(emprunt.getEnRetard()) || Boolean.FALSE.equals(emprunt.getEncours())) {
             return emprunt;
         }
         if (emprunt.getDateRetourPrevu().before(Date.valueOf(LocalDate.now()))) {

@@ -1,17 +1,16 @@
 package com.ebibli.batch.config;
 
-import com.ebibli.batch.listener.ReminderJobExecutionListener;
-import com.ebibli.batch.listener.ReservationJobExecutionListener;
+import com.ebibli.batch.listener.BatchJobExecutionListener;
 import com.ebibli.batch.processor.ReminderJobProcessor;
 import com.ebibli.batch.processor.ReservationJobProcessor;
 import com.ebibli.batch.reader.ReminderJobReader;
 import com.ebibli.batch.reader.ReservationJobReader;
-import com.ebibli.batch.writer.ReminderJobExecutionWriter;
+import com.ebibli.batch.writer.BatchStepExecutionWriter;
 import com.ebibli.batch.writer.ReminderJobWriter;
-import com.ebibli.batch.writer.ReservationJobExecutionWriter;
 import com.ebibli.batch.writer.ReservationJobWriter;
 import com.ebibli.dto.EmpruntDto;
 import com.ebibli.dto.ReservationDto;
+import com.ebibli.emailconfiguration.EmailConfiguration;
 import com.ebibli.service.EmpruntService;
 import com.ebibli.service.ReservationService;
 import org.springframework.batch.core.Job;
@@ -37,13 +36,24 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 
 @EnableBatchProcessing
 @Configuration
 public class BiblioJobConfiguration extends DefaultBatchConfigurer {
 
+    private static final String REMINDER_REPORT_FILE_NAME = "reminder-job-execution-%s.txt";
+    private static final String REMINDER_REPORT_HEADER = "--- Rapport d'execution du Batch de relance ---";
+    private static final String REMINDER_REDADER_TEXT = "Nombre d'emprunts en retard lus: ";
+    private static final String REMINDER_PROCESSOR_FILTER_TEXT = "Nombre d'emprunts filtrés (même emprunteur) : ";
+    private static final String REMINDER_PROCESSOR_SKIP_TEXT = "Nombre d'emprunts rejetés: ";
+    private static final String REMINDER_WRITER_TEXT = "Nombre d'utilisateurs relancés: ";
+    private static final String RESERVATION_REPORT_FILE_NAME = "reservation-job-execution-%s.txt";
+    private static final String RESERVATION_REPORT_HEADER = "--- Rapport d'execution du Batch des réservations ---";
+    private static final String RESERVATION_REDADER_TEXT = "Nombre de réservation dépassées lues : ";
+    private static final String RESERVATION_PROCESSOR_FILTER_TEXT = "Nombre de réservations filtrés : ";
+    private static final String RESERVATION_PROCESSOR_SKIP_TEXT = "Nombre de réservations rejetés: ";
+    private static final String RESERVATION_WRITER_TEXT = "Nombre de réservations annulées et d'email envoyés : ";
     @Autowired
     private BiblioJobProperties biblioJobProperties;
     @Autowired
@@ -52,11 +62,6 @@ public class BiblioJobConfiguration extends DefaultBatchConfigurer {
     private JobLauncher jobLauncher;
     @Autowired
     private Job job;
-
-    @Bean
-    public Session getSession() {
-        return new SessionConfiguration(emailConfiguration).configure();
-    }
 
     @Bean
     @JobScope
@@ -73,13 +78,13 @@ public class BiblioJobConfiguration extends DefaultBatchConfigurer {
     @StepScope
     @Bean
     public ItemProcessor<EmpruntDto, MimeMessage> reminderItemProcessor(EmpruntService empruntService) {
-        return new ReminderJobProcessor(empruntService, getSession());
+        return new ReminderJobProcessor(empruntService, emailConfiguration);
     }
 
     @StepScope
     @Bean
     public ItemProcessor<ReservationDto, MimeMessage> reservationItemProcessor(ReservationService reservationService) {
-        return new ReservationJobProcessor(reservationService, getSession());
+        return new ReservationJobProcessor(reservationService, emailConfiguration);
     }
 
     @Bean
@@ -104,6 +109,7 @@ public class BiblioJobConfiguration extends DefaultBatchConfigurer {
 
     /**
      * définition du workflow du job de controle des emprunts en retard
+     *
      * @param stepBuilderFactory
      * @param itemWriter
      * @param reminderItemProcessor
@@ -126,6 +132,7 @@ public class BiblioJobConfiguration extends DefaultBatchConfigurer {
 
     /**
      * définition du workflow du job de controle des réservations
+     *
      * @param stepBuilderFactory
      * @param reservationItemWriter
      * @param reservationItemProcessor
@@ -148,22 +155,24 @@ public class BiblioJobConfiguration extends DefaultBatchConfigurer {
 
     @Bean
     public StepExecutionListener reminderJobExecutionListener() {
-        return new ReminderJobExecutionListener(reminderJobExecutionFileWriter());
+        return new BatchJobExecutionListener(reminderJobExecutionFileWriter());
     }
 
     @Bean
     public StepExecutionListener reservationJobExecutionListener() {
-        return new ReservationJobExecutionListener(reservationJobExecutionFileWriter());
+        return new BatchJobExecutionListener(reservationJobExecutionFileWriter());
     }
 
     @Bean
-    public ReminderJobExecutionWriter reminderJobExecutionFileWriter() {
-        return new ReminderJobExecutionWriter(biblioJobProperties).initialize();
+    public BatchStepExecutionWriter reminderJobExecutionFileWriter() {
+        return new BatchStepExecutionWriter(biblioJobProperties, REMINDER_REPORT_FILE_NAME, REMINDER_REPORT_HEADER,
+                REMINDER_REDADER_TEXT, REMINDER_PROCESSOR_FILTER_TEXT, REMINDER_PROCESSOR_SKIP_TEXT, REMINDER_WRITER_TEXT).initialize();
     }
 
     @Bean
-    public ReservationJobExecutionWriter reservationJobExecutionFileWriter() {
-        return new ReservationJobExecutionWriter(biblioJobProperties).initialize();
+    public BatchStepExecutionWriter reservationJobExecutionFileWriter() {
+        return new BatchStepExecutionWriter(biblioJobProperties, RESERVATION_REPORT_FILE_NAME, RESERVATION_REPORT_HEADER,
+                RESERVATION_REDADER_TEXT, RESERVATION_PROCESSOR_FILTER_TEXT, RESERVATION_PROCESSOR_SKIP_TEXT, RESERVATION_WRITER_TEXT).initialize();
     }
 
     @Scheduled(cron = "${batch.cron.value}")
@@ -173,5 +182,6 @@ public class BiblioJobConfiguration extends DefaultBatchConfigurer {
 //                .addString("reservationJob", String.valueOf(System.currentTimeMillis()))
                 .toJobParameters();
         jobLauncher.run(job, params);
-    }}
+    }
+}
 

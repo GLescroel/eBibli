@@ -1,30 +1,26 @@
 package com.ebibli.service;
 
-import com.ebibli.configuration.EmailConfiguration;
 import com.ebibli.domain.EmpruntClient;
 import com.ebibli.domain.LivreClient;
 import com.ebibli.dto.EmpruntDto;
 import com.ebibli.dto.LivreDto;
 import com.ebibli.dto.ReservationDto;
 import com.ebibli.dto.UtilisateurDto;
+import com.ebibli.emailconfiguration.EmailConfiguration;
 import com.ebibli.exception.FunctionalException;
 import com.ebibli.mapper.ReservationMapper;
 import com.ebibli.repository.ReservationRepository;
+import com.ebibli.transport.MyTransport;
 import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
 import javax.mail.Session;
-import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -36,15 +32,19 @@ public class ReservationService {
 
     private static final ReservationMapper RESERVATION_MAPPER = Mappers.getMapper(ReservationMapper.class);
 
-    @Autowired
     private LivreClient livreClient;
-    @Autowired
     private EmpruntClient empruntClient;
-    @Autowired
     private EmailConfiguration emailConfiguration;
-
-    @Autowired
     private ReservationRepository reservationRepository;
+    private  MyTransport myTransport;
+
+    public ReservationService(ReservationRepository reservationRepository, LivreClient livreClient, EmpruntClient empruntClient, EmailConfiguration emailConfiguration, MyTransport myTransport) {
+        this.reservationRepository = reservationRepository;
+        this.livreClient = livreClient;
+        this.empruntClient = empruntClient;
+        this.emailConfiguration = emailConfiguration;
+        this.myTransport = myTransport;
+    }
 
     public List<ReservationDto> getAllReservationsByOuvrage(Integer ouvrageId) {
         return RESERVATION_MAPPER.reservationsToDtos(reservationRepository.findAllByOuvrage_IdOrderByDateReservation(ouvrageId));
@@ -98,7 +98,7 @@ public class ReservationService {
 
     public void cancelReservation(Integer reservationId) throws MessagingException {
         ReservationDto reservation = RESERVATION_MAPPER.map(reservationRepository.getOne(reservationId));
-        if (reservation.getAlerte()) {
+        if (Boolean.TRUE.equals(reservation.getAlerte())) {
             for (LivreDto livre : livreClient.getLivresByOuvrage(reservation.getOuvrage().getId())) {
                 if (livre.getNextEmprunteur() != null && livre.getNextEmprunteur().getId().equals(reservation.getEmprunteur().getId())) {
                     checkNextReservation(livre);
@@ -111,7 +111,7 @@ public class ReservationService {
     public void checkNextReservation(LivreDto livre) throws MessagingException {
         List<ReservationDto> reservations = getAllReservationsByOuvrage(livre.getOuvrage().getId());
         for (ReservationDto reservation : reservations) {
-            if (!reservation.getAlerte()) {
+            if (Boolean.FALSE.equals(reservation.getAlerte())) {
                 sendAlert(reservation.getEmprunteur());
                 reservation.setAlerte(true);
                 reservation.setDateAlerte(Date.valueOf(LocalDate.now()));
@@ -136,21 +136,16 @@ public class ReservationService {
 
         Session session = Session.getDefaultInstance(prop, null);
 
-        Message message = new MimeMessage(session);
+        MimeMessage message = new MimeMessage(session);
         message.setFrom(new InternetAddress("eBibli@oc.com"));
         message.setRecipients(
                 Message.RecipientType.TO, InternetAddress.parse(emprunteur.getEmail()));
         message.setSubject("eBibli : votre réservation");
 
-        String msg = "Votre livre est disponible";
-        MimeBodyPart mimeBodyPart = new MimeBodyPart();
-        mimeBodyPart.setContent(msg, "text/html");
+        String body = "Votre livre est disponible";
+        message.setText(body, "UTF-8", "html");
 
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(mimeBodyPart);
-
-        message.setContent(multipart);
-        Transport.send(message);
+        myTransport.send(message);
     }
 
     public void cancelReservation(Integer ouvrageId, Integer emprunteurId) throws MessagingException {

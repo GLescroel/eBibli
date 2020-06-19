@@ -13,7 +13,12 @@
 					"script": {
 						"id": "034b7898-e429-42f4-8539-87b5d10dc2f2",
 						"exec": [
-							""
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"verif user POSTMAN absent\", function () {\r",
+							"    pm.expect(pm.response.text()).to.not.include(\"POSTMAN@OC.COM\");\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -37,48 +42,21 @@
 			"response": []
 		},
 		{
-			"name": "getUserByEmail",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:9003/utilisateur/email/membre@oc.com",
-					"host": [
-						"localhost"
-					],
-					"port": "9003",
-					"path": [
-						"utilisateur",
-						"email",
-						"membre@oc.com"
-					]
-				},
-				"description": "Récupère un utilisateur en base par son email"
-			},
-			"response": []
-		},
-		{
-			"name": "getUserById",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:9003/utilisateur/id/4",
-					"host": [
-						"localhost"
-					],
-					"port": "9003",
-					"path": [
-						"utilisateur",
-						"id",
-						"4"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "addUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a01507e2-98f7-4ba1-803f-112896663563",
+						"exec": [
+							"pm.test(\"Status code is CREATED\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -103,16 +81,164 @@
 					]
 				}
 			},
+			"response": [
+				{
+					"name": "addUser",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": null,\r\n    \"nom\": \"PostMan\",\r\n    \"prenom\": \"postman\",\r\n    \"email\": \"postman@oc.com\",\r\n    \"password\": \"abcdefghijklmnopqrstuvwxyz\",\r\n    \"role\": {\r\n    \t\"id\": 1,\r\n        \"role\": \"Administrateur\"\r\n\t}\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9003/utilisateur/creation",
+							"host": [
+								"localhost"
+							],
+							"port": "9003",
+							"path": [
+								"utilisateur",
+								"creation"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Location",
+							"value": "http://localhost:9003/utilisateur/creation/12"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Jun 2020 08:39:41 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "getUserByEmail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0dbb0007-9e47-406a-bc19-2ce783a57549",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.environment.set(\"createdUserId\", pm.response.json().id);\r",
+							"});\r",
+							"pm.test(\"verif password\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"abcdefghijklmnopqrstuvwxyz\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9003/utilisateur/email/postman@oc.com",
+					"host": [
+						"localhost"
+					],
+					"port": "9003",
+					"path": [
+						"utilisateur",
+						"email",
+						"postman@oc.com"
+					]
+				},
+				"description": "Récupère un utilisateur en base par son email"
+			},
+			"response": []
+		},
+		{
+			"name": "getUserById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22ad57e0-bc84-4753-ba92-eb245408d594",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"verif user POSTMAN\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"POSTMAN@OC.COM\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9003/utilisateur/id/{{createdUserId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "9003",
+					"path": [
+						"utilisateur",
+						"id",
+						"{{createdUserId}}"
+					]
+				}
+			},
 			"response": []
 		},
 		{
 			"name": "deleteUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b6dc54b-569d-46c4-ba09-26bc086ebc3d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif retour TRUE\", function () {\r",
+							"    pm.response.to.have.body('true');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 1,\r\n    \"nom\": \"Admin\",\r\n    \"prenom\": \"Admin\",\r\n    \"email\": \"admin@oc.com\",\r\n    \"password\": \"$2a$11$NWK4enrvaXbcLu0Hf4eVIe3cdNk82VO6BvfNx7UMBeHYGJjQcFMQi\",\r\n    \"role\": {\r\n    \t\"id\": 1,\r\n        \"role\": \"Administrateur\"\r\n\t}\r\n}",
+					"raw": "{\r\n    \"id\": \"{{createdUserId}}\",\r\n    \"nom\": \"PostMan\",\r\n    \"prenom\": \"postman\",\r\n    \"email\": \"postman@oc.com\",\r\n    \"password\": \"abcdefghijklmnopqrstuvwxyz\",\r\n    \"role\": {\r\n    \t\"id\": 1,\r\n        \"role\": \"Administrateur\"\r\n\t}\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -134,7 +260,106 @@
 			"response": []
 		},
 		{
+			"name": "getOuvrageById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c26ebf02-0dd6-419a-bda4-ea3f8091913c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif titre\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Les plus belles histoires pour les enfants de 2 ans\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9001/ouvrage/id/2",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"ouvrage",
+						"id",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "getAllOuvrages",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "67ca8bad-e9db-435e-adbb-df66dc75c818",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif presence titre ouvrage\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Les 30 plus belles histoires pour les tout-petits\");\r",
+							"});\r",
+							"pm.test(\"Verif presence titre ouvrage\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Les plus belles histoires pour les enfants de 2 ans\");\r",
+							"});\r",
+							"pm.test(\"Verif presence titre ouvrage\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Les plus belles histoires pour les enfants de 3 ans\");\r",
+							"});\r",
+							"pm.test(\"Verif presence titre ouvrage\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Les plus belles histoires pour les enfants de 4 ans\");\r",
+							"});\r",
+							"pm.test(\"Verif presence titre ouvrage\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Les plus belles histoires pour les enfants de 5 ans\");\r",
+							"});\r",
+							"pm.test(\"Verif presence titre ouvrage\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Les plus belles histoires pour les enfants de 6 ans\");\r",
+							"});\r",
+							"pm.test(\"Verif presence titre ouvrage\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Les plus belles histoires de fées et de princesses\");\r",
+							"});\r",
+							"pm.test(\"Verif presence titre ouvrage\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Les plus belles histoires du Prince de Motordu\");\r",
+							"});\r",
+							"pm.test(\"Verif presence titre ouvrage\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Je veux une histoire !\");\r",
+							"});\r",
+							"pm.test(\"Verif presence titre ouvrage\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"cole maternelle\");\r",
+							"});\r",
+							"pm.test(\"Verif presence titre ouvrage\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Les 25 plus belles histoires de noël\");\r",
+							"});\r",
+							"pm.test(\"Verif presence titre ouvrage\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Les 20 plus belles histoires à lire le soir\");\r",
+							"});\r",
+							"pm.test(\"Verif presence titre ouvrage\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Les lettres de mon moulin\");\r",
+							"});\r",
+							"pm.test(\"Verif presence titre ouvrage\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Le seigneur des anneaux : la communauté\");\r",
+							"});\r",
+							"pm.test(\"Verif presence titre ouvrage\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Le seigneur des anneaux : les deux tours\");\r",
+							"});\r",
+							"pm.test(\"Verif presence titre ouvrage\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Le seigneur des anneaux : le retour du Roi\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -152,27 +377,30 @@
 			"response": []
 		},
 		{
-			"name": "rechercheOuvrages",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:9001/ouvrages/recherche/histoires",
-					"host": [
-						"localhost"
-					],
-					"port": "9001",
-					"path": [
-						"ouvrages",
-						"recherche",
-						"histoires"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "getAllBibliotheques",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a4ed1881-aa36-43a3-9559-82df82299d4e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif nom bibli 1\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Bibliotheque jeunesse\");\r",
+							"});\r",
+							"pm.test(\"Verif nom bibli 2\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Bibliotheque pour tous\");\r",
+							"});\r",
+							"pm.test(\"Verif nom bibli 3\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Bibliotheque adulte\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -191,6 +419,23 @@
 		},
 		{
 			"name": "getBibliotheque",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "528fc548-f537-4cea-b9ba-d84a9dacf72d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif nom bibli\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Bibliotheque jeunesse\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -210,6 +455,20 @@
 		},
 		{
 			"name": "getAllLivres",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a6c83d3-b570-4ed1-824c-6759ec2c42ff",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -228,18 +487,41 @@
 		},
 		{
 			"name": "getLivresByBibliotheque",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ec3b294-b650-4ede-9547-331dfe4afcda",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif bibli ok\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Bibliotheque pour tous\");\r",
+							"});\r",
+							"pm.test(\"Verif absence autre bibli\", function () {\r",
+							"    pm.expect(pm.response.text()).to.not.include(\"Bibliotheque adulte\");\r",
+							"});\r",
+							"pm.test(\"Verif absence autre bibli\", function () {\r",
+							"    pm.expect(pm.response.text()).to.not.include(\"Bibliotheque jeunesse\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:9002/livres/1",
+					"raw": "localhost:9002/livres/3",
 					"host": [
 						"localhost"
 					],
 					"port": "9002",
 					"path": [
 						"livres",
-						"1"
+						"3"
 					]
 				}
 			},
@@ -247,6 +529,26 @@
 		},
 		{
 			"name": "getAllLivresDispo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "da735d69-2989-454d-91c4-9fa56cd16e60",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif dispo true\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"disponible\\\":true\");\r",
+							"});\r",
+							"pm.test(\"Verif absence dispo:false\", function () {\r",
+							"    pm.expect(pm.response.text()).to.not.include(\"\\\"disponible\\\":false\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -258,6 +560,47 @@
 					"port": "9002",
 					"path": [
 						"livresDispo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllLivresByOuvrage",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d34933b-ddfd-4ade-b259-45157fe2a275",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif livre 1\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"id\\\":2\");\r",
+							"});\r",
+							"pm.test(\"Verif livre 5\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"id\\\":5\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9002/livres/ouvrage/2",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"livres",
+						"ouvrage",
+						"2"
 					]
 				}
 			},
@@ -265,17 +608,37 @@
 		},
 		{
 			"name": "getAllLivresDispoByOuvrage",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "28f349a3-6e0a-45a9-adbe-926a3606bbb7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif livre 22\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"id\\\":22\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:9002/livresDispo",
+					"raw": "localhost:9002/livresDispo/ouvrage/15",
 					"host": [
 						"localhost"
 					],
 					"port": "9002",
 					"path": [
-						"livresDispo"
+						"livresDispo",
+						"ouvrage",
+						"15"
 					]
 				}
 			},
@@ -283,17 +646,87 @@
 		},
 		{
 			"name": "getLivreById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7d65f4b4-6cc3-4543-89c4-a6674d996d88",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif titre\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Les plus belles histoires pour les enfants de 2 ans\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:9002/livre/4",
+					"raw": "localhost:9002/livre/5",
 					"host": [
 						"localhost"
 					],
 					"port": "9002",
 					"path": [
 						"livre",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "setReserve",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cb5deaae-8131-464e-b58d-6055713c8024",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "45270a55-454a-4b21-ab48-0d272ee9ba9c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif reserve\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"reserve\\\":true\");\r",
+							"});\r",
+							"pm.test(\"Verif abonne\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"email\\\":\\\"GLESCROEL@HOTMAIL.COM\\\"\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:9002/livre/22/reserve/4",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"livre",
+						"22",
+						"reserve",
 						"4"
 					]
 				}
@@ -301,19 +734,78 @@
 			"response": []
 		},
 		{
-			"name": "setIndisponible",
+			"name": "removeReservation from livre",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "262ff599-9fed-4e42-8482-b78ca94f8785",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif non reserve\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"reserve\\\":false\");\r",
+							"});\r",
+							"pm.test(\"Verif nextEmprunteur null\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"nextEmprunteur\\\":null\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:9002/livre/4/emprunt",
+					"raw": "localhost:9002/livre/22/cancelReservation",
 					"host": [
 						"localhost"
 					],
 					"port": "9002",
 					"path": [
 						"livre",
-						"4",
+						"22",
+						"cancelReservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "setIndisponible",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "da5d55b6-00ee-44f2-a8c3-99a38fef958b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif indisponible\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"disponible\\\":false\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:9002/livre/22/emprunt",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"livre",
+						"22",
 						"emprunt"
 					]
 				}
@@ -322,18 +814,36 @@
 		},
 		{
 			"name": "setDisponible",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "896228b4-784a-4131-991b-e0d2c4b448a1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif disponible\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"disponible\\\":true\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:9002/livre/4/retour",
+					"raw": "localhost:9002/livre/22/retour",
 					"host": [
 						"localhost"
 					],
 					"port": "9002",
 					"path": [
 						"livre",
-						"4",
+						"22",
 						"retour"
 					]
 				}
@@ -341,66 +851,34 @@
 			"response": []
 		},
 		{
-			"name": "empruntLivre",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "localhost:9005/emprunt/4/4",
-					"host": [
-						"localhost"
-					],
-					"port": "9005",
-					"path": [
-						"emprunt",
-						"4",
-						"4"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "prolongationEmprunt",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "localhost:9005/prolongation/1",
-					"host": [
-						"localhost"
-					],
-					"port": "9005",
-					"path": [
-						"prolongation",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "retourEmprunt",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "localhost:9005/retour/1/4",
-					"host": [
-						"localhost"
-					],
-					"port": "9005",
-					"path": [
-						"retour",
-						"1",
-						"4"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "getEmpruntsByUtilisateur",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c091f769-73a6-4246-b97e-1ea943cc0fb4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif titre\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Les 30 plus belles histoires pour les tout-petits\");\r",
+							"});\r",
+							"pm.test(\"Verif titre\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Les plus belles histoires pour les enfants de 2 ans\");\r",
+							"});\r",
+							"pm.test(\"Verif titre\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Les plus belles histoires pour les enfants de 3 ans\");\r",
+							"});\r",
+							"pm.test(\"Verif titre\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Les plus belles histoires pour les enfants de 5 ans\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -420,18 +898,73 @@
 			"response": []
 		},
 		{
-			"name": "getEmpruntEnCoursByLivre",
+			"name": "empruntLivre",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c75238f8-962a-445c-bb34-fc1de99220cb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.environment.set(\"createdEmpruntId\", pm.response.json().id);\r",
+							"});\r",
+							"pm.test(\"Verif emprunteur\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"email\\\":\\\"GLESCROEL@HOTMAIL.COM\\\"\");\r",
+							"});\r",
+							"pm.test(\"Verif en cours true\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"encours\\\":true\");\r",
+							"});\r",
+							"pm.test(\"Verif prolonge false\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"prolonge\\\":false\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "localhost:9005/emprunt/22/4",
+					"host": [
+						"localhost"
+					],
+					"port": "9005",
+					"path": [
+						"emprunt",
+						"22",
+						"4"
+					]
 				}
 			},
 			"response": []
 		},
 		{
 			"name": "getEmpruntsEnCoursByUtilisateur",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "01e9c92e-39ff-44a6-8114-9273eadb904e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif id emprunt\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"id\\\":\"+pm.environment.get(\"createdEmpruntId\"));\r",
+							"});\r",
+							"pm.test(\"Verif titre\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Le seigneur des anneaux : les deux tours\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -452,7 +985,151 @@
 			"response": []
 		},
 		{
+			"name": "getEmpruntEnCoursByLivre",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f5d210ad-b6b3-42de-98e8-7bf88dc4775a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif id emprunt\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"id\\\":\"+pm.environment.get(\"createdEmpruntId\"));\r",
+							"});\r",
+							"pm.test(\"Verif emprunteur\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"GLESCROEL@HOTMAIL.COM\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9005/emprunt/encours/livre/22",
+					"host": [
+						"localhost"
+					],
+					"port": "9005",
+					"path": [
+						"emprunt",
+						"encours",
+						"livre",
+						"22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "prolongationEmprunt",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b77e79b-8c13-4580-b8ed-e95a3d345bc4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif id emprunt\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"id\\\":\"+pm.environment.get(\"createdEmpruntId\"));\r",
+							"});\r",
+							"pm.test(\"Verif emprunteur\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"email\\\":\\\"GLESCROEL@HOTMAIL.COM\\\"\");\r",
+							"});\r",
+							"pm.test(\"Verif en cours true\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"encours\\\":true\");\r",
+							"});\r",
+							"pm.test(\"Verif prolonge true\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"prolonge\\\":true\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:9005/prolongation/{{createdEmpruntId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "9005",
+					"path": [
+						"prolongation",
+						"{{createdEmpruntId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retourEmprunt",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2a134671-e2c9-45ff-a1ae-2778e534a8b4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif en cours false\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"encours\\\":false\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:9005/retour/3/22",
+					"host": [
+						"localhost"
+					],
+					"port": "9005",
+					"path": [
+						"retour",
+						"3",
+						"22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "getEmpruntsEnTermineByUtilisateur",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e1a608ab-ff3a-43a3-a73f-491a12f50c2d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif presence id emprunt\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"id\\\":\"+pm.environment.get(\"createdEmpruntId\"));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -473,7 +1150,70 @@
 			"response": []
 		},
 		{
+			"name": "suppressionEmprunteur",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2e1edc3f-c90d-4805-b932-fe33e5d01c66",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.environment.set(\"createdEmpruntId\", pm.response.json().id);\r",
+							"});\r",
+							"pm.test(\"Verif id emprunt\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"id\\\":\"+pm.environment.get(\"createdEmpruntId\"));\r",
+							"});\r",
+							"pm.test(\"Verif emprunteur absent\", function () {\r",
+							"    pm.expect(pm.response.text()).to.not.include(\"\\\"email\\\":\\\"GLESCROEL@HOTMAIL.COM\\\"\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:9005/emprunt/suppression_emprunteur/{{createdEmpruntId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "9005",
+					"path": [
+						"emprunt",
+						"suppression_emprunteur",
+						"{{createdEmpruntId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "getEmpruntsEnRetard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "49ce0681-1b23-4ced-b2c9-024187bc8289",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif absence emprunts non en retard\", function () {\r",
+							"    pm.expect(pm.response.text()).to.not.include(\"\\\"enRetard\\\":false\");\r",
+							"});\r",
+							"pm.test(\"Verif presence emprunts en retard\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"enRetard\\\":true\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -492,24 +1232,446 @@
 			"response": []
 		},
 		{
-			"name": "suppressionEmprunteur",
+			"name": "createReservation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "15774630-fba9-4050-87c0-a774e821a8ae",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": null,\r\n        \"ouvrage\": {\r\n            \"id\": 4,\r\n            \"titre\": \"Les plus belles histoires pour les enfants de 4 ans\",\r\n            \"resume\": \"Un recueil d\\\"histoires merveilleuses pour les enfants de 4 ans\",\r\n            \"image\": \"Histoires_4ans.jpg\"\r\n        },\r\n        \"emprunteur\": {\r\n            \"id\": 4,\r\n            \"nom\": \"LESCROEL\",\r\n            \"prenom\": \"Gregory\",\r\n            \"email\": \"GLESCROEL@HOTMAIL.COM\",\r\n            \"password\": \"$2a$11$NWK4enrvaXbcLu0Hf4eVIe3cdNk82VO6BvfNx7UMBeHYGJjQcFMQi\",\r\n            \"role\": {\r\n                \"id\": 1,\r\n                \"role\": \"Administrateur\"\r\n            }\r\n        },\r\n        \"dateReservation\": \"2020-05-27T22:00:00.000+0000\",\r\n        \"alerte\": false,\r\n        \"dateAlerte\": null\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "localhost:9005/emprunt/suppression_emprunteur/'",
+					"raw": "localhost:9006/reservation/creation",
 					"host": [
 						"localhost"
 					],
-					"port": "9005",
+					"port": "9006",
 					"path": [
-						"emprunt",
-						"suppression_emprunteur",
-						"'"
+						"reservation",
+						"creation"
 					]
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "getAllReservationsByOuvrage",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abcbb295-cf6e-44db-bc2a-0376f47854f3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.environment.set(\"createdReservationId\", pm.response.json()[0].id);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9006/reservations/ouvrage/4",
+					"host": [
+						"localhost"
+					],
+					"port": "9006",
+					"path": [
+						"reservations",
+						"ouvrage",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllReservationsByEmprunteur",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c94f4950-563d-488a-9d3a-41f02bd7ec15",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verif presence id reservation creee\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"id\\\":\"+pm.environment.get(\"createdReservationId\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9006/reservations/abonne/4",
+					"host": [
+						"localhost"
+					],
+					"port": "9006",
+					"path": [
+						"reservations",
+						"abonne",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createReservation sans ouvrage et sans emprunteur",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "474d982b-3e7b-4d63-b1f7-23ecaf0b5d41",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Verif message erreur\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Une réservation doit contenir un ouvrage et un emprunteur\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": null,\r\n    \"ouvrage\": null,\r\n    \"emprunteur\": null,\r\n    \"dateReservation\": \"2020-05-27T22:00:00.000+0000\",\r\n    \"alerte\": false,\r\n    \"dateAlerte\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9006/reservation/creation",
+					"host": [
+						"localhost"
+					],
+					"port": "9006",
+					"path": [
+						"reservation",
+						"creation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createSameReservation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "44d5adbb-e379-4470-ad60-c8881c47bdad",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Verif message erreur\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Une réservation identique existe déjà\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": null,\r\n    \"ouvrage\": {\r\n      \"id\": 7,\r\n      \"titre\": \"Les plus belles histoires de fées et de princesses\",\r\n      \"resume\": \"Un recueil d\\\"histoires merveilleuses pleines de fées, de princesses mais aussi de sorcières et de dragons\",\r\n      \"image\": \"Histoires_fees_princesses.jpg\"\r\n      },\r\n    \"emprunteur\": {\r\n      \"id\": 4,\r\n      \"nom\": \"LESCROEL\",\r\n      \"prenom\": \"Gregory\",\r\n      \"email\": \"GLESCROEL@HOTMAIL.COM\",\r\n      \"password\": \"$2a$11$NWK4enrvaXbcLu0Hf4eVIe3cdNk82VO6BvfNx7UMBeHYGJjQcFMQi\",\r\n      \"role\": {\r\n        \"id\": 1,\r\n        \"role\": \"Administrateur\"\r\n      }\r\n    },\r\n    \"dateReservation\": \"2020-05-27T22:00:00.000+0000\",\r\n    \"alerte\": false,\r\n    \"dateAlerte\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9006/reservation/creation",
+					"host": [
+						"localhost"
+					],
+					"port": "9006",
+					"path": [
+						"reservation",
+						"creation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createReservation ouvrage en cours d'emprunt",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "143f23fd-4107-4654-9dc0-f22bcbf44b21",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Verif message erreur\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Un exemplaire de cet ouvrage est en cours d'emprunt par cet abonné\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": null,\r\n        \"ouvrage\": {\r\n            \"id\": 3,\r\n            \"titre\": \"Les plus belles histoires pour les enfants de 3 ans\",\r\n            \"resume\": \"Un recueil d\\\"histoires merveilleuses pour les enfants de 3 ans\",\r\n            \"image\": \"Histoires_3ans.jpg\"\r\n        },\r\n        \"emprunteur\": {\r\n            \"id\": 4,\r\n            \"nom\": \"LESCROEL\",\r\n            \"prenom\": \"Gregory\",\r\n            \"email\": \"GLESCROEL@HOTMAIL.COM\",\r\n            \"password\": \"$2a$11$NWK4enrvaXbcLu0Hf4eVIe3cdNk82VO6BvfNx7UMBeHYGJjQcFMQi\",\r\n            \"role\": {\r\n                \"id\": 1,\r\n                \"role\": \"Administrateur\"\r\n            }\r\n        },\r\n        \"dateReservation\": \"2020-05-27T22:00:00.000+0000\",\r\n        \"alerte\": false,\r\n        \"dateAlerte\": null\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9006/reservation/creation",
+					"host": [
+						"localhost"
+					],
+					"port": "9006",
+					"path": [
+						"reservation",
+						"creation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createReservation plafond atteint",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e1b6fa30-68dd-4bb8-8caf-459aee10964d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Verif message erreur\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Le nombre macimal de réservations pour cet ouvrage est déjà atteint\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": null,\r\n    \"ouvrage\": {\r\n      \"id\": 7,\r\n      \"titre\": \"Les plus belles histoires de fées et de princesses\",\r\n      \"resume\": \"Un recueil d\\\"histoires merveilleuses pleines de fées, de princesses mais aussi de sorcières et de dragons\",\r\n      \"image\": \"Histoires_fees_princesses.jpg\"\r\n      },\r\n    \"emprunteur\": {\r\n      \"id\": 3,\r\n      \"nom\": \"MEMBRE\",\r\n      \"prenom\": \"MEMBRE\",\r\n      \"email\": \"MEMBRE@OC.COM\",\r\n      \"password\": \"$2a$11$yel.cNbeeJNTEa7czcLHHup4wIJVQLqay293LmAewxQZgSV05KSAK\",\r\n      \"role\": {\r\n        \"id\": 2,\r\n        \"role\": \"Abonne\"\r\n      }\r\n    },\r\n    \"dateReservation\": \"2020-05-27T22:00:00.000+0000\",\r\n    \"alerte\": false,\r\n    \"dateAlerte\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9006/reservation/creation",
+					"host": [
+						"localhost"
+					],
+					"port": "9006",
+					"path": [
+						"reservation",
+						"creation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancelReservation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9ee6b626-5d8e-4313-bde3-d5a0910b154d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:9006/reservation/annulation/4/4",
+					"host": [
+						"localhost"
+					],
+					"port": "9006",
+					"path": [
+						"reservation",
+						"annulation",
+						"4",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getReservationsASupprimer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "15acaec4-5f29-4533-960b-826ad1cf048f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.environment.set(\"createdReservationId\", pm.response.json()[0].id);\r",
+							"});\r",
+							"pm.test(\"Verif alerte true\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"alerte\\\":true\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9006/reservationsASupprimer",
+					"host": [
+						"localhost"
+					],
+					"port": "9006",
+					"path": [
+						"reservationsASupprimer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancelReservation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2c1fa69-145d-48a5-a0a6-f859c8ecdecf",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:9006/reservation/suppression/{{createdReservationId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "9006",
+					"path": [
+						"reservation",
+						"suppression",
+						"{{createdReservationId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "54c360b1-b4bb-4262-8331-eef58a2807f4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "1b30e992-c2d6-481d-86c2-ec2c52335569",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "a03ce090-c542-429a-baad-891e120f2708",
+			"key": "createdUserId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "4c2846bc-32c9-4a34-abb5-1933b620cd57",
+			"key": "createdEmpruntId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "53bd2c2c-747c-4af4-9306-6f9b79ebf29b",
+			"key": "createdReservationId",
+			"value": "",
+			"type": "string"
 		}
 	],
 	"protocolProfileBehavior": {}

@@ -5,7 +5,6 @@ import com.ebibli.dto.UtilisateurDto;
 import com.ebibli.service.UtilisateurService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +22,11 @@ public class UtilisateurController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UtilisateurController.class);
 
-    @Autowired
     private UtilisateurService utilisateurService;
+
+    public UtilisateurController(UtilisateurService utilisateurService) {
+        this.utilisateurService = utilisateurService;
+    }
 
     @GetMapping(value = "/utilisateurs")
     public ResponseEntity<List<Utilisateur>> getAllUsers() {
