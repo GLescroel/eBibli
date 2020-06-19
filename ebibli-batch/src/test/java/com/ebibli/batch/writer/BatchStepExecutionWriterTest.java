@@ -22,7 +22,7 @@ public class BatchStepExecutionWriterTest {
     public void setup() {
         biblioJobProperties.setChunkSize(10);
         biblioJobProperties.setSkipLimit(10);
-        biblioJobProperties.setReportPath("c:/temp/");
+        biblioJobProperties.setReportPath("src/test/resources");
     }
 
     @Test
@@ -34,7 +34,7 @@ public class BatchStepExecutionWriterTest {
         batchStepExecutionWriter.writeHeader();
         batchStepExecutionWriter.close();
 
-        String path = "c:\\temp\\" + reportFileName;
+        String path = "src/test/resources/" + reportFileName;
         Resource applicationFile = new FileSystemResource(path);
         Assert.assertTrue(applicationFile.exists());
     }
