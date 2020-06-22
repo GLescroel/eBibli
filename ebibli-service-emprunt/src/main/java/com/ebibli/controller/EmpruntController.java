@@ -4,7 +4,6 @@ import com.ebibli.dto.EmpruntDto;
 import com.ebibli.service.EmpruntService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +18,11 @@ public class EmpruntController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmpruntController.class);
 
-    @Autowired
     private EmpruntService empruntService;
+
+    public EmpruntController(EmpruntService empruntService) {
+        this.empruntService = empruntService;
+    }
 
     @PostMapping(value = "/emprunt/{livreId}/{emprunteurId}")
     public ResponseEntity<EmpruntDto> takeLivre(@PathVariable ("livreId") Integer livreId,
@@ -82,5 +84,4 @@ public class EmpruntController {
         LOGGER.info("Dans EmpruntController - suppressionEmprunteur");
         return new ResponseEntity<>(empruntService.suppressionEmprunteur(empruntId), HttpStatus.OK);
     }
-
 }

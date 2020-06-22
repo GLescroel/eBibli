@@ -4,7 +4,6 @@ import com.ebibli.dto.LivreDto;
 import com.ebibli.service.LivreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +18,11 @@ public class LivreController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LivreController.class);
 
-    @Autowired
     private LivreService livreService;
+
+    public LivreController(LivreService livreService) {
+        this.livreService = livreService;
+    }
 
     @GetMapping(value = "/livres")
     public ResponseEntity<List<LivreDto>> getAllLivres() {
@@ -38,6 +40,12 @@ public class LivreController {
     public ResponseEntity<List<LivreDto>> getAllLivresDispoByOuvrage(@PathVariable ("ouvrageId") Integer ouvrageId) {
         LOGGER.info("Dans LivreController - getAllLivresDispoByOuvrage");
         return new ResponseEntity<>(livreService.getAllLivresDispoByOuvrage(ouvrageId), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/livres/ouvrage/{ouvrageId}")
+    public ResponseEntity<List<LivreDto>> getAllLivresByOuvrage(@PathVariable ("ouvrageId") Integer ouvrageId) {
+        LOGGER.info("Dans LivreController - getAllLivresByOuvrage");
+        return new ResponseEntity<>(livreService.getAllLivresByOuvrage(ouvrageId), HttpStatus.OK);
     }
 
     @GetMapping(value = "/livre/{id}")
@@ -68,4 +76,17 @@ public class LivreController {
         LOGGER.info("Dans LivreController - setRetour");
         return new ResponseEntity<>(livreService.setRetour(livreId), HttpStatus.OK);
     }
+
+    @PostMapping(value = "/livre/{livreId}/reserve/{abonneId}")
+    public ResponseEntity<LivreDto> setReserve(@PathVariable("livreId") Integer livreId, @PathVariable ("abonneId") Integer abonneId) {
+        LOGGER.info("Dans LivreController - setReserve");
+        return new ResponseEntity<>(livreService.setReserve(livreId, abonneId), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/livre/{livreId}/cancelReservation")
+    public ResponseEntity<LivreDto> cancelReservation(@PathVariable("livreId") Integer livreId) {
+        LOGGER.info("Dans LivreController - cancelReservation");
+        return new ResponseEntity<>(livreService.cancelReservation(livreId), HttpStatus.OK);
+    }
+
 }

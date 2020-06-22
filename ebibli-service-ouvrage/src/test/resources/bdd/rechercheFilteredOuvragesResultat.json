@@ -1,0 +1,70 @@
+{
+  "rechercheFilteredOuvragesResultat": [
+    {
+      "id": 12,
+      "titre": "Les 20 plus belles histoires à lire le soir",
+      "resume": "Un recueil d\"histoires merveilleuses à lire au coucher pour aider les enfants à faire de beaux rêves",
+      "image": "Histoires_soir.jpg"
+    },
+    {
+      "id": 11,
+      "titre": "Les 25 plus belles histoires de noël",
+      "resume": "Un recueil d\"histoires de noël merveilleuses",
+      "image": "Histoires_noel.jpg"
+    },
+    {
+      "id": 1,
+      "titre": "Les 30 plus belles histoires pour les tout-petits",
+      "resume": "Un recueil d\"histoires merveilleuses pour nos tout petits",
+      "image": "Histoires_tout_petits.jpg"
+    },
+    {
+      "id": 7,
+      "titre": "Les plus belles histoires de fées et de princesses",
+      "resume": "Un recueil d\"histoires merveilleuses pleines de fées, de princesses mais aussi de sorcières et de dragons",
+      "image": "Histoires_fees_princesses.jpg"
+    },
+    {
+      "id": 8,
+      "titre": "Les plus belles histoires du Prince de Motordu",
+      "resume": "Une compilation des meilleures aventures du Prince de Motordu",
+      "image": "Histoires_Motordu.jpg"
+    },
+    {
+      "id": 10,
+      "titre": "Les plus belles histoires pour l\"école maternelle",
+      "resume": "Un recueil d\"histoires merveilleuses pour les enfants en école maternelle",
+      "image": "Histoires_ecole_maternelle.jpg"
+    },
+    {
+      "id": 2,
+      "titre": "Les plus belles histoires pour les enfants de 2 ans",
+      "resume": "Un recueil d\"histoires merveilleuses pour les enfants de 2 ans",
+      "image": "Histoires_2ans.jpg"
+    },
+    {
+      "id": 3,
+      "titre": "Les plus belles histoires pour les enfants de 3 ans",
+      "resume": "Un recueil d\"histoires merveilleuses pour les enfants de 3 ans",
+      "image": "Histoires_3ans.jpg"
+    },
+    {
+      "id": 4,
+      "titre": "Les plus belles histoires pour les enfants de 4 ans",
+      "resume": "Un recueil d\"histoires merveilleuses pour les enfants de 4 ans",
+      "image": "Histoires_4ans.jpg"
+    },
+    {
+      "id": 5,
+      "titre": "Les plus belles histoires pour les enfants de 5 ans",
+      "resume": "Un recueil d\"histoires merveilleuses pour les enfants de 5 ans",
+      "image": "Histoires_5ans.jpg"
+    },
+    {
+      "id": 6,
+      "titre": "Les plus belles histoires pour les enfants de 6 ans",
+      "resume": "Un recueil d\"histoires merveilleuses pour les enfants de 6 ans",
+      "image": "Histoires_6ans.jpg"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-eBibli [![Build Status](https://travis-ci.org/GLescroel/eBibli.svg?branch=master)](https://travis-ci.org/GLescroel/eBibli)  [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=GLescroel_eBibli&metric=alert_status)](https://sonarcloud.io/dashboard?id=GLescroel_eBibli)
+eBibli [![Build Status](https://travis-ci.org/GLescroel/eBibli.svg?branch=master)](https://travis-ci.org/GLescroel/eBibli)  [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=GLescroel_eBibli&metric=coverage)](https://sonarcloud.io/dashboard?id=GLescroel_eBibli)
 
 Système d'information des bibliothèques de la ville à destination des usagers et des bibliothécaires.
 Les clients frontend et batch interrogent les microservices via les API Rest exposées.
@@ -18,31 +18,37 @@ Installation et déploiement:
     - ebibli-service-utilisateur-1.0.war
     - ebibli-service-bibliotheque-1.0.war
     - ebibli-service-ouvrage-1.0.war
-    - ebibli-service-livre-1.0.war
-    - ebibli-service-emprunt-1.0.war
-    - ebibli-frontend-1.0.war
-    - ebibli-batch-1.0.jar
+    - ebibli-service-livre-2.0.war
+    - ebibli-service-emprunt-2.0.war
+    - ebibli-service-reservation-1.0.war
+    - ebibli-frontend-2.0.war
+    - ebibli-batch-2.0.jar
 
 Il est maintenant possible de lancer ces applications directement dans votre IDE en exécutant le Main
 ou en ligne de commande (applications standalones intégrant un conteneur web grace à SpringBoot) : mvn clean install spring-boot:run
 ou de déployer ces war dans un tomcat.
 
     Les port des applications sont paramétrés dans les fichiers application.propertie de chaque application : http://localhost:8081/
-    - ebibli-service-utilisateur : 9003
-    - ebibli-service-bibliotheque : 9004
+    - ebibli-service-utilisateur-1.0 : 9003
+    - ebibli-service-bibliotheque-1.0 : 9004
     - ebibli-service-ouvrage-1.0 : 9001
     - ebibli-service-livre-1.0 : 9002
-    - ebibli-service-emprunt-1.0 : 9005
-    - ebibli-frontend-1.0 : 8080
+    - ebibli-service-emprunt-2.0 : 9005
+    - ebibli-service-reservation-1.0 : 9006
+    - ebibli-frontend-2.0 : 8080
 
-    Les applications sont livrées avec 1 configuration
+    Les applications sont livrées avec 2 configurations :
     •dev et prod avec une base de données PostgreSQL peuplée avec le contenu du script src\resources\data.sql présent dans le module model. 
     La base sera créée automatiquement au premier lancement.
     En prod, il faudra ensuite modifier le ddl-auto=update dans les fichiers application.properties pour qu'elle ne se recrée pas à chaque démarrage.
+    •test avec une base de données HSQL peuplée avec le contenu du script src\resources\data.sql présent dans le module model. 
+    La base sera créée automatiquement à chaque lancement.
 
-    Documentation : la javadoc peut être générée via la commande mvn javadoc:javadoc puis consultée à partir de la page \target\site\apidocs\index.html
+    Documentation : 
+    la javadoc peut être générée via la commande : mvn javadoc:javadoc puis consultée à partir de la page \target\site\apidocs\index.html
+    le site Maven peut être généré via la commande : mvn package site site:stage
 
-    Un projet postman pour tester les API est présent dans le répertoire resources/postman
+    Un projet postman pour tester les API est présent dans le répertoire resources/postman, ainsi que les résultat du scénario de test
 
     Comptes utilisateurs en base :
     user@oc.com / USER = compte utilisateur

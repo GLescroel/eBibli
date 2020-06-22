@@ -5,7 +5,7 @@
     <parent>
         <artifactId>ebibli</artifactId>
         <groupId>com.ebibli</groupId>
-        <version>1.1</version>
+        <version>2.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>war</packaging>
@@ -32,48 +32,17 @@
         <dependency>
             <groupId>com.ebibli</groupId>
             <artifactId>ebibli-model</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ebibli</groupId>
+            <artifactId>ebibli-technical</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
             <version>2.2.2.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>2.2.5.RELEASE</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!--- test -->
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>${cucumber-version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-junit</artifactId>
-            <version>${cucumber-version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-spring</artifactId>
-            <version>${cucumber-version}</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -110,7 +79,7 @@
                                 <rule>
                                     <limits>
                                         <limit>
-                                            <!--                                            <minimum>0.9</minimum>   -->
+                                            <minimum>0.5</minimum>
                                         </limit>
                                     </limits>
                                 </rule>

@@ -74,6 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/creationCompte").permitAll()
                 .antMatchers("/compte").authenticated()
                 .antMatchers("/Utilisateur/*/mesEmprunts**").authenticated()
+                .antMatchers("/Utilisateur/*/mesReservations**").authenticated()
                 .antMatchers("/*").permitAll()
                 .antMatchers("/biblio-services/**").permitAll()
                 .anyRequest().permitAll()

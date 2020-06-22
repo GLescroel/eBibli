@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 @Builder
@@ -37,4 +38,10 @@ public class Livre {
 
     @Basic
     private Boolean disponible;
+
+    @Basic
+    private Boolean reserve;
+
+    @OneToOne
+    private Utilisateur nextEmprunteur;
 }

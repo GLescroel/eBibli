@@ -33,5 +33,4 @@ public class Ouvrage {
 
     @Basic
     private String image;
-
 }

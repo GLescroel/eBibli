@@ -1,0 +1,190 @@
+{
+  "rechercheAllLivresByBibliothequeResultat": [
+    {
+      "id": 5,
+      "ouvrage": {
+        "id": 2,
+        "titre": "Les plus belles histoires pour les enfants de 2 ans",
+        "resume": "Un recueil d\"histoires merveilleuses pour les enfants de 2 ans",
+        "image": "Histoires_2ans.jpg"
+      },
+      "bibliotheque": {
+        "id": 3,
+        "nom": "Bibliotheque pour tous"
+      },
+      "disponible": false,
+      "reserve": false,
+      "nextEmprunteur": null
+    },
+    {
+      "id": 6,
+      "ouvrage": {
+        "id": 5,
+        "titre": "Les plus belles histoires pour les enfants de 5 ans",
+        "resume": "Un recueil d\"histoires merveilleuses pour les enfants de 5 ans",
+        "image": "Histoires_5ans.jpg"
+      },
+      "bibliotheque": {
+        "id": 3,
+        "nom": "Bibliotheque pour tous"
+      },
+      "disponible": false,
+      "reserve": false,
+      "nextEmprunteur": null
+    },
+    {
+      "id": 8,
+      "ouvrage": {
+        "id": 6,
+        "titre": "Les plus belles histoires pour les enfants de 6 ans",
+        "resume": "Un recueil d\"histoires merveilleuses pour les enfants de 6 ans",
+        "image": "Histoires_6ans.jpg"
+      },
+      "bibliotheque": {
+        "id": 3,
+        "nom": "Bibliotheque pour tous"
+      },
+      "disponible": true,
+      "reserve": false,
+      "nextEmprunteur": null
+    },
+    {
+      "id": 10,
+      "ouvrage": {
+        "id": 8,
+        "titre": "Les plus belles histoires du Prince de Motordu",
+        "resume": "Une compilation des meilleures aventures du Prince de Motordu",
+        "image": "Histoires_Motordu.jpg"
+      },
+      "bibliotheque": {
+        "id": 3,
+        "nom": "Bibliotheque pour tous"
+      },
+      "disponible": true,
+      "reserve": true,
+      "nextEmprunteur": {
+        "id": 4,
+        "nom": "LESCROEL",
+        "prenom": "Gregory",
+        "email": "GLESCROEL@HOTMAIL.COM",
+        "password": "$2a$11$NWK4enrvaXbcLu0Hf4eVIe3cdNk82VO6BvfNx7UMBeHYGJjQcFMQi",
+        "role": {
+          "id": 1,
+          "role": "Administrateur"
+        }
+      }
+    },
+    {
+      "id": 15,
+      "ouvrage": {
+        "id": 10,
+        "titre": "Les plus belles histoires pour l\"école maternelle",
+        "resume": "Un recueil d\"histoires merveilleuses pour les enfants en école maternelle",
+        "image": "Histoires_ecole_maternelle.jpg"
+      },
+      "bibliotheque": {
+        "id": 3,
+        "nom": "Bibliotheque pour tous"
+      },
+      "disponible": true,
+      "reserve": false,
+      "nextEmprunteur": null
+    },
+    {
+      "id": 16,
+      "ouvrage": {
+        "id": 11,
+        "titre": "Les 25 plus belles histoires de noël",
+        "resume": "Un recueil d\"histoires de noël merveilleuses",
+        "image": "Histoires_noel.jpg"
+      },
+      "bibliotheque": {
+        "id": 3,
+        "nom": "Bibliotheque pour tous"
+      },
+      "disponible": true,
+      "reserve": false,
+      "nextEmprunteur": null
+    },
+    {
+      "id": 20,
+      "ouvrage": {
+        "id": 11,
+        "titre": "Les 25 plus belles histoires de noël",
+        "resume": "Un recueil d\"histoires de noël merveilleuses",
+        "image": "Histoires_noel.jpg"
+      },
+      "bibliotheque": {
+        "id": 3,
+        "nom": "Bibliotheque pour tous"
+      },
+      "disponible": true,
+      "reserve": false,
+      "nextEmprunteur": null
+    },
+    {
+      "id": 18,
+      "ouvrage": {
+        "id": 13,
+        "titre": "Les lettres de mon moulin",
+        "resume": "Un recueil de nouvelles champêtres d\"Alphonse Daudet",
+        "image": "Lettres_moulin.jpg"
+      },
+      "bibliotheque": {
+        "id": 3,
+        "nom": "Bibliotheque pour tous"
+      },
+      "disponible": true,
+      "reserve": false,
+      "nextEmprunteur": null
+    },
+    {
+      "id": 21,
+      "ouvrage": {
+        "id": 14,
+        "titre": "Le seigneur des anneaux : la communauté de l\"anneau",
+        "resume": "Une saga fantastique au pays du Gondor",
+        "image": "Communaute_anneau.jpg"
+      },
+      "bibliotheque": {
+        "id": 3,
+        "nom": "Bibliotheque pour tous"
+      },
+      "disponible": true,
+      "reserve": false,
+      "nextEmprunteur": null
+    },
+    {
+      "id": 22,
+      "ouvrage": {
+        "id": 15,
+        "titre": "Le seigneur des anneaux : les deux tours",
+        "resume": "La suite des aventures de Fredon",
+        "image": "Deux_tours.jpg"
+      },
+      "bibliotheque": {
+        "id": 3,
+        "nom": "Bibliotheque pour tous"
+      },
+      "disponible": true,
+      "reserve": false,
+      "nextEmprunteur": null
+    },
+    {
+      "id": 23,
+      "ouvrage": {
+        "id": 16,
+        "titre": "Le seigneur des anneaux : le retour du Roi",
+        "resume": "La fin des aventures de Fredon dans le Mordor",
+        "image": "Retour_roi.jpg"
+      },
+      "bibliotheque": {
+        "id": 3,
+        "nom": "Bibliotheque pour tous"
+      },
+      "disponible": true,
+      "reserve": false,
+      "nextEmprunteur": null
+    }
+  ]
+}

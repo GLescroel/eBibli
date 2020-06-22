@@ -1,0 +1,28 @@
+{
+  "rechercheAllReservationsToCancelResultat": [
+    {
+      "id": 7,
+      "ouvrage": {
+        "id": 8,
+        "titre": "Les plus belles histoires du Prince de Motordu",
+        "resume": "Une compilation des meilleures aventures du Prince de Motordu",
+        "image": "Histoires_Motordu.jpg"
+      },
+      "emprunteur": {
+        "id": 4,
+        "nom": "LESCROEL",
+        "prenom": "Gregory",
+        "email": "GLESCROEL@HOTMAIL.COM",
+        "password": "$2a$11$NWK4enrvaXbcLu0Hf4eVIe3cdNk82VO6BvfNx7UMBeHYGJjQcFMQi",
+        "role": {
+          "id": 1,
+          "role": "Administrateur"
+        }
+      },
+      "dateReservation": "2020-05-20",
+      "alerte": true,
+      "dateAlerte": "2020-06-01",
+      "dateRetraitMax": "2020-06-03"
+    }
+  ]
+}

@@ -1,5 +1,82 @@
 {
-  "rechercheUtilisateurResultat1" :
+  "rechercheUtilisateurResultat1": {
+    "id": 4,
+    "nom": "LESCROEL",
+    "prenom": "Gregory",
+    "email": "GLESCROEL@HOTMAIL.COM",
+    "password": "$2a$11$NWK4enrvaXbcLu0Hf4eVIe3cdNk82VO6BvfNx7UMBeHYGJjQcFMQi",
+    "role": {
+      "id": 1,
+      "role": "Administrateur"
+    }
+  },
+  "rechercheUtilisateurResultat2": {
+    "id": 8,
+    "nom": "LESCROEL",
+    "prenom": "Gregory",
+    "email": "GREGORY.LESCROEL@AXA.FR",
+    "password": "$2a$11$NWK4enrvaXbcLu0Hf4eVIe3cdNk82VO6BvfNx7UMBeHYGJjQcFMQi",
+    "role": {
+      "id": 1,
+      "role": "Administrateur"
+    }
+  },
+  "rechercheUtilisateurResultat3": {
+    "id": 1,
+    "nom": "ADMIN",
+    "prenom": "ADMIN",
+    "email": "ADMIN@OC.COM",
+    "password": "$2a$11$NWK4enrvaXbcLu0Hf4eVIe3cdNk82VO6BvfNx7UMBeHYGJjQcFMQi",
+    "role": {
+      "id": 1,
+      "role": "Administrateur"
+    }
+  },
+  "rechercheUtilisateurResultat4": {
+    "id": 7,
+    "nom": "SMITH",
+    "prenom": "JOHN",
+    "email": "SMITH@OC.COM",
+    "password": "$2a$11$doPqn9Ex3T9zKrjm3R09m.LnjbeEMNGKWwwR2ElBcevmvaPi9uQ32",
+    "role": {
+      "id": 3,
+      "role": "Visiteur"
+    }
+  },
+  "rechercheUtilisateursResultat": [
+    {
+      "id": 1,
+      "nom": "ADMIN",
+      "prenom": "ADMIN",
+      "email": "ADMIN@OC.COM",
+      "password": "$2a$11$NWK4enrvaXbcLu0Hf4eVIe3cdNk82VO6BvfNx7UMBeHYGJjQcFMQi",
+      "role": {
+        "id": 1,
+        "role": "Administrateur"
+      }
+    },
+    {
+      "id": 2,
+      "nom": "USER",
+      "prenom": "USER",
+      "email": "USER@OC.COM",
+      "password": "$2a$11$fwbi72Ko53c6Dvd87f7d7u7hkiFQ5dGnS2SO8JYdiMO41olj78EQi",
+      "role": {
+        "id": 3,
+        "role": "Visiteur"
+      }
+    },
+    {
+      "id": 3,
+      "nom": "MEMBRE",
+      "prenom": "MEMBRE",
+      "email": "MEMBRE@OC.COM",
+      "password": "$2a$11$yel.cNbeeJNTEa7czcLHHup4wIJVQLqay293LmAewxQZgSV05KSAK",
+      "role": {
+        "id": 2,
+        "role": "Abonne"
+      }
+    },
     {
       "id": 4,
       "nom": "LESCROEL",
@@ -10,9 +87,40 @@
         "id": 1,
         "role": "Administrateur"
       }
-    }
-  ,
-  "rechercheUtilisateurResultat2" :
+    },
+    {
+      "id": 5,
+      "nom": "DUPONT",
+      "prenom": "RENÉ",
+      "email": "DUPONT@OC.COM",
+      "password": "$2a$11$poeYMQ8pqjKSk1GqvidW2./pYd6kVly0iVrwKB8uWd/YBJocoUOci",
+      "role": {
+        "id": 3,
+        "role": "Visiteur"
+      }
+    },
+    {
+      "id": 6,
+      "nom": "DUBOIS",
+      "prenom": "ANDRÉE",
+      "email": "DUBOIS@OC.COM",
+      "password": "$2a$11$2LLBNGe2bzp1YUsAA7T/RuXmzK7ascvDammvpgsN10bUwOH3LQi7O",
+      "role": {
+        "id": 3,
+        "role": "Visiteur"
+      }
+    },
+    {
+      "id": 7,
+      "nom": "SMITH",
+      "prenom": "JOHN",
+      "email": "SMITH@OC.COM",
+      "password": "$2a$11$doPqn9Ex3T9zKrjm3R09m.LnjbeEMNGKWwwR2ElBcevmvaPi9uQ32",
+      "role": {
+        "id": 3,
+        "role": "Visiteur"
+      }
+    },
     {
       "id": 8,
       "nom": "LESCROEL",
@@ -24,30 +132,5 @@
         "role": "Administrateur"
       }
     }
-  ,
-  "rechercheUtilisateurResultat3" :
-    {
-      "id": 1,
-      "nom": "ADMIN",
-      "prenom": "ADMIN",
-      "email": "ADMIN@OC.COM",
-      "password": "$2a$11$NWK4enrvaXbcLu0Hf4eVIe3cdNk82VO6BvfNx7UMBeHYGJjQcFMQi",
-      "role": {
-        "id": 1,
-        "role": "Administrateur"
-      }
-    }
-  ,
-  "rechercheUtilisateurResultat4" :
-    {
-      "id": 7,
-      "nom": "SMITH",
-      "prenom": "JOHN",
-      "email": "SMITH@OC.COM",
-      "password": "$2a$11$doPqn9Ex3T9zKrjm3R09m.LnjbeEMNGKWwwR2ElBcevmvaPi9uQ32",
-      "role": {
-        "id": 3,
-        "role": "Visiteur"
-      }
-    }
+  ]
 }
